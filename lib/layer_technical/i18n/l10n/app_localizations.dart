@@ -106,12 +106,6 @@ abstract class AppLocalizations {
   /// **'Changer la langue'**
   String get updateLanguage;
 
-  /// No description provided for @deliveryCost.
-  ///
-  /// In fr, this message translates to:
-  /// **'Frais de livraison: '**
-  String get deliveryCost;
-
   /// No description provided for @selectedLanguage.
   ///
   /// In fr, this message translates to:
@@ -123,54 +117,6 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Sélectionnez une langue'**
   String get selectNewLanguage;
-
-  /// No description provided for @addNewProduct.
-  ///
-  /// In fr, this message translates to:
-  /// **'Ajouter un nouveau produit'**
-  String get addNewProduct;
-
-  /// No description provided for @totalPriceWithoutTax.
-  ///
-  /// In fr, this message translates to:
-  /// **'Total hors taxe: '**
-  String get totalPriceWithoutTax;
-
-  /// No description provided for @vat.
-  ///
-  /// In fr, this message translates to:
-  /// **'TVA: '**
-  String get vat;
-
-  /// No description provided for @fullPrice.
-  ///
-  /// In fr, this message translates to:
-  /// **'Total à payer: '**
-  String get fullPrice;
-
-  /// No description provided for @priceFormated.
-  ///
-  /// In fr, this message translates to:
-  /// **'{price}'**
-  String priceFormated(num price);
-
-  /// No description provided for @percentFormated.
-  ///
-  /// In fr, this message translates to:
-  /// **'{percent}'**
-  String percentFormated(num percent);
-
-  /// No description provided for @confirmBasketWithXProduct.
-  ///
-  /// In fr, this message translates to:
-  /// **'{products, plural, =0{Votre panier est vide} =1{Acheter votre produit} other{Valider mon panier avec {products} produits}}'**
-  String confirmBasketWithXProduct(num products);
-
-  /// No description provided for @productType.
-  ///
-  /// In fr, this message translates to:
-  /// **'{productTypeVariable, select, electronics{Électronique} clothing{Vêtements} home{Maison} books{Livres} sports{Sport} other{inconnu}}'**
-  String productType(String productTypeVariable);
 }
 
 class _AppLocalizationsDelegate
