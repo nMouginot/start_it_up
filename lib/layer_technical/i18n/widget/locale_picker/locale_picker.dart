@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:arb_translation/arb_translation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +20,7 @@ class LocalePicker extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BlocBuilder<LocaleCubit, Locale>(
+            BlocBuilder<LocalePickerCubit, Locale>(
               builder: (context, locale) {
                 final translate = AppLocalizations.of(context)!;
 
@@ -57,12 +59,12 @@ class LocalePicker extends StatelessWidget {
   }
 
   void _showLocaleDialog(BuildContext context) {
-    final cubit = context.read<LocaleCubit>();
+    final cubit = BlocProvider.of<LocalePickerCubit>(context);
     final currentLocale = cubit.state;
 
     showDialog(
       context: context,
-      builder: (context) => BlocBuilder<LocaleCubit, Locale>(
+      builder: (context) => BlocBuilder<LocalePickerCubit, Locale>(
         builder: (context, locale) {
           final listOfLanguages = TranslationLanguage.values;
 

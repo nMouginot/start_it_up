@@ -13,7 +13,7 @@ Future<void> appDependencyInjection() async {
 }
 
 void _registerTechnical() {
-  locator.registerLazySingleton(() => AuthGuard());
+  locator.registerLazySingleton(() => const AuthGuard());
   locator.registerLazySingleton(() => AppRouter(locator()));
 }
 

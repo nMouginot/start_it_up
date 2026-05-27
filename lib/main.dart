@@ -15,7 +15,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await appDependencyInjection();
 
-  runApp(BlocProvider(create: (context) => LocaleCubit(), child: MainApp()));
+  runApp(
+    BlocProvider(create: (context) => LocalePickerCubit(), child: MainApp()),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -25,7 +27,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localeCubit = context.watch<LocaleCubit>();
+    final localeCubit = BlocProvider.of<LocalePickerCubit>(context);
     final currentLocale = localeCubit.state;
 
     return MaterialApp.router(

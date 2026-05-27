@@ -8,12 +8,12 @@ import '../../extension/arb_translation_extension.dart';
 
 const Locale defaultLocale = Locale('fr', 'FR');
 
-class LocaleCubit extends Cubit<Locale> {
+class LocalePickerCubit extends Cubit<Locale> {
   final List<Locale> supportedLocales = TranslationLanguage.values
       .map((lang) => lang.toLocale)
       .toList();
 
-  LocaleCubit() : super(defaultLocale) {
+  LocalePickerCubit() : super(defaultLocale) {
     _loadInitialLocale();
   }
 

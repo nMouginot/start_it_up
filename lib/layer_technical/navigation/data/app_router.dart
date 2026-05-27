@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 
-import '../../../layer_fonctional/home/page/home_page.dart';
+import '../../../layer_fonctional/home/presentation/home_page.dart';
 import '../domain/guards/auth_guard.dart';
 import 'app_routes.dart';
 
