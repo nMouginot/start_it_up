@@ -1,1 +1,36 @@
-include: package:flutter_lints/flutter.yaml
+include: package:bloc_lint/recommended.yaml
+
+analyzer:
+  exclude:
+      # Exclude generated files for the analyzer
+    - '**/*.g.dart'
+    - "**/*.mocks.dart"
+    - '**/*.auto_mappr.dart'
+
+    # Exclude all folders outside of 'lib/' and 'test/' folder
+    - '.dart_tool'
+    - '.vscode'
+    - 'android'
+    - 'assets'
+    - 'build'
+    - 'ci_cd'
+    - 'coverage'
+    - 'ios'
+
+
+  errors:
+    invalid_annotation_target: ignore
+
+
+bloc:
+  rules:
+    - prefer_cubit
+    - avoid_build_context_extensions
+
+
+linter:
+  rules:
+    - only_throw_errors
+    - prefer_const_constructors
+    - prefer_conditional_assignment
+    - prefer_const_constructors_in_immutables
