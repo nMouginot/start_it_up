@@ -1,0 +1,35 @@
+targets:
+  $default:
+    builders:
+
+      copy_with_extension_gen:
+              enabled: true
+              options:
+                skip_fields: true
+
+      json_serializable:
+        options:
+          any_map: false
+          checked: false
+          constructor: ""
+          field_rename: none
+          create_to_json: true
+          create_factory: true
+          include_if_null: true
+          explicit_to_json: true
+          create_json_keys: false
+          create_field_map: false
+          ignore_unannotated: false
+          create_per_field_to_json: false
+          disallow_unrecognized_keys: false
+          generic_argument_factories: false
+
+      auto_mappr:
+        options:
+          ignoreNullableSourceField: true
+          safeMapping: true
+
+      source_gen|combining_builder:
+        enabled: true
+        options:
+          preamble: // coverage:ignore-file
