@@ -9,7 +9,7 @@ import '../../extension/arb_translation_extension.dart';
 const Locale defaultLocale = Locale('fr', 'FR');
 
 class LocalePickerCubit extends Cubit<Locale> {
-  final List<Locale> supportedLocales = TranslationLanguage.values
+  final List<Locale> _supportedLocales = TranslationLanguage.values
       .map((lang) => lang.toLocale)
       .toList();
 
@@ -28,7 +28,7 @@ class LocalePickerCubit extends Cubit<Locale> {
   }
 
   Future<void> setLocale(Locale locale) async {
-    if (!supportedLocales.contains(locale)) return;
+    if (!_supportedLocales.contains(locale)) return;
 
     emit(locale);
 
