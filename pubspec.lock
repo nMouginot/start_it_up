@@ -49,7 +49,7 @@ packages:
     source: hosted
     version: "2.15.0"
   auto_mappr_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: auto_mappr_annotation
       sha256: "6b004ddabca19094c78bfdbd5185893cf3e70c5f11148878274238328bdb258e"

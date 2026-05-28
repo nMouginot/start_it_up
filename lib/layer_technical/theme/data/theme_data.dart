@@ -50,90 +50,90 @@ final ThemeData appTheme = ThemeData(
     displayLarge: GoogleFonts.manrope(
       fontSize: 57,
       fontWeight: FontWeight.bold,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
     displayMedium: GoogleFonts.manrope(
       fontSize: 45,
       fontWeight: FontWeight.bold,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
     displaySmall: GoogleFonts.manrope(
       fontSize: 36,
       fontWeight: FontWeight.bold,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
     headlineLarge: GoogleFonts.manrope(
       fontSize: 32,
       fontWeight: FontWeight.bold,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
     headlineMedium: GoogleFonts.manrope(
       fontSize: 28,
       fontWeight: FontWeight.w600,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
     headlineSmall: GoogleFonts.manrope(
       fontSize: 24,
       fontWeight: FontWeight.w600,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
 
     // Body → Inter
     bodyLarge: GoogleFonts.inter(
       fontSize: 16,
       fontWeight: FontWeight.normal,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
     bodyMedium: GoogleFonts.inter(
       fontSize: 14,
       fontWeight: FontWeight.normal,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
     bodySmall: GoogleFonts.inter(
       fontSize: 12,
       fontWeight: FontWeight.normal,
-      color: Color(0xFF4A4A4A),
+      color: const Color(0xFF4A4A4A),
     ),
 
     // Label → Inter
     labelLarge: GoogleFonts.inter(
       fontSize: 14,
       fontWeight: FontWeight.w600,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
     labelMedium: GoogleFonts.inter(
       fontSize: 12,
       fontWeight: FontWeight.w500,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
     labelSmall: GoogleFonts.inter(
       fontSize: 10,
       fontWeight: FontWeight.w500,
-      color: Color(0xFF4A4A4A),
+      color: const Color(0xFF4A4A4A),
     ),
 
     // Title → Manrope
     titleLarge: GoogleFonts.manrope(
       fontSize: 22,
       fontWeight: FontWeight.w600,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
     titleMedium: GoogleFonts.manrope(
       fontSize: 16,
       fontWeight: FontWeight.w600,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
     titleSmall: GoogleFonts.manrope(
       fontSize: 14,
       fontWeight: FontWeight.w500,
-      color: Color(0xFF1A1A1A),
+      color: const Color(0xFF1A1A1A),
     ),
   ),
 
   // ─── ElevatedButton ─────────────────────────────────────────────
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: Color(0xFFB30000),
+      backgroundColor: const Color(0xFFB30000),
       foregroundColor: Colors.white,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -145,7 +145,7 @@ final ThemeData appTheme = ThemeData(
   // ─── OutlinedButton ─────────────────────────────────────────────
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      foregroundColor: Color(0xFFB30000),
+      foregroundColor: const Color(0xFFB30000),
       side: const BorderSide(color: Color(0xFFB30000), width: 1.5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       textStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
@@ -156,7 +156,7 @@ final ThemeData appTheme = ThemeData(
   // ─── TextButton ─────────────────────────────────────────────────
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
-      foregroundColor: Color(0xFFB30000),
+      foregroundColor: const Color(0xFFB30000),
       textStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
     ),
   ),
@@ -165,7 +165,7 @@ final ThemeData appTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: Colors.white,
-    hintStyle: GoogleFonts.inter(fontSize: 14, color: Color(0xFF9E9E9E)),
+    hintStyle: GoogleFonts.inter(fontSize: 14, color: const Color(0xFF9E9E9E)),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
       borderSide: const BorderSide(color: Color(0xFFBDBDBD)),
@@ -197,7 +197,7 @@ final ThemeData appTheme = ThemeData(
 
   // ─── AppBarTheme ────────────────────────────────────────────────
   appBarTheme: AppBarTheme(
-    backgroundColor: Color(0xFF1A1A1A),
+    backgroundColor: const Color(0xFF1A1A1A),
     foregroundColor: Colors.white,
     elevation: 0,
     titleTextStyle: GoogleFonts.manrope(
@@ -223,9 +223,9 @@ final ThemeData appTheme = ThemeData(
 
   // ─── ChipTheme ──────────────────────────────────────────────────
   chipTheme: ChipThemeData(
-    backgroundColor: Color(0xFFE0E0E0),
-    selectedColor: Color(0xFFB30000),
-    labelStyle: GoogleFonts.inter(fontSize: 13, color: Color(0xFF1A1A1A)),
+    backgroundColor: const Color(0xFFE0E0E0),
+    selectedColor: const Color(0xFFB30000),
+    labelStyle: GoogleFonts.inter(fontSize: 13, color: const Color(0xFF1A1A1A)),
     side: const BorderSide(color: Color(0xFFBDBDBD)),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
   ),
