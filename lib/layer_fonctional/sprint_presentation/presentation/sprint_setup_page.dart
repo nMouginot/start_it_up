@@ -6,7 +6,6 @@ import '../../../layer_technical/extension/date_time_extension.dart';
 import '../domain/entity/sprint_timeframe.dart';
 import 'cubit/sprint_setup_cubit.dart';
 import 'cubit/sprint_setup_state.dart';
-import 'sprint_deck_page.dart';
 import 'widget/projet_picker.dart';
 import 'widget/sprint_timeframe_picker.dart';
 
@@ -15,8 +14,9 @@ class SprintSetupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => locator<SprintSetupCubit>()..loadProjets(),
+    final cubit = locator<SprintSetupCubit>()..loadProjetsIfNeeded();
+    return BlocProvider<SprintSetupCubit>.value(
+      value: cubit,
       child: const _SprintSetupView(),
     );
   }
@@ -30,26 +30,9 @@ class _SprintSetupView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Préparer la présentation')),
       body: SafeArea(
-        child: BlocConsumer<SprintSetupCubit, SprintSetupState>(
-          listenWhen: (previous, current) =>
-              previous.builtPresentation != current.builtPresentation &&
-              current.builtPresentation != null,
-          listener: _openDeck,
+        child: BlocBuilder<SprintSetupCubit, SprintSetupState>(
           builder: (context, state) => _SetupForm(state: state),
         ),
-      ),
-    );
-  }
-
-  Future<void> _openDeck(BuildContext context, SprintSetupState state) async {
-    final presentation = state.builtPresentation;
-    if (presentation == null) return;
-    final cubit = BlocProvider.of<SprintSetupCubit>(context);
-
-    cubit.consumeBuiltPresentation();
-    await Navigator.of(context, rootNavigator: true).push<void>(
-      MaterialPageRoute(
-        builder: (_) => SprintDeckPage(presentation: presentation),
       ),
     );
   }
@@ -90,32 +73,47 @@ class _SetupForm extends StatelessWidget {
           onToggle: cubit.toggleProjet,
         ),
         const SizedBox(height: 24),
-        _GenerateButton(state: state, onPressed: cubit.generate),
-        const SizedBox(height: 12),
         _Summary(state: state),
+        const SizedBox(height: 16),
+        _ActionButtons(state: state, cubit: cubit),
       ],
     );
   }
 }
 
-class _GenerateButton extends StatelessWidget {
+class _ActionButtons extends StatelessWidget {
   final SprintSetupState state;
-  final Future<void> Function() onPressed;
+  final SprintSetupCubit cubit;
 
-  const _GenerateButton({required this.state, required this.onPressed});
+  const _ActionButtons({required this.state, required this.cubit});
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton.icon(
-      icon: state.building
-          ? const SizedBox(
-              width: 16,
-              height: 16,
-              child: CircularProgressIndicator(strokeWidth: 2),
-            )
-          : const Icon(Icons.slideshow),
-      label: const Text('Générer la présentation'),
-      onPressed: state.canGenerate ? () => onPressed() : null,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        OutlinedButton.icon(
+          icon: state.building
+              ? const SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : const Icon(Icons.build),
+          label: Text(
+            state.builtPresentation == null
+                ? 'Générer la présentation'
+                : 'Régénérer',
+          ),
+          onPressed: state.canGenerate ? cubit.generate : null,
+        ),
+        const SizedBox(height: 12),
+        FilledButton.icon(
+          icon: const Icon(Icons.play_arrow),
+          label: const Text('Lancer la présentation'),
+          onPressed: state.canLaunch ? cubit.launch : null,
+        ),
+      ],
     );
   }
 }
@@ -128,11 +126,22 @@ class _Summary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SprintTimeframe timeframe = state.timeframe;
-    return Text(
-      'Sprint du ${timeframe.start.formattedDayMonthYear} au '
-      '${timeframe.end.formattedDayMonthYear} • '
-      '${state.selectedProjetIds.length} projet(s) sélectionné(s)',
-      style: Theme.of(context).textTheme.bodySmall,
+    final built = state.builtPresentation;
+    final summary =
+        'Sprint du ${timeframe.start.formattedDayMonthYear} au '
+        '${timeframe.end.formattedDayMonthYear} • '
+        '${state.selectedProjetIds.length} projet(s) sélectionné(s)';
+    final builtNote = built == null
+        ? 'Aucune présentation prête.'
+        : 'Présentation prête : ${built.totalProjets} projet(s), '
+              '${built.totalObjectifs} objectif(s).';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(summary, style: Theme.of(context).textTheme.bodySmall),
+        const SizedBox(height: 4),
+        Text(builtNote, style: Theme.of(context).textTheme.bodySmall),
+      ],
     );
   }
 }

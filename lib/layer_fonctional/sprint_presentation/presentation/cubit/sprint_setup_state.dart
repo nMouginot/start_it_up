@@ -31,10 +31,12 @@ class SprintSetupState {
     error: null,
   );
 
+  bool get hasValidTimeframe => !timeframe.end.isBefore(timeframe.start);
+
   bool get canGenerate =>
-      !building &&
-      selectedProjetIds.isNotEmpty &&
-      !timeframe.end.isBefore(timeframe.start);
+      !building && selectedProjetIds.isNotEmpty && hasValidTimeframe;
+
+  bool get canLaunch => builtPresentation != null && !building;
 
   SprintSetupState copyWith({
     bool? projetsLoading,

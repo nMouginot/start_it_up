@@ -16,10 +16,10 @@ class SprintOverviewSlide extends FlutterDeckSlideWidget {
   FlutterDeckSlide build(BuildContext context) {
     final theme = Theme.of(context);
     final done = presentation.allObjectifs
-        .where((objectif) => objectif.status == ObjectifStatus.failed)
-        .length;
-    final inProgress = presentation.allObjectifs
         .where((objectif) => objectif.status == ObjectifStatus.done)
+        .length;
+    final failed = presentation.allObjectifs
+        .where((objectif) => objectif.status == ObjectifStatus.failed)
         .length;
     final blocked = presentation.allObjectifs
         .where((objectif) => objectif.status == ObjectifStatus.blocked)
@@ -42,8 +42,8 @@ class SprintOverviewSlide extends FlutterDeckSlideWidget {
                   label: 'Objectifs',
                   value: presentation.totalObjectifs,
                 ),
-                _MetricCard(label: 'Terminés', value: done),
-                _MetricCard(label: 'En cours', value: inProgress),
+                _MetricCard(label: 'Réussis', value: done),
+                _MetricCard(label: 'Échecs', value: failed),
                 _MetricCard(label: 'Bloqués', value: blocked),
               ],
             ),
