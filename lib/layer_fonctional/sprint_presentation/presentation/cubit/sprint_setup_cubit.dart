@@ -1,53 +1,61 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../projet/domain/entity/projet.dart';
-import '../../../projet/domain/use_case/get_projets_use_case.dart';
+import '../../../objectif/domain/entity/objectif.dart';
+import '../../../projet_catalog/domain/use_case/get_projet_catalog_use_case.dart';
 import '../../domain/entity/sprint_timeframe.dart';
 import '../../domain/use_case/build_sprint_presentation_use_case.dart';
 import '../presentation_launcher.dart';
 import 'sprint_setup_state.dart';
 
 class SprintSetupCubit extends Cubit<SprintSetupState> {
-  final GetProjetsUseCase _getProjetsUseCase;
+  final GetProjetCatalogUseCase _getProjetCatalogUseCase;
   final BuildSprintPresentationUseCase _buildSprintPresentationUseCase;
   final PresentationLauncher _presentationLauncher;
 
   SprintSetupCubit({
-    required GetProjetsUseCase getProjetsUseCase,
+    required GetProjetCatalogUseCase getProjetCatalogUseCase,
     required BuildSprintPresentationUseCase buildSprintPresentationUseCase,
     required PresentationLauncher presentationLauncher,
-  }) : _getProjetsUseCase = getProjetsUseCase,
+  }) : _getProjetCatalogUseCase = getProjetCatalogUseCase,
        _buildSprintPresentationUseCase = buildSprintPresentationUseCase,
        _presentationLauncher = presentationLauncher,
        super(SprintSetupState.initial());
 
-  Future<void> loadProjetsIfNeeded() async {
-    if (state.availableProjets.isNotEmpty || !state.projetsLoading) return;
-    await _loadProjets();
+  Future<void> loadCatalogIfNeeded() async {
+    if (state.catalog != null || !state.catalogLoading) return;
+    await _loadCatalog();
   }
 
-  Future<void> _loadProjets() async {
-    emit(state.copyWith(projetsLoading: true, clearError: true));
+  Future<void> _loadCatalog() async {
+    emit(state.copyWith(catalogLoading: true, clearError: true));
     try {
-      final projets = await _getProjetsUseCase.execute();
-      emit(state.copyWith(projetsLoading: false, availableProjets: projets));
+      final catalog = await _getProjetCatalogUseCase.execute();
+      emit(state.copyWith(catalogLoading: false, catalog: catalog));
     } catch (error) {
-      emit(state.copyWith(projetsLoading: false, error: error));
+      emit(state.copyWith(catalogLoading: false, error: error));
     }
   }
 
-  void toggleProjet(Projet projet) {
-    final next = Set<int>.from(state.selectedProjetIds);
-    if (!next.add(projet.id)) next.remove(projet.id);
-    emit(state.copyWith(selectedProjetIds: next, clearBuiltPresentation: true));
+  void toggleObjectif(Objectif objectif) {
+    final next = Set<int>.from(state.selectedObjectifIds);
+    if (!next.add(objectif.id)) next.remove(objectif.id);
+    emit(
+      state.copyWith(
+        selectedObjectifIds: next,
+        clearBuiltPresentation: true,
+      ),
+    );
   }
 
   void updateTimeframe(SprintTimeframe timeframe) {
-    emit(state.copyWith(timeframe: timeframe, clearBuiltPresentation: true));
+    emit(
+      state.copyWith(timeframe: timeframe, clearBuiltPresentation: true),
+    );
   }
 
   Future<void> generate() async {
-    if (!state.canGenerate) return;
+    final catalog = state.catalog;
+    if (!state.canGenerate || catalog == null) return;
     emit(
       state.copyWith(
         building: true,
@@ -56,12 +64,10 @@ class SprintSetupCubit extends Cubit<SprintSetupState> {
       ),
     );
     try {
-      final selected = state.availableProjets
-          .where((projet) => state.selectedProjetIds.contains(projet.id))
-          .toList(growable: false);
       final presentation = await _buildSprintPresentationUseCase.execute(
         timeframe: state.timeframe,
-        selectedProjets: selected,
+        catalog: catalog,
+        selectedObjectifIds: state.selectedObjectifIds,
       );
       emit(state.copyWith(building: false, builtPresentation: presentation));
     } catch (error) {

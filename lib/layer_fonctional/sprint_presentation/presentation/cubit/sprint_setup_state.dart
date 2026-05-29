@@ -1,20 +1,20 @@
-import '../../../projet/domain/entity/projet.dart';
+import '../../../projet_catalog/domain/entity/projet_catalog.dart';
 import '../../domain/entity/sprint_presentation.dart';
 import '../../domain/entity/sprint_timeframe.dart';
 
 class SprintSetupState {
-  final bool projetsLoading;
-  final List<Projet> availableProjets;
-  final Set<int> selectedProjetIds;
+  final bool catalogLoading;
+  final ProjetCatalog? catalog;
+  final Set<int> selectedObjectifIds;
   final SprintTimeframe timeframe;
   final bool building;
   final SprintPresentation? builtPresentation;
   final Object? error;
 
   const SprintSetupState({
-    required this.projetsLoading,
-    required this.availableProjets,
-    required this.selectedProjetIds,
+    required this.catalogLoading,
+    required this.catalog,
+    required this.selectedObjectifIds,
     required this.timeframe,
     required this.building,
     required this.builtPresentation,
@@ -22,9 +22,9 @@ class SprintSetupState {
   });
 
   factory SprintSetupState.initial() => SprintSetupState(
-    projetsLoading: true,
-    availableProjets: const [],
-    selectedProjetIds: const {},
+    catalogLoading: true,
+    catalog: null,
+    selectedObjectifIds: const {},
     timeframe: SprintTimeframe.currentWeek(),
     building: false,
     builtPresentation: null,
@@ -34,14 +34,28 @@ class SprintSetupState {
   bool get hasValidTimeframe => !timeframe.end.isBefore(timeframe.start);
 
   bool get canGenerate =>
-      !building && selectedProjetIds.isNotEmpty && hasValidTimeframe;
+      !building && selectedObjectifIds.isNotEmpty && hasValidTimeframe;
 
   bool get canLaunch => builtPresentation != null && !building;
 
+  /// Number of distinct projets touched by the current objectif selection.
+  int get selectedProjetCount {
+    final catalog = this.catalog;
+    if (catalog == null) return 0;
+    final projetIds = <int>{};
+    for (final projet in catalog.projets) {
+      final hasSelected = catalog
+          .objectifsOf(projet)
+          .any((objectif) => selectedObjectifIds.contains(objectif.id));
+      if (hasSelected) projetIds.add(projet.id);
+    }
+    return projetIds.length;
+  }
+
   SprintSetupState copyWith({
-    bool? projetsLoading,
-    List<Projet>? availableProjets,
-    Set<int>? selectedProjetIds,
+    bool? catalogLoading,
+    ProjetCatalog? catalog,
+    Set<int>? selectedObjectifIds,
     SprintTimeframe? timeframe,
     bool? building,
     SprintPresentation? builtPresentation,
@@ -49,9 +63,9 @@ class SprintSetupState {
     Object? error,
     bool clearError = false,
   }) => SprintSetupState(
-    projetsLoading: projetsLoading ?? this.projetsLoading,
-    availableProjets: availableProjets ?? this.availableProjets,
-    selectedProjetIds: selectedProjetIds ?? this.selectedProjetIds,
+    catalogLoading: catalogLoading ?? this.catalogLoading,
+    catalog: catalog ?? this.catalog,
+    selectedObjectifIds: selectedObjectifIds ?? this.selectedObjectifIds,
     timeframe: timeframe ?? this.timeframe,
     building: building ?? this.building,
     builtPresentation: clearBuiltPresentation

@@ -6,7 +6,7 @@ import '../../../layer_technical/extension/date_time_extension.dart';
 import '../domain/entity/sprint_timeframe.dart';
 import 'cubit/sprint_setup_cubit.dart';
 import 'cubit/sprint_setup_state.dart';
-import 'widget/projet_picker.dart';
+import 'widget/objectif_picker.dart';
 import 'widget/sprint_timeframe_picker.dart';
 
 class SprintSetupPage extends StatelessWidget {
@@ -14,7 +14,7 @@ class SprintSetupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = locator<SprintSetupCubit>()..loadProjetsIfNeeded();
+    final cubit = locator<SprintSetupCubit>()..loadCatalogIfNeeded();
     return BlocProvider<SprintSetupCubit>.value(
       value: cubit,
       child: const _SprintSetupView(),
@@ -46,8 +46,9 @@ class _SetupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<SprintSetupCubit>(context);
+    final catalog = state.catalog;
 
-    if (state.projetsLoading) {
+    if (state.catalogLoading || catalog == null) {
       return const Center(child: CircularProgressIndicator());
     }
     if (state.error != null) {
@@ -63,14 +64,14 @@ class _SetupForm extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         Text(
-          'Projets du sprint',
+          'Objectifs du sprint',
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 8),
-        ProjetPicker(
-          projets: state.availableProjets,
-          selectedIds: state.selectedProjetIds,
-          onToggle: cubit.toggleProjet,
+        ObjectifPicker(
+          catalog: catalog,
+          selectedObjectifIds: state.selectedObjectifIds,
+          onToggle: cubit.toggleObjectif,
         ),
         const SizedBox(height: 24),
         _Summary(state: state),
@@ -130,7 +131,8 @@ class _Summary extends StatelessWidget {
     final summary =
         'Sprint du ${timeframe.start.formattedDayMonthYear} au '
         '${timeframe.end.formattedDayMonthYear} • '
-        '${state.selectedProjetIds.length} projet(s) sélectionné(s)';
+        '${state.selectedObjectifIds.length} objectif(s) sur '
+        '${state.selectedProjetCount} projet(s)';
     final builtNote = built == null
         ? 'Aucune présentation prête.'
         : 'Présentation prête : ${built.totalProjets} projet(s), '

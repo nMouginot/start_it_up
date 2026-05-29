@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 
 import '../../layer_fonctional/objectif/domain/objectif_dependency_injection.dart';
 import '../../layer_fonctional/projet/domain/projet_dependency_injection.dart';
+import '../../layer_fonctional/projet_catalog/domain/projet_catalog_dependency_injection.dart';
 import '../../layer_fonctional/sprint_presentation/domain/sprint_presentation_dependency_injection.dart';
 import '../navigation/data/app_router.dart';
 import '../navigation/domain/guards/auth_guard.dart';
@@ -23,6 +24,7 @@ void _registerFeatures() {
   final features = <FeatureInjector>[
     ProjetInjector(),
     ObjectifInjector(),
+    ProjetCatalogInjector(),
     SprintPresentationInjector(),
   ];
 

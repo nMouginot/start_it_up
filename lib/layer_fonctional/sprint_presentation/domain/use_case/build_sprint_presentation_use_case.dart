@@ -1,26 +1,28 @@
-import '../../../objectif/domain/use_case/get_objectifs_by_projet_use_case.dart';
-import '../../../projet/domain/entity/projet.dart';
+import '../../../projet_catalog/domain/entity/projet_catalog.dart';
 import '../entity/projet_sprint_block.dart';
 import '../entity/sprint_presentation.dart';
 import '../entity/sprint_timeframe.dart';
 
 class BuildSprintPresentationUseCase {
-  final GetObjectifsByProjetUseCase _getObjectifsByProjetUseCase;
+  const BuildSprintPresentationUseCase();
 
-  const BuildSprintPresentationUseCase({
-    required GetObjectifsByProjetUseCase getObjectifsByProjetUseCase,
-  }) : _getObjectifsByProjetUseCase = getObjectifsByProjetUseCase;
-
+  /// Groups the selected objectifs by their parent projet, keeping only the
+  /// projets that have at least one selected objectif, in the order they
+  /// appear in [catalog].
   Future<SprintPresentation> execute({
     required SprintTimeframe timeframe,
-    required List<Projet> selectedProjets,
+    required ProjetCatalog catalog,
+    required Set<int> selectedObjectifIds,
   }) async {
-    final blocks = await Future.wait(
-      selectedProjets.map((projet) async {
-        final objectifs = await _getObjectifsByProjetUseCase.execute(projet.id);
-        return ProjetSprintBlock(projet: projet, objectifs: objectifs);
-      }),
-    );
+    final blocks = <ProjetSprintBlock>[];
+    for (final projet in catalog.projets) {
+      final selected = catalog
+          .objectifsOf(projet)
+          .where((objectif) => selectedObjectifIds.contains(objectif.id))
+          .toList(growable: false);
+      if (selected.isEmpty) continue;
+      blocks.add(ProjetSprintBlock(projet: projet, objectifs: selected));
+    }
     return SprintPresentation(timeframe: timeframe, blocks: blocks);
   }
 }
