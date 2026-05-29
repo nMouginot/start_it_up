@@ -44,7 +44,8 @@ class _SprintSetupView extends StatelessWidget {
   Future<void> _openDeck(BuildContext context, SprintSetupState state) async {
     final presentation = state.builtPresentation;
     if (presentation == null) return;
-    final cubit = context.read<SprintSetupCubit>();
+    final cubit = BlocProvider.of<SprintSetupCubit>(context);
+
     cubit.consumeBuiltPresentation();
     await Navigator.of(context, rootNavigator: true).push<void>(
       MaterialPageRoute(
@@ -61,7 +62,7 @@ class _SetupForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SprintSetupCubit>();
+    final cubit = BlocProvider.of<SprintSetupCubit>(context);
 
     if (state.projetsLoading) {
       return const Center(child: CircularProgressIndicator());

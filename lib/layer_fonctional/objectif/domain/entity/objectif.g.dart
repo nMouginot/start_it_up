@@ -23,8 +23,6 @@ abstract class _$ObjectifCWProxy {
     String description,
     DateTime deadline,
     ObjectifStatus status,
-    ObjectifPriority priority,
-    int progression,
   });
 }
 
@@ -50,8 +48,6 @@ class _$ObjectifCWProxyImpl implements _$ObjectifCWProxy {
     Object? description = const $CopyWithPlaceholder(),
     Object? deadline = const $CopyWithPlaceholder(),
     Object? status = const $CopyWithPlaceholder(),
-    Object? priority = const $CopyWithPlaceholder(),
-    Object? progression = const $CopyWithPlaceholder(),
   }) {
     return Objectif(
       id: id == const $CopyWithPlaceholder() || id == null
@@ -79,15 +75,6 @@ class _$ObjectifCWProxyImpl implements _$ObjectifCWProxy {
           ? _value.status
           // ignore: cast_nullable_to_non_nullable
           : status as ObjectifStatus,
-      priority: priority == const $CopyWithPlaceholder() || priority == null
-          ? _value.priority
-          // ignore: cast_nullable_to_non_nullable
-          : priority as ObjectifPriority,
-      progression:
-          progression == const $CopyWithPlaceholder() || progression == null
-          ? _value.progression
-          // ignore: cast_nullable_to_non_nullable
-          : progression as int,
     );
   }
 }
