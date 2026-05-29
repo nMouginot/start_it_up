@@ -1,7 +1,11 @@
 import 'dart:math';
 
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:faker/faker.dart';
 
+part 'projet.g.dart';
+
+@CopyWith()
 class Projet {
   final int id;
 
@@ -9,14 +13,19 @@ class Projet {
 
   final String version;
 
-  const Projet({required this.id, required this.name, required this.version});
+  const Projet({
+    required this.id,
+    required this.name,
+    required this.version,
+  });
 
-  factory Projet.faker([int seed = 1]) {
-    final fakeData = Faker(seed: seed);
+  factory Projet.faker({int seed = 1}) {
+    final fakeData = Faker.withGenerator(RandomGenerator(seed: seed));
+    final random = Random(seed);
 
-    final majorVersionNumber = Random(seed).nextInt(10);
-    final minorVersionNumber = Random(seed + 1).nextInt(10);
-    final patchVersionNumber = Random(seed + 2).nextInt(10);
+    final majorVersionNumber = random.nextInt(10);
+    final minorVersionNumber = random.nextInt(10);
+    final patchVersionNumber = random.nextInt(10);
 
     return Projet(
       id: seed,
@@ -24,4 +33,13 @@ class Projet {
       version: "$majorVersionNumber.$minorVersionNumber.$patchVersionNumber",
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is Projet && other.id == id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }
