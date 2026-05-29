@@ -32,11 +32,7 @@ class ProjectRepository {
     required String version,
   }) async {
     await Future.delayed(const Duration(milliseconds: 150));
-    final project = Project(
-      id: _nextCreatedId++,
-      name: name,
-      version: version,
-    );
+    final project = Project(id: _nextCreatedId++, name: name, version: version);
     _overrides[project.id] = project;
     return project;
   }

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 
 import '../../../../../layer_technical/extension/date_time_extension.dart';
-import '../../../domain/entity/sprint_timeframe.dart';
+import '../../../domain/entity/slide_timeframe.dart';
 
-class SprintIntroSlide extends FlutterDeckSlideWidget {
-  final SprintTimeframe timeframe;
+class IntroSlide extends FlutterDeckSlideWidget {
+  final SlideTimeframe timeframe;
 
-  const SprintIntroSlide({super.key, required this.timeframe})
+  const IntroSlide({super.key, required this.timeframe})
     : super(
         configuration: const FlutterDeckSlideConfiguration(route: '/intro'),
       );

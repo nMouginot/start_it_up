@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
                 _HomeAction(
                   icon: Icons.slideshow,
                   label: 'Générer une présentation',
-                  onTap: () => context.go(AppRoutes.sprintSetup),
+                  onTap: () => context.go(AppRoutes.slideSetup),
                 ),
                 const SizedBox(height: 16),
                 _HomeAction(

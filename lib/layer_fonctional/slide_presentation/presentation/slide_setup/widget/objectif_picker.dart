@@ -5,9 +5,6 @@ import '../../../../objectif/domain/entity/objectif.dart';
 import '../../../../project/domain/entity/project.dart';
 import '../../../../project_catalog/domain/entity/project_catalog.dart';
 
-/// Lets the user pick objectifs for the next sprint, grouped by their parent
-/// project for easy scanning. Selection happens at the objectif level —
-/// projects are only a visual group, not selectable as a whole.
 class ObjectifPicker extends StatelessWidget {
   final ProjectCatalog catalog;
   final Set<int> selectedObjectifIds;

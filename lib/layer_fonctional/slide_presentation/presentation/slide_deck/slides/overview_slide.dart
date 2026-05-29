@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 
 import '../../../../objectif/domain/entity/objectif_status.dart';
-import '../../../domain/entity/sprint_presentation.dart';
+import '../../../domain/entity/slide_presentation.dart';
 
-class SprintOverviewSlide extends FlutterDeckSlideWidget {
-  final SprintPresentation presentation;
+class OverviewSlide extends FlutterDeckSlideWidget {
+  final SlidePresentation presentation;
 
-  const SprintOverviewSlide({super.key, required this.presentation})
+  const OverviewSlide({super.key, required this.presentation})
     : super(
         configuration: const FlutterDeckSlideConfiguration(route: '/overview'),
       );

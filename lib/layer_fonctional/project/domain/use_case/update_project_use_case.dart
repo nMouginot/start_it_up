@@ -7,5 +7,6 @@ class UpdateProjectUseCase {
   const UpdateProjectUseCase({required ProjectRepository projectRepository})
     : _projectRepository = projectRepository;
 
-  Future<Project> execute(Project project) => _projectRepository.update(project);
+  Future<Project> execute(Project project) =>
+      _projectRepository.update(project);
 }

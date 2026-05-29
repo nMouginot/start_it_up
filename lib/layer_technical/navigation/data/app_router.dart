@@ -7,7 +7,7 @@ import '../../../layer_fonctional/project/domain/entity/project.dart';
 import '../../../layer_fonctional/project/presentation/project_detail/project_detail_page.dart';
 import '../../../layer_fonctional/project/presentation/project_form/project_form_page.dart';
 import '../../../layer_fonctional/project/presentation/project_list/project_list_page.dart';
-import '../../../layer_fonctional/sprint_presentation/presentation/sprint_setup/sprint_setup_page.dart';
+import '../../../layer_fonctional/slide_presentation/presentation/slide_setup/slide_setup_page.dart';
 import '../domain/guards/auth_guard.dart';
 import 'app_routes.dart';
 
@@ -66,8 +66,8 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: AppRoutes.sprintSetup,
-        builder: (context, state) => const SprintSetupPage(),
+        path: AppRoutes.slideSetup,
+        builder: (context, state) => const SlideSetupPage(),
       ),
     ],
   );

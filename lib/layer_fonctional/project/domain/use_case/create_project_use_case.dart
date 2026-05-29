@@ -7,8 +7,6 @@ class CreateProjectUseCase {
   const CreateProjectUseCase({required ProjectRepository projectRepository})
     : _projectRepository = projectRepository;
 
-  Future<Project> execute({
-    required String name,
-    required String version,
-  }) => _projectRepository.create(name: name, version: version);
+  Future<Project> execute({required String name, required String version}) =>
+      _projectRepository.create(name: name, version: version);
 }

@@ -3,34 +3,34 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../layer_technical/dependency_injection/app_dependency_injection.dart';
 import '../../../../layer_technical/extension/date_time_extension.dart';
-import '../../domain/entity/sprint_timeframe.dart';
-import 'cubit/sprint_setup_cubit.dart';
-import 'cubit/sprint_setup_state.dart';
+import '../../domain/entity/slide_timeframe.dart';
+import 'cubit/slide_setup_cubit.dart';
+import 'cubit/slide_setup_state.dart';
 import 'widget/objectif_picker.dart';
-import 'widget/sprint_timeframe_picker.dart';
+import 'widget/slide_timeframe_picker.dart';
 
-class SprintSetupPage extends StatelessWidget {
-  const SprintSetupPage({super.key});
+class SlideSetupPage extends StatelessWidget {
+  const SlideSetupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final cubit = locator<SprintSetupCubit>()..loadCatalogIfNeeded();
-    return BlocProvider<SprintSetupCubit>.value(
+    final cubit = locator<SlideSetupCubit>()..loadCatalogIfNeeded();
+    return BlocProvider<SlideSetupCubit>.value(
       value: cubit,
-      child: const _SprintSetupView(),
+      child: const _SlideSetupView(),
     );
   }
 }
 
-class _SprintSetupView extends StatelessWidget {
-  const _SprintSetupView();
+class _SlideSetupView extends StatelessWidget {
+  const _SlideSetupView();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Préparer la présentation')),
       body: SafeArea(
-        child: BlocBuilder<SprintSetupCubit, SprintSetupState>(
+        child: BlocBuilder<SlideSetupCubit, SlideSetupState>(
           builder: (context, state) => _SetupForm(state: state),
         ),
       ),
@@ -39,13 +39,13 @@ class _SprintSetupView extends StatelessWidget {
 }
 
 class _SetupForm extends StatelessWidget {
-  final SprintSetupState state;
+  final SlideSetupState state;
 
   const _SetupForm({required this.state});
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<SprintSetupCubit>(context);
+    final cubit = BlocProvider.of<SlideSetupCubit>(context);
     final catalog = state.catalog;
 
     if (state.catalogLoading || catalog == null) {
@@ -58,7 +58,7 @@ class _SetupForm extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        SprintTimeframePicker(
+        SlideTimeframePicker(
           timeframe: state.timeframe,
           onChanged: cubit.updateTimeframe,
         ),
@@ -83,8 +83,8 @@ class _SetupForm extends StatelessWidget {
 }
 
 class _ActionButtons extends StatelessWidget {
-  final SprintSetupState state;
-  final SprintSetupCubit cubit;
+  final SlideSetupState state;
+  final SlideSetupCubit cubit;
 
   const _ActionButtons({required this.state, required this.cubit});
 
@@ -120,13 +120,13 @@ class _ActionButtons extends StatelessWidget {
 }
 
 class _Summary extends StatelessWidget {
-  final SprintSetupState state;
+  final SlideSetupState state;
 
   const _Summary({required this.state});
 
   @override
   Widget build(BuildContext context) {
-    final SprintTimeframe timeframe = state.timeframe;
+    final SlideTimeframe timeframe = state.timeframe;
     final built = state.builtPresentation;
     final summary =
         'Sprint du ${timeframe.start.formattedDayMonthYear} au '

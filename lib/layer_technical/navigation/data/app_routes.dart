@@ -11,7 +11,7 @@ abstract final class AppRoutes {
   static const String projectObjectifCreate = '/projects/:id/objectifs/new';
   static const String objectifEdit = '/objectifs/:id/edit';
 
-  static const String sprintSetup = '/presentation';
+  static const String slideSetup = '/presentation';
 
   static String projectDetailPath(int id) => '/projects/$id';
 

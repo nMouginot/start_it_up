@@ -5,9 +5,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 
-import 'layer_fonctional/sprint_presentation/domain/entity/sprint_presentation.dart';
-import 'layer_fonctional/sprint_presentation/presentation/presentation_launcher.dart';
-import 'layer_fonctional/sprint_presentation/presentation/sprint_deck/sprint_deck_app.dart';
+import 'layer_fonctional/slide_presentation/domain/entity/slide_presentation.dart';
+import 'layer_fonctional/slide_presentation/presentation/presentation_launcher.dart';
+import 'layer_fonctional/slide_presentation/presentation/slide_deck/slide_deck_app.dart';
 import 'layer_technical/dependency_injection/app_dependency_injection.dart';
 import 'layer_technical/i18n/extension/arb_translation_extension.dart';
 import 'layer_technical/i18n/l10n/app_localizations.dart';
@@ -28,7 +28,7 @@ void main() async {
 /// Application root.
 ///
 /// Listens to [PresentationLauncher] and swaps between the regular router
-/// app and the full-screen [SprintDeckApp]. The swap happens at the root so
+/// app and the full-screen [SlideDeckApp]. The swap happens at the root so
 /// flutter_deck owns its own MaterialApp / GoRouter without conflicting with
 /// the main go_router.
 class Root extends StatelessWidget {
@@ -37,11 +37,11 @@ class Root extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final launcher = locator<PresentationLauncher>();
-    return ValueListenableBuilder<SprintPresentation?>(
+    return ValueListenableBuilder<SlidePresentation?>(
       valueListenable: launcher,
       builder: (_, presentation, __) => presentation == null
           ? MainApp()
-          : SprintDeckApp(presentation: presentation),
+          : SlideDeckApp(presentation: presentation),
     );
   }
 }

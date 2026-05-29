@@ -2,24 +2,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../objectif/domain/entity/objectif.dart';
 import '../../../../project_catalog/domain/use_case/get_project_catalog_use_case.dart';
-import '../../../domain/entity/sprint_timeframe.dart';
-import '../../../domain/use_case/build_sprint_presentation_use_case.dart';
+import '../../../domain/entity/slide_timeframe.dart';
+import '../../../domain/use_case/build_slide_presentation_use_case.dart';
 import '../../presentation_launcher.dart';
-import 'sprint_setup_state.dart';
+import 'slide_setup_state.dart';
 
-class SprintSetupCubit extends Cubit<SprintSetupState> {
+class SlideSetupCubit extends Cubit<SlideSetupState> {
   final GetProjectCatalogUseCase _getProjectCatalogUseCase;
-  final BuildSprintPresentationUseCase _buildSprintPresentationUseCase;
+  final BuildSlidePresentationUseCase _buildSlidePresentationUseCase;
   final PresentationLauncher _presentationLauncher;
 
-  SprintSetupCubit({
+  SlideSetupCubit({
     required GetProjectCatalogUseCase getProjectCatalogUseCase,
-    required BuildSprintPresentationUseCase buildSprintPresentationUseCase,
+    required BuildSlidePresentationUseCase buildSlidePresentationUseCase,
     required PresentationLauncher presentationLauncher,
   }) : _getProjectCatalogUseCase = getProjectCatalogUseCase,
-       _buildSprintPresentationUseCase = buildSprintPresentationUseCase,
+       _buildSlidePresentationUseCase = buildSlidePresentationUseCase,
        _presentationLauncher = presentationLauncher,
-       super(SprintSetupState.initial());
+       super(SlideSetupState.initial());
 
   Future<void> loadCatalogIfNeeded() async {
     if (state.catalog != null || !state.catalogLoading) return;
@@ -42,7 +42,7 @@ class SprintSetupCubit extends Cubit<SprintSetupState> {
     emit(state.copyWith(selectedObjectifIds: next, builtPresentation: null));
   }
 
-  void updateTimeframe(SprintTimeframe timeframe) {
+  void updateTimeframe(SlideTimeframe timeframe) {
     emit(state.copyWith(timeframe: timeframe, builtPresentation: null));
   }
 
@@ -51,7 +51,7 @@ class SprintSetupCubit extends Cubit<SprintSetupState> {
     if (!state.canGenerate || catalog == null) return;
     emit(state.copyWith(building: true, error: null, builtPresentation: null));
     try {
-      final presentation = await _buildSprintPresentationUseCase.execute(
+      final presentation = await _buildSlidePresentationUseCase.execute(
         timeframe: state.timeframe,
         catalog: catalog,
         selectedObjectifIds: state.selectedObjectifIds,

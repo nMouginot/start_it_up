@@ -2,29 +2,29 @@
 
 // coverage:ignore-file
 
-part of 'sprint_timeframe.dart';
+part of 'slide_timeframe.dart';
 
 // **************************************************************************
 // CopyWithGenerator
 // **************************************************************************
 
-abstract class _$SprintTimeframeCWProxy {
+abstract class _$SlideTimeframeCWProxy {
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored.
   ///
   /// Example:
   /// ```dart
-  /// SprintTimeframe(...).copyWith(id: 12, name: "My name")
+  /// SlideTimeframe(...).copyWith(id: 12, name: "My name")
   /// ```
-  SprintTimeframe call({DateTime start, DateTime end});
+  SlideTimeframe call({DateTime start, DateTime end});
 }
 
 /// Callable proxy for `copyWith` functionality.
-/// Use as `instanceOfSprintTimeframe.copyWith(...)`.
-class _$SprintTimeframeCWProxyImpl implements _$SprintTimeframeCWProxy {
-  const _$SprintTimeframeCWProxyImpl(this._value);
+/// Use as `instanceOfSlideTimeframe.copyWith(...)`.
+class _$SlideTimeframeCWProxyImpl implements _$SlideTimeframeCWProxy {
+  const _$SlideTimeframeCWProxyImpl(this._value);
 
-  final SprintTimeframe _value;
+  final SlideTimeframe _value;
 
   @override
   /// Creates a new instance with the provided field values.
@@ -32,13 +32,13 @@ class _$SprintTimeframeCWProxyImpl implements _$SprintTimeframeCWProxy {
   ///
   /// Example:
   /// ```dart
-  /// SprintTimeframe(...).copyWith(id: 12, name: "My name")
+  /// SlideTimeframe(...).copyWith(id: 12, name: "My name")
   /// ```
-  SprintTimeframe call({
+  SlideTimeframe call({
     Object? start = const $CopyWithPlaceholder(),
     Object? end = const $CopyWithPlaceholder(),
   }) {
-    return SprintTimeframe(
+    return SlideTimeframe(
       start: start == const $CopyWithPlaceholder() || start == null
           ? _value.start
           // ignore: cast_nullable_to_non_nullable
@@ -51,24 +51,24 @@ class _$SprintTimeframeCWProxyImpl implements _$SprintTimeframeCWProxy {
   }
 }
 
-extension $SprintTimeframeCopyWith on SprintTimeframe {
+extension $SlideTimeframeCopyWith on SlideTimeframe {
   /// Returns a callable class used to build a new instance with modified fields.
-  /// Example: `instanceOfSprintTimeframe.copyWith(...)`.
+  /// Example: `instanceOfSlideTimeframe.copyWith(...)`.
   // ignore: library_private_types_in_public_api
-  _$SprintTimeframeCWProxy get copyWith => _$SprintTimeframeCWProxyImpl(this);
+  _$SlideTimeframeCWProxy get copyWith => _$SlideTimeframeCWProxyImpl(this);
 }
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SprintTimeframe _$SprintTimeframeFromJson(Map<String, dynamic> json) =>
-    SprintTimeframe(
+SlideTimeframe _$SlideTimeframeFromJson(Map<String, dynamic> json) =>
+    SlideTimeframe(
       start: DateTime.parse(json['start'] as String),
       end: DateTime.parse(json['end'] as String),
     );
 
-Map<String, dynamic> _$SprintTimeframeToJson(SprintTimeframe instance) =>
+Map<String, dynamic> _$SlideTimeframeToJson(SlideTimeframe instance) =>
     <String, dynamic>{
       'start': instance.start.toIso8601String(),
       'end': instance.end.toIso8601String(),

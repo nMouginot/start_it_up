@@ -2,23 +2,23 @@
 
 // coverage:ignore-file
 
-part of 'sprint_presentation.dart';
+part of 'slide_presentation.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SprintPresentation _$SprintPresentationFromJson(Map<String, dynamic> json) =>
-    SprintPresentation(
-      timeframe: SprintTimeframe.fromJson(
+SlidePresentation _$SlidePresentationFromJson(Map<String, dynamic> json) =>
+    SlidePresentation(
+      timeframe: SlideTimeframe.fromJson(
         json['timeframe'] as Map<String, dynamic>,
       ),
       blocks: (json['blocks'] as List<dynamic>)
-          .map((e) => ProjectSprintBlock.fromJson(e as Map<String, dynamic>))
+          .map((e) => ProjectSlideBlock.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$SprintPresentationToJson(SprintPresentation instance) =>
+Map<String, dynamic> _$SlidePresentationToJson(SlidePresentation instance) =>
     <String, dynamic>{
       'timeframe': instance.timeframe.toJson(),
       'blocks': instance.blocks.map((e) => e.toJson()).toList(),

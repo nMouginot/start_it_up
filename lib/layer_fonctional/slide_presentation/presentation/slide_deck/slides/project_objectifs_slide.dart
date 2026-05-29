@@ -3,10 +3,10 @@ import 'package:flutter_deck/flutter_deck.dart';
 
 import '../../../../../layer_technical/extension/date_time_extension.dart';
 import '../../../../objectif/domain/entity/objectif.dart';
-import '../../../domain/entity/project_sprint_block.dart';
+import '../../../domain/entity/project_slide_block.dart';
 
 class ProjectObjectifsSlide extends FlutterDeckSlideWidget {
-  final ProjectSprintBlock block;
+  final ProjectSlideBlock block;
 
   ProjectObjectifsSlide({super.key, required this.block})
     : super(

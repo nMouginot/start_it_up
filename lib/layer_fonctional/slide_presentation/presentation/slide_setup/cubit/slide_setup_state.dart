@@ -1,22 +1,22 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 
 import '../../../../project_catalog/domain/entity/project_catalog.dart';
-import '../../../domain/entity/sprint_presentation.dart';
-import '../../../domain/entity/sprint_timeframe.dart';
+import '../../../domain/entity/slide_presentation.dart';
+import '../../../domain/entity/slide_timeframe.dart';
 
-part 'sprint_setup_state.g.dart';
+part 'slide_setup_state.g.dart';
 
 @CopyWith()
-class SprintSetupState {
+class SlideSetupState {
   final bool catalogLoading;
   final ProjectCatalog? catalog;
   final Set<int> selectedObjectifIds;
-  final SprintTimeframe timeframe;
+  final SlideTimeframe timeframe;
   final bool building;
-  final SprintPresentation? builtPresentation;
+  final SlidePresentation? builtPresentation;
   final Object? error;
 
-  const SprintSetupState({
+  const SlideSetupState({
     required this.catalogLoading,
     required this.catalog,
     required this.selectedObjectifIds,
@@ -26,11 +26,11 @@ class SprintSetupState {
     required this.error,
   });
 
-  factory SprintSetupState.initial() => SprintSetupState(
+  factory SlideSetupState.initial() => SlideSetupState(
     catalogLoading: true,
     catalog: null,
     selectedObjectifIds: const {},
-    timeframe: SprintTimeframe.currentWeek(),
+    timeframe: SlideTimeframe.currentWeek(),
     building: false,
     builtPresentation: null,
     error: null,

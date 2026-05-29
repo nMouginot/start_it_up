@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import '../../layer_fonctional/objectif/domain/objectif_dependency_injection.dart';
 import '../../layer_fonctional/project/domain/project_dependency_injection.dart';
 import '../../layer_fonctional/project_catalog/domain/project_catalog_dependency_injection.dart';
-import '../../layer_fonctional/sprint_presentation/domain/sprint_presentation_dependency_injection.dart';
+import '../../layer_fonctional/slide_presentation/domain/slide_presentation_dependency_injection.dart';
 import '../navigation/data/app_router.dart';
 import '../navigation/domain/guards/auth_guard.dart';
 import 'feature_injector.dart';
@@ -25,7 +25,7 @@ void _registerFeatures() {
     ProjectInjector(),
     ObjectifInjector(),
     ProjectCatalogInjector(),
-    SprintPresentationInjector(),
+    SlidePresentationInjector(),
   ];
 
   for (final feature in features) {

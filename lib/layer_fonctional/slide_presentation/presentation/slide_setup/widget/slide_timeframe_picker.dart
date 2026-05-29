@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../layer_technical/extension/date_time_extension.dart';
-import '../../../domain/entity/sprint_timeframe.dart';
+import '../../../domain/entity/slide_timeframe.dart';
 
-class SprintTimeframePicker extends StatelessWidget {
-  final SprintTimeframe timeframe;
-  final ValueChanged<SprintTimeframe> onChanged;
+class SlideTimeframePicker extends StatelessWidget {
+  final SlideTimeframe timeframe;
+  final ValueChanged<SlideTimeframe> onChanged;
 
-  const SprintTimeframePicker({
+  const SlideTimeframePicker({
     super.key,
     required this.timeframe,
     required this.onChanged,

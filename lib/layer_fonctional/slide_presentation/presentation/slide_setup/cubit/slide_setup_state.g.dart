@@ -2,37 +2,37 @@
 
 // coverage:ignore-file
 
-part of 'sprint_setup_state.dart';
+part of 'slide_setup_state.dart';
 
 // **************************************************************************
 // CopyWithGenerator
 // **************************************************************************
 
-abstract class _$SprintSetupStateCWProxy {
+abstract class _$SlideSetupStateCWProxy {
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored.
   ///
   /// Example:
   /// ```dart
-  /// SprintSetupState(...).copyWith(id: 12, name: "My name")
+  /// SlideSetupState(...).copyWith(id: 12, name: "My name")
   /// ```
-  SprintSetupState call({
+  SlideSetupState call({
     bool catalogLoading,
     ProjectCatalog? catalog,
     Set<int> selectedObjectifIds,
-    SprintTimeframe timeframe,
+    SlideTimeframe timeframe,
     bool building,
-    SprintPresentation? builtPresentation,
+    SlidePresentation? builtPresentation,
     Object? error,
   });
 }
 
 /// Callable proxy for `copyWith` functionality.
-/// Use as `instanceOfSprintSetupState.copyWith(...)`.
-class _$SprintSetupStateCWProxyImpl implements _$SprintSetupStateCWProxy {
-  const _$SprintSetupStateCWProxyImpl(this._value);
+/// Use as `instanceOfSlideSetupState.copyWith(...)`.
+class _$SlideSetupStateCWProxyImpl implements _$SlideSetupStateCWProxy {
+  const _$SlideSetupStateCWProxyImpl(this._value);
 
-  final SprintSetupState _value;
+  final SlideSetupState _value;
 
   @override
   /// Creates a new instance with the provided field values.
@@ -40,9 +40,9 @@ class _$SprintSetupStateCWProxyImpl implements _$SprintSetupStateCWProxy {
   ///
   /// Example:
   /// ```dart
-  /// SprintSetupState(...).copyWith(id: 12, name: "My name")
+  /// SlideSetupState(...).copyWith(id: 12, name: "My name")
   /// ```
-  SprintSetupState call({
+  SlideSetupState call({
     Object? catalogLoading = const $CopyWithPlaceholder(),
     Object? catalog = const $CopyWithPlaceholder(),
     Object? selectedObjectifIds = const $CopyWithPlaceholder(),
@@ -51,7 +51,7 @@ class _$SprintSetupStateCWProxyImpl implements _$SprintSetupStateCWProxy {
     Object? builtPresentation = const $CopyWithPlaceholder(),
     Object? error = const $CopyWithPlaceholder(),
   }) {
-    return SprintSetupState(
+    return SlideSetupState(
       catalogLoading:
           catalogLoading == const $CopyWithPlaceholder() ||
               catalogLoading == null
@@ -71,7 +71,7 @@ class _$SprintSetupStateCWProxyImpl implements _$SprintSetupStateCWProxy {
       timeframe: timeframe == const $CopyWithPlaceholder() || timeframe == null
           ? _value.timeframe
           // ignore: cast_nullable_to_non_nullable
-          : timeframe as SprintTimeframe,
+          : timeframe as SlideTimeframe,
       building: building == const $CopyWithPlaceholder() || building == null
           ? _value.building
           // ignore: cast_nullable_to_non_nullable
@@ -79,7 +79,7 @@ class _$SprintSetupStateCWProxyImpl implements _$SprintSetupStateCWProxy {
       builtPresentation: builtPresentation == const $CopyWithPlaceholder()
           ? _value.builtPresentation
           // ignore: cast_nullable_to_non_nullable
-          : builtPresentation as SprintPresentation?,
+          : builtPresentation as SlidePresentation?,
       error: error == const $CopyWithPlaceholder()
           ? _value.error
           // ignore: cast_nullable_to_non_nullable
@@ -88,9 +88,9 @@ class _$SprintSetupStateCWProxyImpl implements _$SprintSetupStateCWProxy {
   }
 }
 
-extension $SprintSetupStateCopyWith on SprintSetupState {
+extension $SlideSetupStateCopyWith on SlideSetupState {
   /// Returns a callable class used to build a new instance with modified fields.
-  /// Example: `instanceOfSprintSetupState.copyWith(...)`.
+  /// Example: `instanceOfSlideSetupState.copyWith(...)`.
   // ignore: library_private_types_in_public_api
-  _$SprintSetupStateCWProxy get copyWith => _$SprintSetupStateCWProxyImpl(this);
+  _$SlideSetupStateCWProxy get copyWith => _$SlideSetupStateCWProxyImpl(this);
 }
