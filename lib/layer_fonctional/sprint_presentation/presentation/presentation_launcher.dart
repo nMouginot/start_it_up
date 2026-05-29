@@ -21,10 +21,6 @@ const String _setupPagePath = '/presentation';
 /// mounted router is not notified and cannot throw `GoException`). The
 /// router that mounts AFTER the swap reads the freshly-rewritten URL when it
 /// boots and lands on a route it knows.
-///
-/// On non-web platforms the URL update is a no-op (no browser to update);
-/// flutter_deck and the main router both use the in-memory Navigator and
-/// don't share a URL so there is no conflict to begin with.
 class PresentationLauncher extends ValueNotifier<SprintPresentation?> {
   PresentationLauncher() : super(null);
 

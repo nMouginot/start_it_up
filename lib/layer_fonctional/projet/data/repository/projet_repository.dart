@@ -3,8 +3,6 @@ import '../../domain/entity/projet.dart';
 /// Placeholder data source for Projet.
 ///
 /// Backed by faker until a real API is available.
-/// Use cases depend on this interface and will not change when a remote
-/// datasource is wired in.
 class ProjetRepository {
   static const int _seedCount = 8;
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../layer_technical/dependency_injection/app_dependency_injection.dart';
+import '../../../../layer_technical/navigation/data/app_routes.dart';
 import '../../../objectif/domain/entity/objectif.dart';
 import '../../../objectif/presentation/widget/objectif_list_tile.dart';
 import '../../domain/entity/projet.dart';
@@ -17,18 +19,31 @@ class ProjetDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => locator<ProjetDetailCubit>()..load(projetId),
-      child: const _ProjetDetailView(),
+      child: _ProjetDetailView(projetId: projetId),
     );
   }
 }
 
 class _ProjetDetailView extends StatelessWidget {
-  const _ProjetDetailView();
+  final int projetId;
+
+  const _ProjetDetailView({required this.projetId});
+
+  Future<void> _createObjectif(BuildContext context) async {
+    final cubit = BlocProvider.of<ProjetDetailCubit>(context);
+    await context.push<bool>(AppRoutes.projetObjectifCreatePath(projetId));
+    await cubit.load(projetId);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Projet')),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => _createObjectif(context),
+        icon: const Icon(Icons.add),
+        label: const Text('Objectif'),
+      ),
       body: SafeArea(
         child: BlocBuilder<ProjetDetailCubit, ProjetDetailState>(
           builder: (context, state) => switch (state) {

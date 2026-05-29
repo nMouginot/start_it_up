@@ -28,6 +28,12 @@ class HomePage extends StatelessWidget {
                   label: 'Générer une présentation',
                   onTap: () => context.go(AppRoutes.sprintSetup),
                 ),
+                const SizedBox(height: 16),
+                _HomeAction(
+                  icon: Icons.add_task,
+                  label: 'Créer un objectif',
+                  onTap: () => context.push(AppRoutes.objectifCreate),
+                ),
               ],
             ),
           ),
