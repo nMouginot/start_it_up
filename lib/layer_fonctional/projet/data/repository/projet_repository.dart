@@ -12,4 +12,9 @@ class ProjetRepository {
     await Future.delayed(const Duration(milliseconds: 400));
     return List.generate(_seedCount, (index) => Projet.faker(seed: index + 1));
   }
+
+  Future<Projet> fetchById(int id) async {
+    await Future.delayed(const Duration(milliseconds: 250));
+    return Projet.faker(seed: id);
+  }
 }

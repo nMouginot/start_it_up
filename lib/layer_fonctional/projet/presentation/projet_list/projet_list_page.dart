@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../layer_technical/dependency_injection/app_dependency_injection.dart';
-import '../domain/entity/projet.dart';
+import '../../../../layer_technical/dependency_injection/app_dependency_injection.dart';
+import '../../../../layer_technical/navigation/data/app_routes.dart';
+import '../../domain/entity/projet.dart';
 import 'cubit/projet_list_cubit.dart';
 import 'cubit/projet_list_state.dart';
 
@@ -56,16 +58,27 @@ class _ProjetList extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       itemCount: projets.length,
       separatorBuilder: (_, __) => const SizedBox(height: 8),
-      itemBuilder: (_, index) {
-        final projet = projets[index];
-        return Card(
-          child: ListTile(
-            leading: CircleAvatar(child: Text('${projet.id}')),
-            title: Text(projet.name),
-            subtitle: Text('v${projet.version}'),
-          ),
-        );
-      },
+      itemBuilder: (_, index) => _ProjetCard(projet: projets[index]),
+    );
+  }
+}
+
+class _ProjetCard extends StatelessWidget {
+  final Projet projet;
+
+  const _ProjetCard({required this.projet});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: ListTile(
+        leading: CircleAvatar(child: Text('${projet.id}')),
+        title: Text(projet.name),
+        subtitle: Text('v${projet.version}'),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: () => context.go(AppRoutes.projetDetailPath(projet.id)),
+      ),
     );
   }
 }
