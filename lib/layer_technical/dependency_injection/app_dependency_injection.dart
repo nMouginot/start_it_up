@@ -1,9 +1,11 @@
 import 'package:get_it/get_it.dart';
 
+import '../../layer_fonctional/objectif/domain/objectif_dependency_injection.dart';
+import '../../layer_fonctional/projet/domain/projet_dependency_injection.dart';
+import '../../layer_fonctional/sprint_presentation/domain/sprint_presentation_dependency_injection.dart';
 import '../navigation/data/app_router.dart';
 import '../navigation/domain/guards/auth_guard.dart';
-
-// import 'get_it_extension.dart';
+import 'feature_injector.dart';
 
 final locator = GetIt.instance;
 
@@ -18,15 +20,15 @@ void _registerTechnical() {
 }
 
 void _registerFeatures() {
-  // final features = <FeatureInjector>[
-  //   PlaceInjector(),
-  //   AuthInjector(),
-  //   ReservationInjector(),
-  // ];
+  final features = <FeatureInjector>[
+    ProjetInjector(),
+    ObjectifInjector(),
+    SprintPresentationInjector(),
+  ];
 
-  // for (final feature in features) {
-  //   feature.registerRepositories(locator);
-  //   feature.registerUseCases(locator);
-  //   feature.registerCubits(locator);
-  // }
+  for (final feature in features) {
+    feature.registerRepositories(locator);
+    feature.registerUseCases(locator);
+    feature.registerCubits(locator);
+  }
 }

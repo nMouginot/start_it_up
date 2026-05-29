@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 extension CheckRangeDateTimeExtension on DateTime? {
   bool? isAfterOrEqualTo(DateTime dateTime) {
@@ -66,4 +67,8 @@ extension DateTimeClearSeconds on DateTime {
 
 extension DateTimeExtension on DateTime {
   String toBackendString() => toUtc().toIso8601String();
+
+  String get formattedDayMonthYear => DateFormat('dd/MM/yyyy').format(this);
+
+  String get formattedDayMonth => DateFormat('dd/MM').format(this);
 }

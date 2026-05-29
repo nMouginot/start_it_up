@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
 
 import '../../../layer_fonctional/home/presentation/home_page.dart';
+import '../../../layer_fonctional/projet/presentation/projet_list_page.dart';
+import '../../../layer_fonctional/sprint_presentation/presentation/sprint_setup_page.dart';
 import '../domain/guards/auth_guard.dart';
 import 'app_routes.dart';
 
@@ -18,17 +20,14 @@ class AppRouter {
         path: AppRoutes.home,
         builder: (context, state) => const HomePage(),
       ),
-      // GoRoute(
-      //   path: AppRoutes.reservation,
-      //   builder: (context, state) => const ReservationPage(),
-      // ),
-      // GoRoute(
-      //   path: AppRoutes.reservationDetail,
-      //   builder: (context, state) {
-      //     final id = state.pathParameters['id']!;
-      //     return ReservationDetailPage(id: id);
-      //   },
-      // ),
+      GoRoute(
+        path: AppRoutes.projets,
+        builder: (context, state) => const ProjetListPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.sprintSetup,
+        builder: (context, state) => const SprintSetupPage(),
+      ),
     ],
   );
 }

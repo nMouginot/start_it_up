@@ -75,13 +75,13 @@ extension $UserDtoCopyWith on UserDto {
 UserDto _$UserDtoFromJson(Map<String, dynamic> json) => UserDto(
   id: JsonParsers.idFromJson(json['id']),
   email: json['email'] as String?,
-  lastName: json['last_name'] as String?,
-  firstName: json['first_name'] as String?,
+  lastName: json['lastName'] as String?,
+  firstName: json['firstName'] as String?,
 );
 
 Map<String, dynamic> _$UserDtoToJson(UserDto instance) => <String, dynamic>{
   'id': JsonParsers.idToJson(instance.id),
   'email': instance.email,
-  'last_name': instance.lastName,
-  'first_name': instance.firstName,
+  'lastName': instance.lastName,
+  'firstName': instance.firstName,
 };
