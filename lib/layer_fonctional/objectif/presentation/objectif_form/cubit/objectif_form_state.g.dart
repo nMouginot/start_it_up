@@ -17,10 +17,10 @@ abstract class _$ObjectifFormStateCWProxy {
   /// ObjectifFormState(...).copyWith(id: 12, name: "My name")
   /// ```
   ObjectifFormState call({
-    bool projetsLoading,
-    List<Projet> availableProjets,
+    bool projectsLoading,
+    List<Project> availableProjects,
     Objectif? existing,
-    int? selectedProjetId,
+    int? selectedProjectId,
     String title,
     String description,
     DateTime deadline,
@@ -46,10 +46,10 @@ class _$ObjectifFormStateCWProxyImpl implements _$ObjectifFormStateCWProxy {
   /// ObjectifFormState(...).copyWith(id: 12, name: "My name")
   /// ```
   ObjectifFormState call({
-    Object? projetsLoading = const $CopyWithPlaceholder(),
-    Object? availableProjets = const $CopyWithPlaceholder(),
+    Object? projectsLoading = const $CopyWithPlaceholder(),
+    Object? availableProjects = const $CopyWithPlaceholder(),
     Object? existing = const $CopyWithPlaceholder(),
-    Object? selectedProjetId = const $CopyWithPlaceholder(),
+    Object? selectedProjectId = const $CopyWithPlaceholder(),
     Object? title = const $CopyWithPlaceholder(),
     Object? description = const $CopyWithPlaceholder(),
     Object? deadline = const $CopyWithPlaceholder(),
@@ -58,26 +58,26 @@ class _$ObjectifFormStateCWProxyImpl implements _$ObjectifFormStateCWProxy {
     Object? error = const $CopyWithPlaceholder(),
   }) {
     return ObjectifFormState(
-      projetsLoading:
-          projetsLoading == const $CopyWithPlaceholder() ||
-              projetsLoading == null
-          ? _value.projetsLoading
+      projectsLoading:
+          projectsLoading == const $CopyWithPlaceholder() ||
+              projectsLoading == null
+          ? _value.projectsLoading
           // ignore: cast_nullable_to_non_nullable
-          : projetsLoading as bool,
-      availableProjets:
-          availableProjets == const $CopyWithPlaceholder() ||
-              availableProjets == null
-          ? _value.availableProjets
+          : projectsLoading as bool,
+      availableProjects:
+          availableProjects == const $CopyWithPlaceholder() ||
+              availableProjects == null
+          ? _value.availableProjects
           // ignore: cast_nullable_to_non_nullable
-          : availableProjets as List<Projet>,
+          : availableProjects as List<Project>,
       existing: existing == const $CopyWithPlaceholder()
           ? _value.existing
           // ignore: cast_nullable_to_non_nullable
           : existing as Objectif?,
-      selectedProjetId: selectedProjetId == const $CopyWithPlaceholder()
-          ? _value.selectedProjetId
+      selectedProjectId: selectedProjectId == const $CopyWithPlaceholder()
+          ? _value.selectedProjectId
           // ignore: cast_nullable_to_non_nullable
-          : selectedProjetId as int?,
+          : selectedProjectId as int?,
       title: title == const $CopyWithPlaceholder() || title == null
           ? _value.title
           // ignore: cast_nullable_to_non_nullable

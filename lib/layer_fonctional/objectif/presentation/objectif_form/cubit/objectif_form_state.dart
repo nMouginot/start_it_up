@@ -1,19 +1,19 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 
-import '../../../../projet/domain/entity/projet.dart';
+import '../../../../project/domain/entity/project.dart';
 import '../../../domain/entity/objectif.dart';
 
 part 'objectif_form_state.g.dart';
 
 @CopyWith()
 class ObjectifFormState {
-  final bool projetsLoading;
-  final List<Projet> availableProjets;
+  final bool projectsLoading;
+  final List<Project> availableProjects;
 
   /// When non-null, the form is in edit mode for that objectif.
   final Objectif? existing;
 
-  final int? selectedProjetId;
+  final int? selectedProjectId;
   final String title;
   final String description;
   final DateTime deadline;
@@ -23,10 +23,10 @@ class ObjectifFormState {
   final Object? error;
 
   const ObjectifFormState({
-    required this.projetsLoading,
-    required this.availableProjets,
+    required this.projectsLoading,
+    required this.availableProjects,
     required this.existing,
-    required this.selectedProjetId,
+    required this.selectedProjectId,
     required this.title,
     required this.description,
     required this.deadline,
@@ -36,15 +36,15 @@ class ObjectifFormState {
   });
 
   factory ObjectifFormState.initial({
-    int? initialProjetId,
+    int? initialProjectId,
     Objectif? existing,
   }) {
     final tomorrow = DateTime.now().add(const Duration(days: 1));
     return ObjectifFormState(
-      projetsLoading: true,
-      availableProjets: const [],
+      projectsLoading: true,
+      availableProjects: const [],
       existing: existing,
-      selectedProjetId: existing?.projetId ?? initialProjetId,
+      selectedProjectId: existing?.projectId ?? initialProjectId,
       title: existing?.title ?? '',
       description: existing?.description ?? '',
       deadline:
@@ -60,7 +60,7 @@ class ObjectifFormState {
 
   bool get canSubmit =>
       !submitting &&
-      selectedProjetId != null &&
+      selectedProjectId != null &&
       title.trim().isNotEmpty &&
       description.trim().isNotEmpty;
 }

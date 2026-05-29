@@ -19,8 +19,8 @@ class HomePage extends StatelessWidget {
               children: [
                 _HomeAction(
                   icon: Icons.folder_open,
-                  label: 'Projets',
-                  onTap: () => context.go(AppRoutes.projets),
+                  label: 'Projects',
+                  onTap: () => context.go(AppRoutes.projects),
                 ),
                 const SizedBox(height: 16),
                 _HomeAction(

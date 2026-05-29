@@ -8,24 +8,24 @@ import 'cubit/objectif_form_state.dart';
 import 'widget/objectif_form.dart';
 
 /// Create / edit form for an objectif. Routed to from:
-///   - home: no [initialProjetId], no [existing] (free pick of projet)
-///   - projet detail (new): [initialProjetId] set, [existing] null (projet locked)
-///   - projet detail (edit): [existing] set (projet locked, fields pre-filled)
+///   - home: no [initialProjectId], no [existing] (free pick of project)
+///   - project detail (new): [initialProjectId] set, [existing] null (project locked)
+///   - project detail (edit): [existing] set (project locked, fields pre-filled)
 class ObjectifFormPage extends StatelessWidget {
-  final int? initialProjetId;
+  final int? initialProjectId;
   final Objectif? existing;
 
-  const ObjectifFormPage({super.key, this.initialProjetId, this.existing});
+  const ObjectifFormPage({super.key, this.initialProjectId, this.existing});
 
   @override
   Widget build(BuildContext context) {
-    final projetLocked = existing != null || initialProjetId != null;
+    final projectLocked = existing != null || initialProjectId != null;
     return BlocProvider(
       create: (_) =>
-          locator<ObjectifFormCubit>(param1: initialProjetId, param2: existing)
-            ..loadProjets(),
+          locator<ObjectifFormCubit>(param1: initialProjectId, param2: existing)
+            ..loadProjects(),
       child: _ObjectifFormView(
-        projetLocked: projetLocked,
+        projectLocked: projectLocked,
         isEditing: existing != null,
       ),
     );
@@ -33,11 +33,11 @@ class ObjectifFormPage extends StatelessWidget {
 }
 
 class _ObjectifFormView extends StatelessWidget {
-  final bool projetLocked;
+  final bool projectLocked;
   final bool isEditing;
 
   const _ObjectifFormView({
-    required this.projetLocked,
+    required this.projectLocked,
     required this.isEditing,
   });
 
@@ -53,10 +53,10 @@ class _ObjectifFormView extends StatelessWidget {
               !previous.submitted && current.submitted,
           listener: (context, _) => Navigator.of(context).pop(true),
           builder: (context, state) {
-            if (state.projetsLoading) {
+            if (state.projectsLoading) {
               return const Center(child: CircularProgressIndicator());
             }
-            return ObjectifForm(state: state, projetLocked: projetLocked);
+            return ObjectifForm(state: state, projectLocked: projectLocked);
           },
         ),
       ),

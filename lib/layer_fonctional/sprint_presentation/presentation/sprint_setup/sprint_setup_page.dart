@@ -132,10 +132,10 @@ class _Summary extends StatelessWidget {
         'Sprint du ${timeframe.start.formattedDayMonthYear} au '
         '${timeframe.end.formattedDayMonthYear} • '
         '${state.selectedObjectifIds.length} objectif(s) sur '
-        '${state.selectedProjetCount} projet(s)';
+        '${state.selectedProjectCount} project(s)';
     final builtNote = built == null
         ? 'Aucune présentation prête.'
-        : 'Présentation prête : ${built.totalProjets} projet(s), '
+        : 'Présentation prête : ${built.totalProjects} project(s), '
               '${built.totalObjectifs} objectif(s).';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

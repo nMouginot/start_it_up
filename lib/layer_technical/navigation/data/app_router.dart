@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import '../../../layer_fonctional/home/presentation/home_page.dart';
 import '../../../layer_fonctional/objectif/domain/entity/objectif.dart';
 import '../../../layer_fonctional/objectif/presentation/objectif_form/objectif_form_page.dart';
-import '../../../layer_fonctional/projet/presentation/projet_detail/projet_detail_page.dart';
-import '../../../layer_fonctional/projet/presentation/projet_list/projet_list_page.dart';
+import '../../../layer_fonctional/project/presentation/project_detail/project_detail_page.dart';
+import '../../../layer_fonctional/project/presentation/project_list/project_list_page.dart';
 import '../../../layer_fonctional/sprint_presentation/presentation/sprint_setup/sprint_setup_page.dart';
 import '../domain/guards/auth_guard.dart';
 import 'app_routes.dart';
@@ -24,14 +24,14 @@ class AppRouter {
         builder: (context, state) => const HomePage(),
       ),
       GoRoute(
-        path: AppRoutes.projets,
-        builder: (context, state) => const ProjetListPage(),
+        path: AppRoutes.projects,
+        builder: (context, state) => const ProjectListPage(),
       ),
       GoRoute(
-        path: AppRoutes.projetDetail,
+        path: AppRoutes.projectDetail,
         builder: (context, state) {
           final id = int.parse(state.pathParameters['id']!);
-          return ProjetDetailPage(projetId: id);
+          return ProjectDetailPage(projectId: id);
         },
       ),
       GoRoute(
@@ -39,10 +39,10 @@ class AppRouter {
         builder: (context, state) => const ObjectifFormPage(),
       ),
       GoRoute(
-        path: AppRoutes.projetObjectifCreate,
+        path: AppRoutes.projectObjectifCreate,
         builder: (context, state) {
           final id = int.parse(state.pathParameters['id']!);
-          return ObjectifFormPage(initialProjetId: id);
+          return ObjectifFormPage(initialProjectId: id);
         },
       ),
       GoRoute(

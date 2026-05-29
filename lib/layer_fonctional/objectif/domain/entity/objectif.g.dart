@@ -18,7 +18,7 @@ abstract class _$ObjectifCWProxy {
   /// ```
   Objectif call({
     int id,
-    int projetId,
+    int projectId,
     String title,
     String description,
     DateTime deadline,
@@ -43,7 +43,7 @@ class _$ObjectifCWProxyImpl implements _$ObjectifCWProxy {
   /// ```
   Objectif call({
     Object? id = const $CopyWithPlaceholder(),
-    Object? projetId = const $CopyWithPlaceholder(),
+    Object? projectId = const $CopyWithPlaceholder(),
     Object? title = const $CopyWithPlaceholder(),
     Object? description = const $CopyWithPlaceholder(),
     Object? deadline = const $CopyWithPlaceholder(),
@@ -54,10 +54,10 @@ class _$ObjectifCWProxyImpl implements _$ObjectifCWProxy {
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
           : id as int,
-      projetId: projetId == const $CopyWithPlaceholder() || projetId == null
-          ? _value.projetId
+      projectId: projectId == const $CopyWithPlaceholder() || projectId == null
+          ? _value.projectId
           // ignore: cast_nullable_to_non_nullable
-          : projetId as int,
+          : projectId as int,
       title: title == const $CopyWithPlaceholder() || title == null
           ? _value.title
           // ignore: cast_nullable_to_non_nullable
@@ -92,7 +92,7 @@ extension $ObjectifCopyWith on Objectif {
 
 Objectif _$ObjectifFromJson(Map<String, dynamic> json) => Objectif(
   id: (json['id'] as num).toInt(),
-  projetId: (json['projetId'] as num).toInt(),
+  projectId: (json['projectId'] as num).toInt(),
   title: json['title'] as String,
   description: json['description'] as String,
   deadline: DateTime.parse(json['deadline'] as String),
@@ -101,7 +101,7 @@ Objectif _$ObjectifFromJson(Map<String, dynamic> json) => Objectif(
 
 Map<String, dynamic> _$ObjectifToJson(Objectif instance) => <String, dynamic>{
   'id': instance.id,
-  'projetId': instance.projetId,
+  'projectId': instance.projectId,
   'title': instance.title,
   'description': instance.description,
   'deadline': instance.deadline.toIso8601String(),

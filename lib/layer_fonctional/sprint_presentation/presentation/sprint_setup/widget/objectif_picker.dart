@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../../../layer_technical/extension/date_time_extension.dart';
 import '../../../../objectif/domain/entity/objectif.dart';
-import '../../../../projet/domain/entity/projet.dart';
-import '../../../../projet_catalog/domain/entity/projet_catalog.dart';
+import '../../../../project/domain/entity/project.dart';
+import '../../../../project_catalog/domain/entity/project_catalog.dart';
 
 /// Lets the user pick objectifs for the next sprint, grouped by their parent
-/// projet for easy scanning. Selection happens at the objectif level —
-/// projets are only a visual group, not selectable as a whole.
+/// project for easy scanning. Selection happens at the objectif level —
+/// projects are only a visual group, not selectable as a whole.
 class ObjectifPicker extends StatelessWidget {
-  final ProjetCatalog catalog;
+  final ProjectCatalog catalog;
   final Set<int> selectedObjectifIds;
   final ValueChanged<Objectif> onToggle;
 
@@ -22,20 +22,20 @@ class ObjectifPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (catalog.projets.isEmpty) {
+    if (catalog.projects.isEmpty) {
       return const Padding(
         padding: EdgeInsets.symmetric(vertical: 16),
-        child: Text('Aucun projet disponible.'),
+        child: Text('Aucun project disponible.'),
       );
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final projet in catalog.projets)
-          if (catalog.objectifsOf(projet).isNotEmpty)
-            _ProjetSection(
-              projet: projet,
-              objectifs: catalog.objectifsOf(projet),
+        for (final project in catalog.projects)
+          if (catalog.objectifsOf(project).isNotEmpty)
+            _ProjectSection(
+              project: project,
+              objectifs: catalog.objectifsOf(project),
               selectedObjectifIds: selectedObjectifIds,
               onToggle: onToggle,
             ),
@@ -44,14 +44,14 @@ class ObjectifPicker extends StatelessWidget {
   }
 }
 
-class _ProjetSection extends StatelessWidget {
-  final Projet projet;
+class _ProjectSection extends StatelessWidget {
+  final Project project;
   final List<Objectif> objectifs;
   final Set<int> selectedObjectifIds;
   final ValueChanged<Objectif> onToggle;
 
-  const _ProjetSection({
-    required this.projet,
+  const _ProjectSection({
+    required this.project,
     required this.objectifs,
     required this.selectedObjectifIds,
     required this.onToggle,
@@ -73,7 +73,7 @@ class _ProjetSection extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(projet.name, style: theme.textTheme.titleMedium),
+                  child: Text(project.name, style: theme.textTheme.titleMedium),
                 ),
                 Text(
                   '$selectedCount / ${objectifs.length}',

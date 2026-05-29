@@ -18,7 +18,7 @@ abstract class _$SprintSetupStateCWProxy {
   /// ```
   SprintSetupState call({
     bool catalogLoading,
-    ProjetCatalog? catalog,
+    ProjectCatalog? catalog,
     Set<int> selectedObjectifIds,
     SprintTimeframe timeframe,
     bool building,
@@ -61,7 +61,7 @@ class _$SprintSetupStateCWProxyImpl implements _$SprintSetupStateCWProxy {
       catalog: catalog == const $CopyWithPlaceholder()
           ? _value.catalog
           // ignore: cast_nullable_to_non_nullable
-          : catalog as ProjetCatalog?,
+          : catalog as ProjectCatalog?,
       selectedObjectifIds:
           selectedObjectifIds == const $CopyWithPlaceholder() ||
               selectedObjectifIds == null

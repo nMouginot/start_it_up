@@ -37,7 +37,10 @@ class SprintOverviewSlide extends FlutterDeckSlideWidget {
               spacing: 24,
               runSpacing: 24,
               children: [
-                _MetricCard(label: 'Projets', value: presentation.totalProjets),
+                _MetricCard(
+                  label: 'Projects',
+                  value: presentation.totalProjects,
+                ),
                 _MetricCard(
                   label: 'Objectifs',
                   value: presentation.totalObjectifs,

@@ -1,6 +1,6 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 
-import '../../../../projet_catalog/domain/entity/projet_catalog.dart';
+import '../../../../project_catalog/domain/entity/project_catalog.dart';
 import '../../../domain/entity/sprint_presentation.dart';
 import '../../../domain/entity/sprint_timeframe.dart';
 
@@ -9,7 +9,7 @@ part 'sprint_setup_state.g.dart';
 @CopyWith()
 class SprintSetupState {
   final bool catalogLoading;
-  final ProjetCatalog? catalog;
+  final ProjectCatalog? catalog;
   final Set<int> selectedObjectifIds;
   final SprintTimeframe timeframe;
   final bool building;
@@ -43,17 +43,16 @@ class SprintSetupState {
 
   bool get canLaunch => builtPresentation != null && !building;
 
-  /// Number of distinct projets touched by the current objectif selection.
-  int get selectedProjetCount {
+  int get selectedProjectCount {
     final catalog = this.catalog;
     if (catalog == null) return 0;
-    final projetIds = <int>{};
-    for (final projet in catalog.projets) {
+    final projectIds = <int>{};
+    for (final project in catalog.projects) {
       final hasSelected = catalog
-          .objectifsOf(projet)
+          .objectifsOf(project)
           .any((objectif) => selectedObjectifIds.contains(objectif.id));
-      if (hasSelected) projetIds.add(projet.id);
+      if (hasSelected) projectIds.add(project.id);
     }
-    return projetIds.length;
+    return projectIds.length;
   }
 }

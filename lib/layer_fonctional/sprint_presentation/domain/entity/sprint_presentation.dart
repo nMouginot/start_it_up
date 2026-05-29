@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../objectif/domain/entity/objectif.dart';
-import 'projet_sprint_block.dart';
+import 'project_sprint_block.dart';
 import 'sprint_timeframe.dart';
 
 part 'sprint_presentation.g.dart';
@@ -10,7 +10,7 @@ part 'sprint_presentation.g.dart';
 class SprintPresentation {
   final SprintTimeframe timeframe;
 
-  final List<ProjetSprintBlock> blocks;
+  final List<ProjectSprintBlock> blocks;
 
   const SprintPresentation({required this.timeframe, required this.blocks});
 
@@ -25,5 +25,5 @@ class SprintPresentation {
   Iterable<Objectif> get allObjectifs =>
       blocks.expand((block) => block.objectifs);
 
-  int get totalProjets => blocks.length;
+  int get totalProjects => blocks.length;
 }

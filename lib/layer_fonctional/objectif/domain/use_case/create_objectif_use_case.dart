@@ -8,12 +8,12 @@ class CreateObjectifUseCase {
     : _objectifRepository = objectifRepository;
 
   Future<Objectif> execute({
-    required int projetId,
+    required int projectId,
     required String title,
     required String description,
     required DateTime deadline,
   }) => _objectifRepository.create(
-    projetId: projetId,
+    projectId: projectId,
     title: title,
     description: description,
     deadline: deadline,

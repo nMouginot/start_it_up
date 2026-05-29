@@ -1,39 +1,39 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../projet/domain/use_case/get_projets_use_case.dart';
+import '../../../../project/domain/use_case/get_projects_use_case.dart';
 import '../../../domain/entity/objectif.dart';
 import '../../../domain/use_case/create_objectif_use_case.dart';
 import '../../../domain/use_case/update_objectif_use_case.dart';
 import 'objectif_form_state.dart';
 
 class ObjectifFormCubit extends Cubit<ObjectifFormState> {
-  final GetProjetsUseCase _getProjetsUseCase;
+  final GetProjectsUseCase _getProjectsUseCase;
   final CreateObjectifUseCase _createObjectifUseCase;
   final UpdateObjectifUseCase _updateObjectifUseCase;
 
   ObjectifFormCubit({
-    required GetProjetsUseCase getProjetsUseCase,
+    required GetProjectsUseCase getProjectsUseCase,
     required CreateObjectifUseCase createObjectifUseCase,
     required UpdateObjectifUseCase updateObjectifUseCase,
-    int? initialProjetId,
+    int? initialProjectId,
     Objectif? existing,
-  }) : _getProjetsUseCase = getProjetsUseCase,
+  }) : _getProjectsUseCase = getProjectsUseCase,
        _createObjectifUseCase = createObjectifUseCase,
        _updateObjectifUseCase = updateObjectifUseCase,
        super(
          ObjectifFormState.initial(
-           initialProjetId: initialProjetId,
+           initialProjectId: initialProjectId,
            existing: existing,
          ),
        );
 
-  Future<void> loadProjets() async {
-    emit(state.copyWith(projetsLoading: true, error: null));
+  Future<void> loadProjects() async {
+    emit(state.copyWith(projectsLoading: true, error: null));
     try {
-      final projets = await _getProjetsUseCase.execute();
-      emit(state.copyWith(projetsLoading: false, availableProjets: projets));
+      final projects = await _getProjectsUseCase.execute();
+      emit(state.copyWith(projectsLoading: false, availableProjects: projects));
     } catch (error) {
-      emit(state.copyWith(projetsLoading: false, error: error));
+      emit(state.copyWith(projectsLoading: false, error: error));
     }
   }
 
@@ -44,8 +44,8 @@ class ObjectifFormCubit extends Cubit<ObjectifFormState> {
 
   void updateDeadline(DateTime value) => emit(state.copyWith(deadline: value));
 
-  void updateProjet(int projetId) =>
-      emit(state.copyWith(selectedProjetId: projetId));
+  void updateProject(int projectId) =>
+      emit(state.copyWith(selectedProjectId: projectId));
 
   Future<void> submit() async {
     if (!state.canSubmit) return;
@@ -62,7 +62,7 @@ class ObjectifFormCubit extends Cubit<ObjectifFormState> {
         );
       } else {
         await _createObjectifUseCase.execute(
-          projetId: state.selectedProjetId!,
+          projectId: state.selectedProjectId!,
           title: state.title.trim(),
           description: state.description.trim(),
           deadline: state.deadline,

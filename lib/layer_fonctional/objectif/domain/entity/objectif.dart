@@ -13,7 +13,7 @@ part 'objectif.g.dart';
 class Objectif {
   final int id;
 
-  final int projetId;
+  final int projectId;
 
   final String title;
 
@@ -25,14 +25,14 @@ class Objectif {
 
   const Objectif({
     required this.id,
-    required this.projetId,
+    required this.projectId,
     required this.title,
     required this.description,
     required this.deadline,
     required this.status,
   });
 
-  factory Objectif.faker({required int seed, required int projetId}) {
+  factory Objectif.faker({required int seed, required int projectId}) {
     final faker = Faker.withGenerator(RandomGenerator(seed: seed));
     final random = Random(seed);
 
@@ -44,7 +44,7 @@ class Objectif {
 
     return Objectif(
       id: seed,
-      projetId: projetId,
+      projectId: projectId,
       title: faker.lorem.sentence().replaceAll('.', ''),
       description: faker.lorem.sentences(2).join(' '),
       deadline: deadline,

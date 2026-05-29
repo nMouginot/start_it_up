@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 
 import '../../../layer_technical/dependency_injection/feature_injector.dart';
-import '../../projet_catalog/domain/use_case/get_projet_catalog_use_case.dart';
+import '../../project_catalog/domain/use_case/get_project_catalog_use_case.dart';
 import '../presentation/presentation_launcher.dart';
 import '../presentation/sprint_setup/cubit/sprint_setup_cubit.dart';
 import 'use_case/build_sprint_presentation_use_case.dart';
@@ -23,7 +23,7 @@ class SprintPresentationInjector implements FeatureInjector {
   void registerCubits(GetIt locator) {
     locator.registerLazySingleton(
       () => SprintSetupCubit(
-        getProjetCatalogUseCase: locator<GetProjetCatalogUseCase>(),
+        getProjectCatalogUseCase: locator<GetProjectCatalogUseCase>(),
         buildSprintPresentationUseCase:
             locator<BuildSprintPresentationUseCase>(),
         presentationLauncher: locator<PresentationLauncher>(),

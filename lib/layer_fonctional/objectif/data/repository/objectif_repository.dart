@@ -8,7 +8,7 @@ import '../../domain/entity/objectif_status.dart';
 /// faker objectif places a copy into the store that subsequent fetches pick
 /// up, transparently overriding the seed-generated value.
 class ObjectifRepository {
-  static const int _objectifsPerProjet = 4;
+  static const int _objectifsPerProject = 4;
 
   /// Override / created objectifs, indexed by their id.
   final Map<int, Objectif> _overrides = {};
@@ -17,23 +17,24 @@ class ObjectifRepository {
   /// Starts well above the faker seed range to avoid collisions.
   int _nextCreatedId = 1000000;
 
-  Future<List<Objectif>> fetchByProjetId(int projetId) async {
+  Future<List<Objectif>> fetchByProjectId(int projectId) async {
     await Future.delayed(const Duration(milliseconds: 250));
     final fakerIds = <int>{};
-    final fakerObjectifs = List.generate(_objectifsPerProjet, (index) {
-      final seed = projetId * 100 + index + 1;
+    final fakerObjectifs = List.generate(_objectifsPerProject, (index) {
+      final seed = projectId * 100 + index + 1;
       fakerIds.add(seed);
-      return _overrides[seed] ?? Objectif.faker(seed: seed, projetId: projetId);
+      return _overrides[seed] ??
+          Objectif.faker(seed: seed, projectId: projectId);
     });
     final extras = _overrides.values.where(
       (objectif) =>
-          objectif.projetId == projetId && !fakerIds.contains(objectif.id),
+          objectif.projectId == projectId && !fakerIds.contains(objectif.id),
     );
     return [...fakerObjectifs, ...extras];
   }
 
   Future<Objectif> create({
-    required int projetId,
+    required int projectId,
     required String title,
     required String description,
     required DateTime deadline,
@@ -41,7 +42,7 @@ class ObjectifRepository {
     await Future.delayed(const Duration(milliseconds: 150));
     final objectif = Objectif(
       id: _nextCreatedId++,
-      projetId: projetId,
+      projectId: projectId,
       title: title,
       description: description,
       deadline: deadline,

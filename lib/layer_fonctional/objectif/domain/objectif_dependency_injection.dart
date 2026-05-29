@@ -1,12 +1,12 @@
 import 'package:get_it/get_it.dart';
 
 import '../../../layer_technical/dependency_injection/feature_injector.dart';
-import '../../projet/domain/use_case/get_projets_use_case.dart';
+import '../../project/domain/use_case/get_projects_use_case.dart';
 import '../data/repository/objectif_repository.dart';
 import 'entity/objectif.dart' show Objectif;
 import '../presentation/objectif_form/cubit/objectif_form_cubit.dart';
 import 'use_case/create_objectif_use_case.dart';
-import 'use_case/get_objectifs_by_projet_use_case.dart';
+import 'use_case/get_objectifs_by_project_use_case.dart';
 import 'use_case/update_objectif_use_case.dart';
 
 class ObjectifInjector implements FeatureInjector {
@@ -20,7 +20,7 @@ class ObjectifInjector implements FeatureInjector {
   @override
   void registerUseCases(GetIt locator) {
     locator.registerLazySingleton(
-      () => GetObjectifsByProjetUseCase(
+      () => GetObjectifsByProjectUseCase(
         objectifRepository: locator<ObjectifRepository>(),
       ),
     );
@@ -39,11 +39,11 @@ class ObjectifInjector implements FeatureInjector {
   @override
   void registerCubits(GetIt locator) {
     locator.registerFactoryParam<ObjectifFormCubit, int?, Objectif?>(
-      (initialProjetId, existing) => ObjectifFormCubit(
-        getProjetsUseCase: locator<GetProjetsUseCase>(),
+      (initialProjectId, existing) => ObjectifFormCubit(
+        getProjectsUseCase: locator<GetProjectsUseCase>(),
         createObjectifUseCase: locator<CreateObjectifUseCase>(),
         updateObjectifUseCase: locator<UpdateObjectifUseCase>(),
-        initialProjetId: initialProjetId,
+        initialProjectId: initialProjectId,
         existing: existing,
       ),
     );

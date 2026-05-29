@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../layer_technical/extension/date_time_extension.dart';
-import '../../../../projet/domain/entity/projet.dart';
+import '../../../../project/domain/entity/project.dart';
 import '../cubit/objectif_form_cubit.dart';
 import '../cubit/objectif_form_state.dart';
 
 class ObjectifForm extends StatelessWidget {
   final ObjectifFormState state;
-  final bool projetLocked;
+  final bool projectLocked;
 
   const ObjectifForm({
     super.key,
     required this.state,
-    required this.projetLocked,
+    required this.projectLocked,
   });
 
   @override
@@ -22,10 +22,10 @@ class ObjectifForm extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        _ProjetField(
+        _ProjectField(
           state: state,
-          projetLocked: projetLocked,
-          onChanged: cubit.updateProjet,
+          projectLocked: projectLocked,
+          onChanged: cubit.updateProject,
         ),
         const SizedBox(height: 16),
         TextFormField(
@@ -76,43 +76,43 @@ class ObjectifForm extends StatelessWidget {
   }
 }
 
-class _ProjetField extends StatelessWidget {
+class _ProjectField extends StatelessWidget {
   final ObjectifFormState state;
-  final bool projetLocked;
+  final bool projectLocked;
   final ValueChanged<int> onChanged;
 
-  const _ProjetField({
+  const _ProjectField({
     required this.state,
-    required this.projetLocked,
+    required this.projectLocked,
     required this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (projetLocked) {
-      final projet = state.availableProjets.firstWhere(
-        (p) => p.id == state.selectedProjetId,
+    if (projectLocked) {
+      final project = state.availableProjects.firstWhere(
+        (p) => p.id == state.selectedProjectId,
         orElse: () =>
-            Projet(id: state.selectedProjetId ?? 0, name: '…', version: ''),
+            Project(id: state.selectedProjectId ?? 0, name: '…', version: ''),
       );
       return InputDecorator(
         decoration: const InputDecoration(
-          labelText: 'Projet',
+          labelText: 'Project',
           border: OutlineInputBorder(),
         ),
-        child: Text(projet.name),
+        child: Text(project.name),
       );
     }
     return DropdownButtonFormField<int>(
-      initialValue: state.selectedProjetId,
+      initialValue: state.selectedProjectId,
       decoration: const InputDecoration(
-        labelText: 'Projet',
+        labelText: 'Project',
         border: OutlineInputBorder(),
       ),
-      items: state.availableProjets
+      items: state.availableProjects
           .map(
-            (projet) =>
-                DropdownMenuItem(value: projet.id, child: Text(projet.name)),
+            (project) =>
+                DropdownMenuItem(value: project.id, child: Text(project.name)),
           )
           .toList(growable: false),
       onChanged: (value) {

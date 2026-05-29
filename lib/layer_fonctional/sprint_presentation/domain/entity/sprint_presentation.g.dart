@@ -14,7 +14,7 @@ SprintPresentation _$SprintPresentationFromJson(Map<String, dynamic> json) =>
         json['timeframe'] as Map<String, dynamic>,
       ),
       blocks: (json['blocks'] as List<dynamic>)
-          .map((e) => ProjetSprintBlock.fromJson(e as Map<String, dynamic>))
+          .map((e) => ProjectSprintBlock.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
