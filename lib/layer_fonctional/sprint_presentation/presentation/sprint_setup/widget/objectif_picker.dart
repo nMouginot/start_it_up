@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../layer_technical/extension/date_time_extension.dart';
-import '../../../objectif/domain/entity/objectif.dart';
-import '../../../projet/domain/entity/projet.dart';
-import '../../../projet_catalog/domain/entity/projet_catalog.dart';
+import '../../../../../layer_technical/extension/date_time_extension.dart';
+import '../../../../objectif/domain/entity/objectif.dart';
+import '../../../../projet/domain/entity/projet.dart';
+import '../../../../projet_catalog/domain/entity/projet_catalog.dart';
 
 /// Lets the user pick objectifs for the next sprint, grouped by their parent
 /// projet for easy scanning. Selection happens at the objectif level —
@@ -73,10 +73,7 @@ class _ProjetSection extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(
-                    projet.name,
-                    style: theme.textTheme.titleMedium,
-                  ),
+                  child: Text(projet.name, style: theme.textTheme.titleMedium),
                 ),
                 Text(
                   '$selectedCount / ${objectifs.length}',

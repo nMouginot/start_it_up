@@ -54,9 +54,7 @@ class _HomeAction extends StatelessWidget {
       icon: Icon(icon),
       label: Text(label),
       onPressed: onTap,
-      style: FilledButton.styleFrom(
-        minimumSize: const Size.fromHeight(56),
-      ),
+      style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(56)),
     );
   }
 }

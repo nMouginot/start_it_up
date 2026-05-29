@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 
-import '../../../../layer_technical/extension/date_time_extension.dart';
-import '../../domain/entity/sprint_timeframe.dart';
+import '../../../../../layer_technical/extension/date_time_extension.dart';
+import '../../../domain/entity/sprint_timeframe.dart';
 
 class SprintIntroSlide extends FlutterDeckSlideWidget {
   final SprintTimeframe timeframe;

@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../objectif/domain/entity/objectif.dart';
-import '../../../projet_catalog/domain/use_case/get_projet_catalog_use_case.dart';
-import '../../domain/entity/sprint_timeframe.dart';
-import '../../domain/use_case/build_sprint_presentation_use_case.dart';
-import '../presentation_launcher.dart';
+import '../../../../objectif/domain/entity/objectif.dart';
+import '../../../../projet_catalog/domain/use_case/get_projet_catalog_use_case.dart';
+import '../../../domain/entity/sprint_timeframe.dart';
+import '../../../domain/use_case/build_sprint_presentation_use_case.dart';
+import '../../presentation_launcher.dart';
 import 'sprint_setup_state.dart';
 
 class SprintSetupCubit extends Cubit<SprintSetupState> {
@@ -40,17 +40,12 @@ class SprintSetupCubit extends Cubit<SprintSetupState> {
     final next = Set<int>.from(state.selectedObjectifIds);
     if (!next.add(objectif.id)) next.remove(objectif.id);
     emit(
-      state.copyWith(
-        selectedObjectifIds: next,
-        clearBuiltPresentation: true,
-      ),
+      state.copyWith(selectedObjectifIds: next, clearBuiltPresentation: true),
     );
   }
 
   void updateTimeframe(SprintTimeframe timeframe) {
-    emit(
-      state.copyWith(timeframe: timeframe, clearBuiltPresentation: true),
-    );
+    emit(state.copyWith(timeframe: timeframe, clearBuiltPresentation: true));
   }
 
   Future<void> generate() async {

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 
-import '../../../layer_technical/dependency_injection/app_dependency_injection.dart';
-import '../domain/entity/sprint_presentation.dart';
-import 'presentation_launcher.dart';
+import '../../../../layer_technical/dependency_injection/app_dependency_injection.dart';
+import '../../domain/entity/sprint_presentation.dart';
+import '../presentation_launcher.dart';
 import 'slides/projet_objectifs_slide.dart';
 import 'slides/sprint_intro_slide.dart';
 import 'slides/sprint_overview_slide.dart';
@@ -27,9 +27,7 @@ class SprintDeckApp extends StatelessWidget {
     final slides = <FlutterDeckSlideWidget>[
       SprintIntroSlide(timeframe: presentation.timeframe),
       SprintOverviewSlide(presentation: presentation),
-      ...presentation.blocks.map(
-        (block) => ProjetObjectifsSlide(block: block),
-      ),
+      ...presentation.blocks.map((block) => ProjetObjectifsSlide(block: block)),
     ];
 
     return CallbackShortcuts(

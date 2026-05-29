@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import 'layer_fonctional/sprint_presentation/domain/entity/sprint_presentation.dart';
 import 'layer_fonctional/sprint_presentation/presentation/presentation_launcher.dart';
-import 'layer_fonctional/sprint_presentation/presentation/sprint_deck_app.dart';
+import 'layer_fonctional/sprint_presentation/presentation/sprint_deck/sprint_deck_app.dart';
 import 'layer_technical/dependency_injection/app_dependency_injection.dart';
 import 'layer_technical/i18n/extension/arb_translation_extension.dart';
 import 'layer_technical/i18n/l10n/app_localizations.dart';

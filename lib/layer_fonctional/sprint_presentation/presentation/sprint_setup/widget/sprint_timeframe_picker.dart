@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../layer_technical/extension/date_time_extension.dart';
-import '../../domain/entity/sprint_timeframe.dart';
+import '../../../../../layer_technical/extension/date_time_extension.dart';
+import '../../../domain/entity/sprint_timeframe.dart';
 
 class SprintTimeframePicker extends StatelessWidget {
   final SprintTimeframe timeframe;
@@ -21,8 +21,7 @@ class SprintTimeframePicker extends StatelessWidget {
           child: _DateField(
             label: 'Début',
             date: timeframe.start,
-            onPicked: (picked) =>
-                onChanged(timeframe.copyWith(start: picked)),
+            onPicked: (picked) => onChanged(timeframe.copyWith(start: picked)),
           ),
         ),
         const SizedBox(width: 16),

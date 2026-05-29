@@ -1,6 +1,6 @@
-import '../../../projet_catalog/domain/entity/projet_catalog.dart';
-import '../../domain/entity/sprint_presentation.dart';
-import '../../domain/entity/sprint_timeframe.dart';
+import '../../../../projet_catalog/domain/entity/projet_catalog.dart';
+import '../../../domain/entity/sprint_presentation.dart';
+import '../../../domain/entity/sprint_timeframe.dart';
 
 class SprintSetupState {
   final bool catalogLoading;

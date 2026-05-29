@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 
-import '../../../../layer_technical/extension/date_time_extension.dart';
-import '../../../objectif/domain/entity/objectif.dart';
-import '../../domain/entity/projet_sprint_block.dart';
+import '../../../../../layer_technical/extension/date_time_extension.dart';
+import '../../../../objectif/domain/entity/objectif.dart';
+import '../../../domain/entity/projet_sprint_block.dart';
 
 class ProjetObjectifsSlide extends FlutterDeckSlideWidget {
   final ProjetSprintBlock block;

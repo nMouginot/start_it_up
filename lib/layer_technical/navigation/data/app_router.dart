@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../../../layer_fonctional/home/presentation/home_page.dart';
 import '../../../layer_fonctional/projet/presentation/projet_detail/projet_detail_page.dart';
 import '../../../layer_fonctional/projet/presentation/projet_list/projet_list_page.dart';
-import '../../../layer_fonctional/sprint_presentation/presentation/sprint_setup_page.dart';
+import '../../../layer_fonctional/sprint_presentation/presentation/sprint_setup/sprint_setup_page.dart';
 import '../domain/guards/auth_guard.dart';
 import 'app_routes.dart';
 

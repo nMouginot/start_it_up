@@ -13,11 +13,7 @@ class Projet {
 
   final String version;
 
-  const Projet({
-    required this.id,
-    required this.name,
-    required this.version,
-  });
+  const Projet({required this.id, required this.name, required this.version});
 
   factory Projet.faker({int seed = 1}) {
     final fakeData = Faker.withGenerator(RandomGenerator(seed: seed));
