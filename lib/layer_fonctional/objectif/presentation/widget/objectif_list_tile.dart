@@ -5,8 +5,9 @@ import '../../domain/entity/objectif.dart';
 
 class ObjectifListTile extends StatelessWidget {
   final Objectif objectif;
+  final VoidCallback? onEdit;
 
-  const ObjectifListTile({super.key, required this.objectif});
+  const ObjectifListTile({super.key, required this.objectif, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,13 @@ class ObjectifListTile extends StatelessWidget {
         ],
       ),
       isThreeLine: true,
+      trailing: onEdit == null
+          ? null
+          : IconButton(
+              icon: const Icon(Icons.edit),
+              tooltip: 'Modifier',
+              onPressed: onEdit,
+            ),
     );
   }
 }

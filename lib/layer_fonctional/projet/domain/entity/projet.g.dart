@@ -62,3 +62,19 @@ extension $ProjetCopyWith on Projet {
   // ignore: library_private_types_in_public_api
   _$ProjetCWProxy get copyWith => _$ProjetCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Projet _$ProjetFromJson(Map<String, dynamic> json) => Projet(
+  id: (json['id'] as num).toInt(),
+  name: json['name'] as String,
+  version: json['version'] as String,
+);
+
+Map<String, dynamic> _$ProjetToJson(Projet instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'version': instance.version,
+};

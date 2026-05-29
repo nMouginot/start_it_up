@@ -1,7 +1,12 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
+
 import '../../../../projet_catalog/domain/entity/projet_catalog.dart';
 import '../../../domain/entity/sprint_presentation.dart';
 import '../../../domain/entity/sprint_timeframe.dart';
 
+part 'sprint_setup_state.g.dart';
+
+@CopyWith()
 class SprintSetupState {
   final bool catalogLoading;
   final ProjetCatalog? catalog;
@@ -51,26 +56,4 @@ class SprintSetupState {
     }
     return projetIds.length;
   }
-
-  SprintSetupState copyWith({
-    bool? catalogLoading,
-    ProjetCatalog? catalog,
-    Set<int>? selectedObjectifIds,
-    SprintTimeframe? timeframe,
-    bool? building,
-    SprintPresentation? builtPresentation,
-    bool clearBuiltPresentation = false,
-    Object? error,
-    bool clearError = false,
-  }) => SprintSetupState(
-    catalogLoading: catalogLoading ?? this.catalogLoading,
-    catalog: catalog ?? this.catalog,
-    selectedObjectifIds: selectedObjectifIds ?? this.selectedObjectifIds,
-    timeframe: timeframe ?? this.timeframe,
-    building: building ?? this.building,
-    builtPresentation: clearBuiltPresentation
-        ? null
-        : builtPresentation ?? this.builtPresentation,
-    error: clearError ? null : error ?? this.error,
-  );
 }

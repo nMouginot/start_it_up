@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:faker/faker.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'projet.g.dart';
 
 @CopyWith()
+@JsonSerializable()
 class Projet {
   final int id;
 
@@ -30,12 +32,7 @@ class Projet {
     );
   }
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is Projet && other.id == id;
-  }
+  factory Projet.fromJson(Map<String, dynamic> json) => _$ProjetFromJson(json);
 
-  @override
-  int get hashCode => id.hashCode;
+  Map<String, dynamic> toJson() => _$ProjetToJson(this);
 }

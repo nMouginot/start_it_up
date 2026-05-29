@@ -1,7 +1,8 @@
 import 'package:go_router/go_router.dart';
 
 import '../../../layer_fonctional/home/presentation/home_page.dart';
-import '../../../layer_fonctional/objectif/presentation/objectif_create/objectif_create_page.dart';
+import '../../../layer_fonctional/objectif/domain/entity/objectif.dart';
+import '../../../layer_fonctional/objectif/presentation/objectif_form/objectif_form_page.dart';
 import '../../../layer_fonctional/projet/presentation/projet_detail/projet_detail_page.dart';
 import '../../../layer_fonctional/projet/presentation/projet_list/projet_list_page.dart';
 import '../../../layer_fonctional/sprint_presentation/presentation/sprint_setup/sprint_setup_page.dart';
@@ -23,28 +24,33 @@ class AppRouter {
         builder: (context, state) => const HomePage(),
       ),
       GoRoute(
-        path: AppRoutes.objectifCreate,
-        builder: (context, state) => const ObjectifCreatePage(),
-      ),
-      GoRoute(
         path: AppRoutes.projets,
         builder: (context, state) => const ProjetListPage(),
-        routes: [
-          GoRoute(
-            path: ':id',
-            builder: (context, state) {
-              final id = int.parse(state.pathParameters['id']!);
-              return ProjetDetailPage(projetId: id);
-            },
-          ),
-          GoRoute(
-            path: ':id/objectifs/new',
-            builder: (context, state) {
-              final id = int.parse(state.pathParameters['id']!);
-              return ObjectifCreatePage(initialProjetId: id);
-            },
-          ),
-        ],
+      ),
+      GoRoute(
+        path: AppRoutes.projetDetail,
+        builder: (context, state) {
+          final id = int.parse(state.pathParameters['id']!);
+          return ProjetDetailPage(projetId: id);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.objectifCreate,
+        builder: (context, state) => const ObjectifFormPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.projetObjectifCreate,
+        builder: (context, state) {
+          final id = int.parse(state.pathParameters['id']!);
+          return ObjectifFormPage(initialProjetId: id);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.objectifEdit,
+        builder: (context, state) {
+          final existing = state.extra as Objectif?;
+          return ObjectifFormPage(existing: existing);
+        },
       ),
       GoRoute(
         path: AppRoutes.sprintSetup,

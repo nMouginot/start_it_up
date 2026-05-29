@@ -3,15 +3,15 @@ import '../../domain/entity/objectif_status.dart';
 
 /// Placeholder data source for Objectif.
 ///
-/// Backed by faker for the existing catalog, plus an in-memory store for
-/// objectifs created at runtime through the form. The whole shape stays
-/// behind the same async interface so a real API can replace it later
-/// without touching the use cases.
+/// Backed by faker for the base catalog, plus an in-memory override store
+/// so the user can create new objectifs and edit existing ones. Editing a
+/// faker objectif places a copy into the store that subsequent fetches pick
+/// up, transparently overriding the seed-generated value.
 class ObjectifRepository {
   static const int _objectifsPerProjet = 4;
 
-  /// Created-at-runtime objectifs, indexed by their parent projet's id.
-  final Map<int, List<Objectif>> _createdByProjetId = {};
+  /// Override / created objectifs, indexed by their id.
+  final Map<int, Objectif> _overrides = {};
 
   /// Monotonic id source for created objectifs.
   /// Starts well above the faker seed range to avoid collisions.
@@ -19,12 +19,17 @@ class ObjectifRepository {
 
   Future<List<Objectif>> fetchByProjetId(int projetId) async {
     await Future.delayed(const Duration(milliseconds: 250));
+    final fakerIds = <int>{};
     final fakerObjectifs = List.generate(_objectifsPerProjet, (index) {
       final seed = projetId * 100 + index + 1;
-      return Objectif.faker(seed: seed, projetId: projetId);
+      fakerIds.add(seed);
+      return _overrides[seed] ?? Objectif.faker(seed: seed, projetId: projetId);
     });
-    final created = _createdByProjetId[projetId] ?? const [];
-    return [...fakerObjectifs, ...created];
+    final extras = _overrides.values.where(
+      (objectif) =>
+          objectif.projetId == projetId && !fakerIds.contains(objectif.id),
+    );
+    return [...fakerObjectifs, ...extras];
   }
 
   Future<Objectif> create({
@@ -42,8 +47,13 @@ class ObjectifRepository {
       deadline: deadline,
       status: ObjectifStatus.todo,
     );
-    final list = _createdByProjetId.putIfAbsent(projetId, () => []);
-    list.add(objectif);
+    _overrides[objectif.id] = objectif;
     return objectif;
+  }
+
+  Future<Objectif> update(Objectif updated) async {
+    await Future.delayed(const Duration(milliseconds: 150));
+    _overrides[updated.id] = updated;
+    return updated;
   }
 }

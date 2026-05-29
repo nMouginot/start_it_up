@@ -35,6 +35,15 @@ class _ProjetDetailView extends StatelessWidget {
     await cubit.load(projetId);
   }
 
+  Future<void> _editObjectif(BuildContext context, Objectif objectif) async {
+    final cubit = BlocProvider.of<ProjetDetailCubit>(context);
+    await context.push<bool>(
+      AppRoutes.objectifEditPath(objectif.id),
+      extra: objectif,
+    );
+    await cubit.load(projetId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +65,7 @@ class _ProjetDetailView extends StatelessWidget {
             ProjetDetailLoaded(:final projet, :final objectifs) => _LoadedView(
               projet: projet,
               objectifs: objectifs,
+              onEditObjectif: (objectif) => _editObjectif(context, objectif),
             ),
           },
         ),
@@ -67,8 +77,13 @@ class _ProjetDetailView extends StatelessWidget {
 class _LoadedView extends StatelessWidget {
   final Projet projet;
   final List<Objectif> objectifs;
+  final ValueChanged<Objectif> onEditObjectif;
 
-  const _LoadedView({required this.projet, required this.objectifs});
+  const _LoadedView({
+    required this.projet,
+    required this.objectifs,
+    required this.onEditObjectif,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +92,9 @@ class _LoadedView extends StatelessWidget {
       children: [
         _ProjetHeader(projet: projet, objectifCount: objectifs.length),
         const Divider(height: 1),
-        Expanded(child: _ObjectifList(objectifs: objectifs)),
+        Expanded(
+          child: _ObjectifList(objectifs: objectifs, onEdit: onEditObjectif),
+        ),
       ],
     );
   }
@@ -110,8 +127,9 @@ class _ProjetHeader extends StatelessWidget {
 
 class _ObjectifList extends StatelessWidget {
   final List<Objectif> objectifs;
+  final ValueChanged<Objectif> onEdit;
 
-  const _ObjectifList({required this.objectifs});
+  const _ObjectifList({required this.objectifs, required this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +140,13 @@ class _ObjectifList extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       itemCount: objectifs.length,
       separatorBuilder: (_, __) => const Divider(height: 1),
-      itemBuilder: (_, index) => ObjectifListTile(objectif: objectifs[index]),
+      itemBuilder: (_, index) {
+        final objectif = objectifs[index];
+        return ObjectifListTile(
+          objectif: objectif,
+          onEdit: () => onEdit(objectif),
+        );
+      },
     );
   }
 }

@@ -57,3 +57,19 @@ extension $SprintTimeframeCopyWith on SprintTimeframe {
   // ignore: library_private_types_in_public_api
   _$SprintTimeframeCWProxy get copyWith => _$SprintTimeframeCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+SprintTimeframe _$SprintTimeframeFromJson(Map<String, dynamic> json) =>
+    SprintTimeframe(
+      start: DateTime.parse(json['start'] as String),
+      end: DateTime.parse(json['end'] as String),
+    );
+
+Map<String, dynamic> _$SprintTimeframeToJson(SprintTimeframe instance) =>
+    <String, dynamic>{
+      'start': instance.start.toIso8601String(),
+      'end': instance.end.toIso8601String(),
+    };

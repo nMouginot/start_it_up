@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../layer_technical/extension/date_time_extension.dart';
 import '../../../../projet/domain/entity/projet.dart';
-import '../cubit/objectif_create_cubit.dart';
-import '../cubit/objectif_create_state.dart';
+import '../cubit/objectif_form_cubit.dart';
+import '../cubit/objectif_form_state.dart';
 
-class ObjectifCreateForm extends StatelessWidget {
-  final ObjectifCreateState state;
+class ObjectifForm extends StatelessWidget {
+  final ObjectifFormState state;
   final bool projetLocked;
 
-  const ObjectifCreateForm({
+  const ObjectifForm({
     super.key,
     required this.state,
     required this.projetLocked,
@@ -18,7 +18,7 @@ class ObjectifCreateForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<ObjectifCreateCubit>(context);
+    final cubit = BlocProvider.of<ObjectifFormCubit>(context);
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
@@ -67,8 +67,8 @@ class ObjectifCreateForm extends StatelessWidget {
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : const Icon(Icons.add),
-          label: const Text("Créer l'objectif"),
+              : Icon(state.isEditing ? Icons.save : Icons.add),
+          label: Text(state.isEditing ? 'Enregistrer' : "Créer l'objectif"),
           onPressed: state.canSubmit ? cubit.submit : null,
         ),
       ],
@@ -77,7 +77,7 @@ class ObjectifCreateForm extends StatelessWidget {
 }
 
 class _ProjetField extends StatelessWidget {
-  final ObjectifCreateState state;
+  final ObjectifFormState state;
   final bool projetLocked;
   final ValueChanged<int> onChanged;
 

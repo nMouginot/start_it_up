@@ -85,3 +85,32 @@ extension $ObjectifCopyWith on Objectif {
   // ignore: library_private_types_in_public_api
   _$ObjectifCWProxy get copyWith => _$ObjectifCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Objectif _$ObjectifFromJson(Map<String, dynamic> json) => Objectif(
+  id: (json['id'] as num).toInt(),
+  projetId: (json['projetId'] as num).toInt(),
+  title: json['title'] as String,
+  description: json['description'] as String,
+  deadline: DateTime.parse(json['deadline'] as String),
+  status: $enumDecode(_$ObjectifStatusEnumMap, json['status']),
+);
+
+Map<String, dynamic> _$ObjectifToJson(Objectif instance) => <String, dynamic>{
+  'id': instance.id,
+  'projetId': instance.projetId,
+  'title': instance.title,
+  'description': instance.description,
+  'deadline': instance.deadline.toIso8601String(),
+  'status': _$ObjectifStatusEnumMap[instance.status]!,
+};
+
+const _$ObjectifStatusEnumMap = {
+  ObjectifStatus.todo: 'todo',
+  ObjectifStatus.done: 'done',
+  ObjectifStatus.failed: 'failed',
+  ObjectifStatus.blocked: 'blocked',
+};

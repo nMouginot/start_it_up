@@ -27,7 +27,7 @@ class SprintSetupCubit extends Cubit<SprintSetupState> {
   }
 
   Future<void> _loadCatalog() async {
-    emit(state.copyWith(catalogLoading: true, clearError: true));
+    emit(state.copyWith(catalogLoading: true, error: null));
     try {
       final catalog = await _getProjetCatalogUseCase.execute();
       emit(state.copyWith(catalogLoading: false, catalog: catalog));
@@ -39,25 +39,17 @@ class SprintSetupCubit extends Cubit<SprintSetupState> {
   void toggleObjectif(Objectif objectif) {
     final next = Set<int>.from(state.selectedObjectifIds);
     if (!next.add(objectif.id)) next.remove(objectif.id);
-    emit(
-      state.copyWith(selectedObjectifIds: next, clearBuiltPresentation: true),
-    );
+    emit(state.copyWith(selectedObjectifIds: next, builtPresentation: null));
   }
 
   void updateTimeframe(SprintTimeframe timeframe) {
-    emit(state.copyWith(timeframe: timeframe, clearBuiltPresentation: true));
+    emit(state.copyWith(timeframe: timeframe, builtPresentation: null));
   }
 
   Future<void> generate() async {
     final catalog = state.catalog;
     if (!state.canGenerate || catalog == null) return;
-    emit(
-      state.copyWith(
-        building: true,
-        clearError: true,
-        clearBuiltPresentation: true,
-      ),
-    );
+    emit(state.copyWith(building: true, error: null, builtPresentation: null));
     try {
       final presentation = await _buildSprintPresentationUseCase.execute(
         timeframe: state.timeframe,
