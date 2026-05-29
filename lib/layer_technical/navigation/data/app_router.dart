@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import '../../../layer_fonctional/home/presentation/home_page.dart';
 import '../../../layer_fonctional/objectif/domain/entity/objectif.dart';
 import '../../../layer_fonctional/objectif/presentation/objectif_form/objectif_form_page.dart';
+import '../../../layer_fonctional/project/domain/entity/project.dart';
 import '../../../layer_fonctional/project/presentation/project_detail/project_detail_page.dart';
+import '../../../layer_fonctional/project/presentation/project_form/project_form_page.dart';
 import '../../../layer_fonctional/project/presentation/project_list/project_list_page.dart';
 import '../../../layer_fonctional/sprint_presentation/presentation/sprint_setup/sprint_setup_page.dart';
 import '../domain/guards/auth_guard.dart';
@@ -28,10 +30,21 @@ class AppRouter {
         builder: (context, state) => const ProjectListPage(),
       ),
       GoRoute(
+        path: AppRoutes.projectCreate,
+        builder: (context, state) => const ProjectFormPage(),
+      ),
+      GoRoute(
         path: AppRoutes.projectDetail,
         builder: (context, state) {
           final id = int.parse(state.pathParameters['id']!);
           return ProjectDetailPage(projectId: id);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.projectEdit,
+        builder: (context, state) {
+          final existing = state.extra as Project?;
+          return ProjectFormPage(existing: existing);
         },
       ),
       GoRoute(

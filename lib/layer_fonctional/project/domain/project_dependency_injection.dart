@@ -4,9 +4,13 @@ import '../../../layer_technical/dependency_injection/feature_injector.dart';
 import '../../objectif/domain/use_case/get_objectifs_by_project_use_case.dart';
 import '../data/repository/project_repository.dart';
 import '../presentation/project_detail/cubit/project_detail_cubit.dart';
+import '../presentation/project_form/cubit/project_form_cubit.dart';
 import '../presentation/project_list/cubit/project_list_cubit.dart';
+import 'entity/project.dart' show Project;
+import 'use_case/create_project_use_case.dart';
 import 'use_case/get_project_by_id_use_case.dart';
 import 'use_case/get_projects_use_case.dart';
+import 'use_case/update_project_use_case.dart';
 
 class ProjectInjector implements FeatureInjector {
   @override
@@ -24,6 +28,16 @@ class ProjectInjector implements FeatureInjector {
         projectRepository: locator<ProjectRepository>(),
       ),
     );
+    locator.registerLazySingleton(
+      () => CreateProjectUseCase(
+        projectRepository: locator<ProjectRepository>(),
+      ),
+    );
+    locator.registerLazySingleton(
+      () => UpdateProjectUseCase(
+        projectRepository: locator<ProjectRepository>(),
+      ),
+    );
   }
 
   @override
@@ -35,6 +49,13 @@ class ProjectInjector implements FeatureInjector {
       () => ProjectDetailCubit(
         getProjectByIdUseCase: locator<GetProjectByIdUseCase>(),
         getObjectifsByProjectUseCase: locator<GetObjectifsByProjectUseCase>(),
+      ),
+    );
+    locator.registerFactoryParam<ProjectFormCubit, Project?, void>(
+      (existing, _) => ProjectFormCubit(
+        createProjectUseCase: locator<CreateProjectUseCase>(),
+        updateProjectUseCase: locator<UpdateProjectUseCase>(),
+        existing: existing,
       ),
     );
   }

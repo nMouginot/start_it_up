@@ -24,6 +24,12 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 _HomeAction(
+                  icon: Icons.create_new_folder,
+                  label: 'Créer un project',
+                  onTap: () => context.push(AppRoutes.projectCreate),
+                ),
+                const SizedBox(height: 16),
+                _HomeAction(
                   icon: Icons.slideshow,
                   label: 'Générer une présentation',
                   onTap: () => context.go(AppRoutes.sprintSetup),
