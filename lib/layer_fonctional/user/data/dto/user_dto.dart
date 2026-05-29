@@ -13,10 +13,8 @@ class UserDto {
 
   final String? email;
 
-  @JsonKey(name: 'last_name')
   final String? lastName;
 
-  @JsonKey(name: 'first_name')
   final String? firstName;
 
   const UserDto({
@@ -28,5 +26,6 @@ class UserDto {
 
   factory UserDto.fromJson(Map<String, dynamic> json) =>
       _$UserDtoFromJson(json);
+
   Map<String, dynamic> toJson() => _$UserDtoToJson(this);
 }
