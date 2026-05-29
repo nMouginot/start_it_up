@@ -10,6 +10,7 @@ class AuthGuard {
   const AuthGuard();
 
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
+    // Example of a guard, to implement when we will implement the authentification feature
     // final user = await _getAuthenticatedUserUseCase();
     // final isAuthenticated = user != null;
     // final isOnLogin = state.matchedLocation == AppRoutes.login;
