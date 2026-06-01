@@ -9,12 +9,7 @@ part 'project_catalog.g.dart';
 class ProjectCatalog {
   final List<Project> projects;
 
-  final Map<int, List<Objectif>> objectifsByProjectId;
-
-  const ProjectCatalog({
-    required this.projects,
-    required this.objectifsByProjectId,
-  });
+  const ProjectCatalog({required this.projects});
 
   factory ProjectCatalog.fromJson(Map<String, dynamic> json) =>
       _$ProjectCatalogFromJson(json);
@@ -22,8 +17,7 @@ class ProjectCatalog {
   Map<String, dynamic> toJson() => _$ProjectCatalogToJson(this);
 
   Iterable<Objectif> get allObjectifs =>
-      objectifsByProjectId.values.expand((list) => list);
+      projects.expand((project) => project.listObjectif);
 
-  List<Objectif> objectifsOf(Project project) =>
-      objectifsByProjectId[project.id] ?? const [];
+  List<Objectif> objectifsOf(Project project) => project.listObjectif;
 }

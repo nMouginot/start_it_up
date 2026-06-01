@@ -7,13 +7,13 @@ import '../../../../project_catalog/domain/entity/project_catalog.dart';
 
 class ObjectifPicker extends StatelessWidget {
   final ProjectCatalog catalog;
-  final Set<int> selectedObjectifIds;
+  final List<Objectif> listSelectedObjectif;
   final ValueChanged<Objectif> onToggle;
 
   const ObjectifPicker({
     super.key,
     required this.catalog,
-    required this.selectedObjectifIds,
+    required this.listSelectedObjectif,
     required this.onToggle,
   });
 
@@ -33,7 +33,7 @@ class ObjectifPicker extends StatelessWidget {
             _ProjectSection(
               project: project,
               objectifs: catalog.objectifsOf(project),
-              selectedObjectifIds: selectedObjectifIds,
+              listSelectedObjectif: listSelectedObjectif,
               onToggle: onToggle,
             ),
       ],
@@ -44,13 +44,13 @@ class ObjectifPicker extends StatelessWidget {
 class _ProjectSection extends StatelessWidget {
   final Project project;
   final List<Objectif> objectifs;
-  final Set<int> selectedObjectifIds;
+  final List<Objectif> listSelectedObjectif;
   final ValueChanged<Objectif> onToggle;
 
   const _ProjectSection({
     required this.project,
     required this.objectifs,
-    required this.selectedObjectifIds,
+    required this.listSelectedObjectif,
     required this.onToggle,
   });
 
@@ -58,7 +58,8 @@ class _ProjectSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final selectedCount = objectifs
-        .where((objectif) => selectedObjectifIds.contains(objectif.id))
+        .where((objectif) =>
+            listSelectedObjectif.any((selected) => selected.id == objectif.id))
         .length;
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 6),
@@ -82,7 +83,7 @@ class _ProjectSection extends StatelessWidget {
           for (final objectif in objectifs)
             _ObjectifTile(
               objectif: objectif,
-              selected: selectedObjectifIds.contains(objectif.id),
+              selected: listSelectedObjectif.any((o) => o.id == objectif.id),
               onToggle: () => onToggle(objectif),
             ),
         ],

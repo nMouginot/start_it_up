@@ -19,7 +19,7 @@ abstract class _$SlideSetupStateCWProxy {
   SlideSetupState call({
     bool catalogLoading,
     ProjectCatalog? catalog,
-    Set<int> selectedObjectifIds,
+    List<Objectif> listSelectedObjectif,
     SlideTimeframe timeframe,
     bool building,
     SlidePresentation? builtPresentation,
@@ -45,7 +45,7 @@ class _$SlideSetupStateCWProxyImpl implements _$SlideSetupStateCWProxy {
   SlideSetupState call({
     Object? catalogLoading = const $CopyWithPlaceholder(),
     Object? catalog = const $CopyWithPlaceholder(),
-    Object? selectedObjectifIds = const $CopyWithPlaceholder(),
+    Object? listSelectedObjectif = const $CopyWithPlaceholder(),
     Object? timeframe = const $CopyWithPlaceholder(),
     Object? building = const $CopyWithPlaceholder(),
     Object? builtPresentation = const $CopyWithPlaceholder(),
@@ -62,12 +62,12 @@ class _$SlideSetupStateCWProxyImpl implements _$SlideSetupStateCWProxy {
           ? _value.catalog
           // ignore: cast_nullable_to_non_nullable
           : catalog as ProjectCatalog?,
-      selectedObjectifIds:
-          selectedObjectifIds == const $CopyWithPlaceholder() ||
-              selectedObjectifIds == null
-          ? _value.selectedObjectifIds
+      listSelectedObjectif:
+          listSelectedObjectif == const $CopyWithPlaceholder() ||
+              listSelectedObjectif == null
+          ? _value.listSelectedObjectif
           // ignore: cast_nullable_to_non_nullable
-          : selectedObjectifIds as Set<int>,
+          : listSelectedObjectif as List<Objectif>,
       timeframe: timeframe == const $CopyWithPlaceholder() || timeframe == null
           ? _value.timeframe
           // ignore: cast_nullable_to_non_nullable

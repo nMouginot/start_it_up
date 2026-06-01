@@ -1,21 +1,21 @@
 import 'dart:math';
 
-import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:faker/faker.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'objectif.g.dart';
+import '../../domain/entity/objectif.dart';
 
-@CopyWith()
+part 'objectif_dto.g.dart';
+
 @JsonSerializable()
-class Objectif {
+class ObjectifDto {
   final int id;
   final String title;
   final String description;
   final DateTime deadline;
   final ObjectifStatus status;
 
-  const Objectif({
+  const ObjectifDto({
     required this.id,
     required this.title,
     required this.description,
@@ -23,17 +23,16 @@ class Objectif {
     required this.status,
   });
 
-  factory Objectif.faker([int seed = 1]) {
+  factory ObjectifDto.faker([int seed = 1]) {
     final faker = Faker.withGenerator(RandomGenerator(seed: seed));
     final random = Random(seed);
 
     final daysFromNow = random.nextInt(28) - 7;
     final deadline = DateTime.now().add(Duration(days: daysFromNow));
-
     final status =
         ObjectifStatus.values[random.nextInt(ObjectifStatus.values.length)];
 
-    return Objectif(
+    return ObjectifDto(
       id: seed,
       title: faker.lorem.sentence().replaceAll('.', ''),
       description: faker.lorem.sentences(2).join(' '),
@@ -42,22 +41,8 @@ class Objectif {
     );
   }
 
-  factory Objectif.fromJson(Map<String, dynamic> json) =>
-      _$ObjectifFromJson(json);
+  factory ObjectifDto.fromJson(Map<String, dynamic> json) =>
+      _$ObjectifDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ObjectifToJson(this);
-}
-
-enum ObjectifStatus {
-  todo,
-  done,
-  failed,
-  blocked;
-
-  String get label => switch (this) {
-    ObjectifStatus.todo => 'À faire',
-    ObjectifStatus.failed => 'Echec',
-    ObjectifStatus.blocked => 'Bloqué',
-    ObjectifStatus.done => 'Réussi',
-  };
+  Map<String, dynamic> toJson() => _$ObjectifDtoToJson(this);
 }

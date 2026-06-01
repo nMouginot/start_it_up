@@ -2,34 +2,34 @@
 
 // coverage:ignore-file
 
-part of 'project.dart';
+part of 'project_dto.dart';
 
 // **************************************************************************
 // CopyWithGenerator
 // **************************************************************************
 
-abstract class _$ProjectCWProxy {
+abstract class _$ProjectDtoCWProxy {
   /// Creates a new instance with the provided field values.
   /// Passing `null` to a nullable field nullifies it, while `null` for a non-nullable field is ignored.
   ///
   /// Example:
   /// ```dart
-  /// Project(...).copyWith(id: 12, name: "My name")
+  /// ProjectDto(...).copyWith(id: 12, name: "My name")
   /// ```
-  Project call({
+  ProjectDto call({
     int id,
     String name,
     String version,
-    List<Objectif> listObjectif,
+    List<ObjectifDto> objectifs,
   });
 }
 
 /// Callable proxy for `copyWith` functionality.
-/// Use as `instanceOfProject.copyWith(...)`.
-class _$ProjectCWProxyImpl implements _$ProjectCWProxy {
-  const _$ProjectCWProxyImpl(this._value);
+/// Use as `instanceOfProjectDto.copyWith(...)`.
+class _$ProjectDtoCWProxyImpl implements _$ProjectDtoCWProxy {
+  const _$ProjectDtoCWProxyImpl(this._value);
 
-  final Project _value;
+  final ProjectDto _value;
 
   @override
   /// Creates a new instance with the provided field values.
@@ -37,15 +37,15 @@ class _$ProjectCWProxyImpl implements _$ProjectCWProxy {
   ///
   /// Example:
   /// ```dart
-  /// Project(...).copyWith(id: 12, name: "My name")
+  /// ProjectDto(...).copyWith(id: 12, name: "My name")
   /// ```
-  Project call({
+  ProjectDto call({
     Object? id = const $CopyWithPlaceholder(),
     Object? name = const $CopyWithPlaceholder(),
     Object? version = const $CopyWithPlaceholder(),
-    Object? listObjectif = const $CopyWithPlaceholder(),
+    Object? objectifs = const $CopyWithPlaceholder(),
   }) {
-    return Project(
+    return ProjectDto(
       id: id == const $CopyWithPlaceholder() || id == null
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
@@ -58,38 +58,38 @@ class _$ProjectCWProxyImpl implements _$ProjectCWProxy {
           ? _value.version
           // ignore: cast_nullable_to_non_nullable
           : version as String,
-      listObjectif:
-          listObjectif == const $CopyWithPlaceholder() || listObjectif == null
-          ? _value.listObjectif
+      objectifs: objectifs == const $CopyWithPlaceholder() || objectifs == null
+          ? _value.objectifs
           // ignore: cast_nullable_to_non_nullable
-          : listObjectif as List<Objectif>,
+          : objectifs as List<ObjectifDto>,
     );
   }
 }
 
-extension $ProjectCopyWith on Project {
+extension $ProjectDtoCopyWith on ProjectDto {
   /// Returns a callable class used to build a new instance with modified fields.
-  /// Example: `instanceOfProject.copyWith(...)`.
+  /// Example: `instanceOfProjectDto.copyWith(...)`.
   // ignore: library_private_types_in_public_api
-  _$ProjectCWProxy get copyWith => _$ProjectCWProxyImpl(this);
+  _$ProjectDtoCWProxy get copyWith => _$ProjectDtoCWProxyImpl(this);
 }
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Project _$ProjectFromJson(Map<String, dynamic> json) => Project(
+ProjectDto _$ProjectDtoFromJson(Map<String, dynamic> json) => ProjectDto(
   id: (json['id'] as num).toInt(),
   name: json['name'] as String,
   version: json['version'] as String,
-  listObjectif: (json['listObjectif'] as List<dynamic>)
-      .map((e) => Objectif.fromJson(e as Map<String, dynamic>))
+  objectifs: (json['objectifs'] as List<dynamic>)
+      .map((e) => ObjectifDto.fromJson(e as Map<String, dynamic>))
       .toList(),
 );
 
-Map<String, dynamic> _$ProjectToJson(Project instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'version': instance.version,
-  'listObjectif': instance.listObjectif.map((e) => e.toJson()).toList(),
-};
+Map<String, dynamic> _$ProjectDtoToJson(ProjectDto instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'version': instance.version,
+      'objectifs': instance.objectifs.map((e) => e.toJson()).toList(),
+    };

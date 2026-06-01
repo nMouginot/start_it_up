@@ -7,6 +7,7 @@ import '../../../layer_fonctional/project/domain/entity/project.dart';
 import '../../../layer_fonctional/project/presentation/project_detail/project_detail_page.dart';
 import '../../../layer_fonctional/project/presentation/project_form/project_form_page.dart';
 import '../../../layer_fonctional/project/presentation/project_list/project_list_page.dart';
+import '../../../layer_fonctional/slide_presentation/presentation/slide_history/slide_history_page.dart';
 import '../../../layer_fonctional/slide_presentation/presentation/slide_setup/slide_setup_page.dart';
 import '../domain/guards/auth_guard.dart';
 import 'app_routes.dart';
@@ -66,8 +67,19 @@ class AppRouter {
         },
       ),
       GoRoute(
+        path: AppRoutes.slideHistory,
+        builder: (context, state) => const SlideHistoryPage(),
+      ),
+      GoRoute(
         path: AppRoutes.slideSetup,
         builder: (context, state) => const SlideSetupPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.slideSetupEdit,
+        builder: (context, state) {
+          final id = int.parse(state.pathParameters['id']!);
+          return SlideSetupPage(historyEntryId: id);
+        },
       ),
     ],
   );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../layer_technical/extension/date_time_extension.dart';
-import '../../../../project/domain/entity/project.dart';
 import '../cubit/objectif_form_cubit.dart';
 import '../cubit/objectif_form_state.dart';
 
@@ -90,17 +89,20 @@ class _ProjectField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (projectLocked) {
-      final project = state.availableProjects.firstWhere(
-        (p) => p.id == state.selectedProjectId,
-        orElse: () =>
-            Project(id: state.selectedProjectId ?? 0, name: '…', version: ''),
-      );
+      final selectedId = state.selectedProjectId;
+      final name = selectedId == null
+          ? '—'
+          : state.availableProjects
+                    .where((p) => p.id == selectedId)
+                    .map((p) => p.name)
+                    .firstOrNull ??
+                '…';
       return InputDecorator(
         decoration: const InputDecoration(
           labelText: 'Project',
           border: OutlineInputBorder(),
         ),
-        child: Text(project.name),
+        child: Text(name),
       );
     }
     return DropdownButtonFormField<int>(

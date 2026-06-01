@@ -4,6 +4,8 @@ import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:faker/faker.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../objectif/domain/entity/objectif.dart';
+
 part 'project.g.dart';
 
 @CopyWith()
@@ -15,9 +17,16 @@ class Project {
 
   final String version;
 
-  const Project({required this.id, required this.name, required this.version});
+  final List<Objectif> listObjectif;
 
-  factory Project.faker({int seed = 1}) {
+  const Project({
+    required this.id,
+    required this.name,
+    required this.version,
+    required this.listObjectif,
+  });
+
+  factory Project.faker([int seed = 1]) {
     final fakeData = Faker.withGenerator(RandomGenerator(seed: seed));
     final random = Random(seed);
 
@@ -25,10 +34,16 @@ class Project {
     final minorVersionNumber = random.nextInt(10);
     final patchVersionNumber = random.nextInt(10);
 
+    final maxNumberOfObjectifGeneratedForEachProject = 5;
+
     return Project(
       id: seed,
       name: fakeData.company.name(),
       version: "$majorVersionNumber.$minorVersionNumber.$patchVersionNumber",
+      listObjectif: List.generate(
+        seed % maxNumberOfObjectifGeneratedForEachProject,
+        (index) => Objectif.faker(index * seed),
+      ),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 
+import '../../../../objectif/domain/entity/objectif.dart';
 import '../../../../project_catalog/domain/entity/project_catalog.dart';
 import '../../../domain/entity/slide_presentation.dart';
 import '../../../domain/entity/slide_timeframe.dart';
@@ -10,7 +11,7 @@ part 'slide_setup_state.g.dart';
 class SlideSetupState {
   final bool catalogLoading;
   final ProjectCatalog? catalog;
-  final Set<int> selectedObjectifIds;
+  final List<Objectif> listSelectedObjectif;
   final SlideTimeframe timeframe;
   final bool building;
   final SlidePresentation? builtPresentation;
@@ -19,7 +20,7 @@ class SlideSetupState {
   const SlideSetupState({
     required this.catalogLoading,
     required this.catalog,
-    required this.selectedObjectifIds,
+    required this.listSelectedObjectif,
     required this.timeframe,
     required this.building,
     required this.builtPresentation,
@@ -29,7 +30,7 @@ class SlideSetupState {
   factory SlideSetupState.initial() => SlideSetupState(
     catalogLoading: true,
     catalog: null,
-    selectedObjectifIds: const {},
+    listSelectedObjectif: const [],
     timeframe: SlideTimeframe.currentWeek(),
     building: false,
     builtPresentation: null,
@@ -39,7 +40,7 @@ class SlideSetupState {
   bool get hasValidTimeframe => !timeframe.end.isBefore(timeframe.start);
 
   bool get canGenerate =>
-      !building && selectedObjectifIds.isNotEmpty && hasValidTimeframe;
+      !building && listSelectedObjectif.isNotEmpty && hasValidTimeframe;
 
   bool get canLaunch => builtPresentation != null && !building;
 
@@ -50,7 +51,7 @@ class SlideSetupState {
     for (final project in catalog.projects) {
       final hasSelected = catalog
           .objectifsOf(project)
-          .any((objectif) => selectedObjectifIds.contains(objectif.id));
+          .any((objectif) => listSelectedObjectif.contains(objectif.id));
       if (hasSelected) projectIds.add(project.id);
     }
     return projectIds.length;

@@ -36,6 +36,12 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 _HomeAction(
+                  icon: Icons.history,
+                  label: 'Historique des présentations',
+                  onTap: () => context.go(AppRoutes.slideHistory),
+                ),
+                const SizedBox(height: 16),
+                _HomeAction(
                   icon: Icons.add_task,
                   label: 'Créer un objectif',
                   onTap: () => context.push(AppRoutes.objectifCreate),

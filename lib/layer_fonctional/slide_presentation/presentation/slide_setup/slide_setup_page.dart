@@ -10,11 +10,14 @@ import 'widget/objectif_picker.dart';
 import 'widget/slide_timeframe_picker.dart';
 
 class SlideSetupPage extends StatelessWidget {
-  const SlideSetupPage({super.key});
+  final int? historyEntryId;
+
+  const SlideSetupPage({super.key, this.historyEntryId});
 
   @override
   Widget build(BuildContext context) {
-    final cubit = locator<SlideSetupCubit>()..loadCatalogIfNeeded();
+    final cubit = locator<SlideSetupCubit>()
+      ..load(historyEntryId: historyEntryId);
     return BlocProvider<SlideSetupCubit>.value(
       value: cubit,
       child: const _SlideSetupView(),
@@ -28,7 +31,11 @@ class _SlideSetupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Préparer la présentation')),
+      appBar: AppBar(
+        title: BlocBuilder<SlideSetupCubit, SlideSetupState>(
+          builder: (_, state) => const Text('Préparer la présentation'),
+        ),
+      ),
       body: SafeArea(
         child: BlocBuilder<SlideSetupCubit, SlideSetupState>(
           builder: (context, state) => _SetupForm(state: state),
@@ -70,7 +77,7 @@ class _SetupForm extends StatelessWidget {
         const SizedBox(height: 8),
         ObjectifPicker(
           catalog: catalog,
-          selectedObjectifIds: state.selectedObjectifIds,
+          listSelectedObjectif: state.listSelectedObjectif,
           onToggle: cubit.toggleObjectif,
         ),
         const SizedBox(height: 24),
@@ -90,6 +97,8 @@ class _ActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final generateLabel = 'Générer la présentation';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -101,11 +110,7 @@ class _ActionButtons extends StatelessWidget {
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
               : const Icon(Icons.build),
-          label: Text(
-            state.builtPresentation == null
-                ? 'Générer la présentation'
-                : 'Régénérer',
-          ),
+          label: Text(generateLabel),
           onPressed: state.canGenerate ? cubit.generate : null,
         ),
         const SizedBox(height: 12),
@@ -131,7 +136,7 @@ class _Summary extends StatelessWidget {
     final summary =
         'Sprint du ${timeframe.start.formattedDayMonthYear} au '
         '${timeframe.end.formattedDayMonthYear} • '
-        '${state.selectedObjectifIds.length} objectif(s) sur '
+        '${state.listSelectedObjectif.length} objectif(s) sur '
         '${state.selectedProjectCount} project(s)';
     final builtNote = built == null
         ? 'Aucune présentation prête.'

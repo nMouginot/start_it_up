@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 
-import '../../../../objectif/domain/entity/objectif_status.dart';
 import '../../../domain/entity/slide_presentation.dart';
 
 class OverviewSlide extends FlutterDeckSlideWidget {
@@ -16,20 +15,20 @@ class OverviewSlide extends FlutterDeckSlideWidget {
   FlutterDeckSlide build(BuildContext context) {
     final theme = Theme.of(context);
     final done = presentation.allObjectifs
-        .where((objectif) => objectif.status == ObjectifStatus.done)
+        .where((objectif) => objectif.status == .done)
         .length;
     final failed = presentation.allObjectifs
-        .where((objectif) => objectif.status == ObjectifStatus.failed)
+        .where((objectif) => objectif.status == .failed)
         .length;
     final blocked = presentation.allObjectifs
-        .where((objectif) => objectif.status == ObjectifStatus.blocked)
+        .where((objectif) => objectif.status == .blocked)
         .length;
 
     return FlutterDeckSlide.blank(
       builder: (_) => Padding(
         padding: const EdgeInsets.all(48),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: .start,
           children: [
             Text("Vue d'ensemble", style: theme.textTheme.displaySmall),
             const SizedBox(height: 32),

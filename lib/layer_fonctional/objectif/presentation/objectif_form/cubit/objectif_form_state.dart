@@ -10,7 +10,6 @@ class ObjectifFormState {
   final bool projectsLoading;
   final List<Project> availableProjects;
 
-  /// When non-null, the form is in edit mode for that objectif.
   final Objectif? existing;
 
   final int? selectedProjectId;
@@ -44,7 +43,7 @@ class ObjectifFormState {
       projectsLoading: true,
       availableProjects: const [],
       existing: existing,
-      selectedProjectId: existing?.projectId ?? initialProjectId,
+      selectedProjectId: initialProjectId,
       title: existing?.title ?? '',
       description: existing?.description ?? '',
       deadline:
@@ -60,7 +59,7 @@ class ObjectifFormState {
 
   bool get canSubmit =>
       !submitting &&
-      selectedProjectId != null &&
+      (isEditing || selectedProjectId != null) &&
       title.trim().isNotEmpty &&
       description.trim().isNotEmpty;
 }
