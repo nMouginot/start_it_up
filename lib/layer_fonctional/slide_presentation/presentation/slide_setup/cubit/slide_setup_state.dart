@@ -3,7 +3,7 @@ import 'package:copy_with_extension/copy_with_extension.dart';
 import '../../../../objectif/domain/entity/objectif.dart';
 import '../../../../project/domain/entity/project.dart';
 import '../../../domain/entity/slide_presentation.dart';
-import '../../../domain/entity/timeframe.dart';
+import '../../../../slide_timeframe/domain/entity/timeframe.dart';
 
 part 'slide_setup_state.g.dart';
 

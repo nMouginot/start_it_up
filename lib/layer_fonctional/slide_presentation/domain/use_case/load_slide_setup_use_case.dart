@@ -2,10 +2,10 @@ import '../../../objectif/domain/entity/objectif.dart';
 import '../../../project/domain/entity/project.dart';
 import '../../../project/domain/use_case/get_projects_use_case.dart';
 import '../../../slide_presentation_history/domain/use_case/get_slide_presentation_history_use_case.dart';
-import '../entity/project_slide_block.dart';
+import '../../../project_slide_block/domain/entity/project_slide_block.dart';
 import '../entity/slide_presentation.dart';
-import '../entity/slide_timeframe.dart';
-import '../entity/timeframe.dart';
+import '../../../slide_timeframe/domain/entity/slide_timeframe.dart';
+import '../../../slide_timeframe/domain/entity/timeframe.dart';
 
 typedef LoadSlideSetupResult = ({
   List<Project> projects,

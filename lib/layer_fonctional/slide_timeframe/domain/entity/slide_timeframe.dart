@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 
 import '../../../../layer_technical/extension/date_time_extension.dart';
-import 'slide.dart';
+import '../../../slide_presentation/domain/entity/slide.dart';
 
 class SlideTimeframe extends Slide {
   final DateTime start;
   final DateTime end;
 
-  SlideTimeframe({
+  const SlideTimeframe({
     super.key,
     required super.pageNumber,
     required super.totalPages,

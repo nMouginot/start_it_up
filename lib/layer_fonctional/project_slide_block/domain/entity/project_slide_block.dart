@@ -4,7 +4,7 @@ import 'package:flutter_deck/flutter_deck.dart';
 import '../../../../layer_technical/extension/date_time_extension.dart';
 import '../../../objectif/domain/entity/objectif.dart';
 import '../../../project/domain/entity/project.dart';
-import 'slide.dart';
+import '../../../slide_presentation/domain/entity/slide.dart';
 
 class ProjectSlideBlock extends Slide {
   final Project project;

@@ -1,11 +1,11 @@
 import '../../../objectif/domain/entity/objectif.dart';
 import '../../../project/domain/entity/project.dart';
-import '../entity/project_slide_block.dart';
+import '../../../project_slide_block/domain/entity/project_slide_block.dart';
 import '../entity/slide.dart';
-import '../entity/slide_overview.dart';
+import '../../../slide_overview/domain/entity/slide_overview.dart';
 import '../entity/slide_presentation.dart';
-import '../entity/slide_timeframe.dart';
-import '../entity/timeframe.dart';
+import '../../../slide_timeframe/domain/entity/slide_timeframe.dart';
+import '../../../slide_timeframe/domain/entity/timeframe.dart';
 
 class BuildSlidePresentationUseCase {
   const BuildSlidePresentationUseCase();

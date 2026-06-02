@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 
-import 'slide.dart';
+import '../../../slide_presentation/domain/entity/slide.dart';
 
 class SlideOverview extends Slide {
   final int totalProjects;
