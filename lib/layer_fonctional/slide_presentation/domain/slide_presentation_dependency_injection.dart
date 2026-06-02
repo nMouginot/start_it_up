@@ -7,9 +7,12 @@ import '../presentation/presentation_launcher.dart';
 import '../presentation/slide_history/cubit/slide_history_cubit.dart';
 import '../presentation/slide_setup/cubit/slide_setup_cubit.dart';
 import 'use_case/build_slide_presentation_use_case.dart';
+import 'use_case/generate_slide_presentation_use_case.dart';
 import 'use_case/get_slide_presentation_history_by_id_use_case.dart';
 import 'use_case/get_slide_presentation_history_use_case.dart';
+import 'use_case/load_slide_setup_use_case.dart';
 import 'use_case/save_slide_presentation_history_use_case.dart';
+import 'use_case/toggle_objectif_selection_use_case.dart';
 
 class SlidePresentationInjector implements FeatureInjector {
   @override
@@ -40,16 +43,33 @@ class SlidePresentationInjector implements FeatureInjector {
         repository: locator<SlidePresentationHistoryRepository>(),
       ),
     );
+    locator.registerLazySingleton(
+      () => LoadSlideSetupUseCase(
+        getProjectCatalogUseCase: locator<GetProjectCatalogUseCase>(),
+        getHistoryByIdUseCase:
+            locator<GetSlidePresentationHistoryByIdUseCase>(),
+      ),
+    );
+    locator.registerLazySingleton(
+      () => const ToggleObjectifSelectionUseCase(),
+    );
+    locator.registerLazySingleton(
+      () => GenerateSlidePresentationUseCase(
+        buildUseCase: locator<BuildSlidePresentationUseCase>(),
+        saveUseCase: locator<SaveSlidePresentationHistoryUseCase>(),
+      ),
+    );
   }
 
   @override
   void registerCubits(GetIt locator) {
     locator.registerFactory(
       () => SlideSetupCubit(
-        getProjectCatalogUseCase: locator<GetProjectCatalogUseCase>(),
-        buildSlidePresentationUseCase: locator<BuildSlidePresentationUseCase>(),
-        saveHistoryUseCase: locator<SaveSlidePresentationHistoryUseCase>(),
-        getHistoryByIdUseCase: locator<GetSlidePresentationHistoryByIdUseCase>(),
+        loadSlideSetupUseCase: locator<LoadSlideSetupUseCase>(),
+        toggleObjectifSelectionUseCase:
+            locator<ToggleObjectifSelectionUseCase>(),
+        generateSlidePresentationUseCase:
+            locator<GenerateSlidePresentationUseCase>(),
         presentationLauncher: locator<PresentationLauncher>(),
       ),
     );

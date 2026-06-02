@@ -7,10 +7,6 @@ import 'cubit/objectif_form_cubit.dart';
 import 'cubit/objectif_form_state.dart';
 import 'widget/objectif_form.dart';
 
-/// Create / edit form for an objectif. Routed to from:
-///   - home: no [initialProjectId], no [existing] (free pick of project)
-///   - project detail (new): [initialProjectId] set, [existing] null (project locked)
-///   - project detail (edit): [existing] set (project locked, fields pre-filled)
 class ObjectifFormPage extends StatelessWidget {
   final int? initialProjectId;
   final Objectif? existing;

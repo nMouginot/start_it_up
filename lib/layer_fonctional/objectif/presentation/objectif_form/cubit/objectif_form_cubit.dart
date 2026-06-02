@@ -2,24 +2,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../project/domain/use_case/get_projects_use_case.dart';
 import '../../../domain/entity/objectif.dart';
-import '../../../domain/use_case/create_objectif_use_case.dart';
-import '../../../domain/use_case/update_objectif_use_case.dart';
+import '../../../domain/use_case/upsert_objectif_use_case.dart';
 import 'objectif_form_state.dart';
 
 class ObjectifFormCubit extends Cubit<ObjectifFormState> {
   final GetProjectsUseCase _getProjectsUseCase;
-  final CreateObjectifUseCase _createObjectifUseCase;
-  final UpdateObjectifUseCase _updateObjectifUseCase;
+  final UpsertObjectifUseCase _upsertObjectifUseCase;
 
   ObjectifFormCubit({
     required GetProjectsUseCase getProjectsUseCase,
-    required CreateObjectifUseCase createObjectifUseCase,
-    required UpdateObjectifUseCase updateObjectifUseCase,
+    required UpsertObjectifUseCase upsertObjectifUseCase,
     int? initialProjectId,
     Objectif? existing,
   }) : _getProjectsUseCase = getProjectsUseCase,
-       _createObjectifUseCase = createObjectifUseCase,
-       _updateObjectifUseCase = updateObjectifUseCase,
+       _upsertObjectifUseCase = upsertObjectifUseCase,
        super(
          ObjectifFormState.initial(
            initialProjectId: initialProjectId,
@@ -51,23 +47,13 @@ class ObjectifFormCubit extends Cubit<ObjectifFormState> {
     if (!state.canSubmit) return;
     emit(state.copyWith(submitting: true, error: null));
     try {
-      final existing = state.existing;
-      if (existing != null) {
-        await _updateObjectifUseCase.execute(
-          existing.copyWith(
-            title: state.title.trim(),
-            description: state.description.trim(),
-            deadline: state.deadline,
-          ),
-        );
-      } else {
-        await _createObjectifUseCase.execute(
-          projectId: state.selectedProjectId!,
-          title: state.title.trim(),
-          description: state.description.trim(),
-          deadline: state.deadline,
-        );
-      }
+      await _upsertObjectifUseCase.execute(
+        existing: state.existing,
+        projectId: state.selectedProjectId,
+        title: state.title.trim(),
+        description: state.description.trim(),
+        deadline: state.deadline,
+      );
       emit(state.copyWith(submitting: false, submitted: true));
     } catch (error) {
       emit(state.copyWith(submitting: false, error: error));

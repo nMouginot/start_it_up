@@ -10,6 +10,7 @@ import 'use_case/create_project_use_case.dart';
 import 'use_case/get_project_by_id_use_case.dart';
 import 'use_case/get_projects_use_case.dart';
 import 'use_case/update_project_use_case.dart';
+import 'use_case/upsert_project_use_case.dart';
 
 class ProjectInjector implements FeatureInjector {
   @override
@@ -37,6 +38,12 @@ class ProjectInjector implements FeatureInjector {
         projectRepository: locator<ProjectRepository>(),
       ),
     );
+    locator.registerLazySingleton(
+      () => UpsertProjectUseCase(
+        create: locator<CreateProjectUseCase>(),
+        update: locator<UpdateProjectUseCase>(),
+      ),
+    );
   }
 
   @override
@@ -51,8 +58,7 @@ class ProjectInjector implements FeatureInjector {
     );
     locator.registerFactoryParam<ProjectFormCubit, Project?, void>(
       (existing, _) => ProjectFormCubit(
-        createProjectUseCase: locator<CreateProjectUseCase>(),
-        updateProjectUseCase: locator<UpdateProjectUseCase>(),
+        upsertProjectUseCase: locator<UpsertProjectUseCase>(),
         existing: existing,
       ),
     );

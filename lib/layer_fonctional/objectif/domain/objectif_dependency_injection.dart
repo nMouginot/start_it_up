@@ -9,6 +9,7 @@ import 'entity/objectif.dart' show Objectif;
 import 'use_case/create_objectif_use_case.dart';
 import 'use_case/get_objectifs_by_project_use_case.dart';
 import 'use_case/update_objectif_use_case.dart';
+import 'use_case/upsert_objectif_use_case.dart';
 
 class ObjectifInjector implements FeatureInjector {
   @override
@@ -37,6 +38,12 @@ class ObjectifInjector implements FeatureInjector {
         objectifRepository: locator<ObjectifRepository>(),
       ),
     );
+    locator.registerLazySingleton(
+      () => UpsertObjectifUseCase(
+        create: locator<CreateObjectifUseCase>(),
+        update: locator<UpdateObjectifUseCase>(),
+      ),
+    );
   }
 
   @override
@@ -44,8 +51,7 @@ class ObjectifInjector implements FeatureInjector {
     locator.registerFactoryParam<ObjectifFormCubit, int?, Objectif?>(
       (initialProjectId, existing) => ObjectifFormCubit(
         getProjectsUseCase: locator<GetProjectsUseCase>(),
-        createObjectifUseCase: locator<CreateObjectifUseCase>(),
-        updateObjectifUseCase: locator<UpdateObjectifUseCase>(),
+        upsertObjectifUseCase: locator<UpsertObjectifUseCase>(),
         initialProjectId: initialProjectId,
         existing: existing,
       ),
