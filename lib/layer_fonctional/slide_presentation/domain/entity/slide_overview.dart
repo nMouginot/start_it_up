@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 
-import '../../../domain/entity/slide_presentation.dart';
+import 'slide.dart';
 
-class OverviewSlide extends FlutterDeckSlideWidget {
-  final SlidePresentation presentation;
+class SlideOverview extends Slide {
+  final int totalProjects;
+  final int totalObjectifs;
+  final int doneCount;
+  final int failedCount;
+  final int blockedCount;
 
-  const OverviewSlide({super.key, required this.presentation})
-    : super(
-        configuration: const FlutterDeckSlideConfiguration(route: '/overview'),
-      );
+  SlideOverview({
+    super.key,
+    required super.pageNumber,
+    required super.totalPages,
+    required this.totalProjects,
+    required this.totalObjectifs,
+    required this.doneCount,
+    required this.failedCount,
+    required this.blockedCount,
+  }) : super(
+         configuration: const FlutterDeckSlideConfiguration(route: '/overview'),
+       );
 
   @override
   FlutterDeckSlide build(BuildContext context) {
     final theme = Theme.of(context);
-    final done = presentation.allObjectifs
-        .where((objectif) => objectif.status == .done)
-        .length;
-    final failed = presentation.allObjectifs
-        .where((objectif) => objectif.status == .failed)
-        .length;
-    final blocked = presentation.allObjectifs
-        .where((objectif) => objectif.status == .blocked)
-        .length;
-
     return FlutterDeckSlide.blank(
       builder: (_) => Padding(
         padding: const EdgeInsets.all(48),
         child: Column(
-          crossAxisAlignment: .start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Vue d'ensemble", style: theme.textTheme.displaySmall),
             const SizedBox(height: 32),
@@ -36,18 +38,17 @@ class OverviewSlide extends FlutterDeckSlideWidget {
               spacing: 24,
               runSpacing: 24,
               children: [
-                _MetricCard(
-                  label: 'Projects',
-                  value: presentation.totalProjects,
-                ),
-                _MetricCard(
-                  label: 'Objectifs',
-                  value: presentation.totalObjectifs,
-                ),
-                _MetricCard(label: 'Réussis', value: done),
-                _MetricCard(label: 'Échecs', value: failed),
-                _MetricCard(label: 'Bloqués', value: blocked),
+                _MetricCard(label: 'Projects', value: totalProjects),
+                _MetricCard(label: 'Objectifs', value: totalObjectifs),
+                _MetricCard(label: 'Réussis', value: doneCount),
+                _MetricCard(label: 'Échecs', value: failedCount),
+                _MetricCard(label: 'Bloqués', value: blockedCount),
               ],
+            ),
+            const Spacer(),
+            Text(
+              '$pageNumber / $totalPages',
+              style: theme.textTheme.labelLarge,
             ),
           ],
         ),

@@ -1,35 +1,47 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_deck/flutter_deck.dart';
 
-part 'slide_timeframe.g.dart';
+import '../../../../layer_technical/extension/date_time_extension.dart';
+import 'slide.dart';
 
-@CopyWith()
-@JsonSerializable()
-class SlideTimeframe {
+class SlideTimeframe extends Slide {
   final DateTime start;
-
   final DateTime end;
 
-  const SlideTimeframe({required this.start, required this.end});
+  SlideTimeframe({
+    super.key,
+    required super.pageNumber,
+    required super.totalPages,
+    required this.start,
+    required this.end,
+  }) : super(
+         configuration: const FlutterDeckSlideConfiguration(route: '/intro'),
+       );
 
-  factory SlideTimeframe.currentWeek({DateTime? now}) {
-    final reference = now ?? DateTime.now();
-    final today = DateTime(reference.year, reference.month, reference.day);
-    final monday = today.subtract(Duration(days: today.weekday - 1));
-    final sunday = monday.add(const Duration(days: 6));
-    return SlideTimeframe(start: monday, end: sunday);
-  }
-
-  factory SlideTimeframe.fromJson(Map<String, dynamic> json) =>
-      _$SlideTimeframeFromJson(json);
-
-  Map<String, dynamic> toJson() => _$SlideTimeframeToJson(this);
-
-  Duration get duration => end.difference(start);
-
-  bool contains(DateTime moment) {
-    final dayStart = DateTime(start.year, start.month, start.day);
-    final dayEnd = DateTime(end.year, end.month, end.day, 23, 59, 59);
-    return !moment.isBefore(dayStart) && !moment.isAfter(dayEnd);
+  @override
+  FlutterDeckSlide build(BuildContext context) {
+    final theme = Theme.of(context);
+    return FlutterDeckSlide.blank(
+      builder: (_) => Padding(
+        padding: const EdgeInsets.all(48),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Sprint Review', style: theme.textTheme.displayMedium),
+            const SizedBox(height: 24),
+            Text(
+              'Du ${start.formattedDayMonthYear} au ${end.formattedDayMonthYear}',
+              style: theme.textTheme.headlineSmall,
+            ),
+            const Spacer(),
+            Text(
+              '$pageNumber / $totalPages',
+              style: theme.textTheme.labelLarge,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

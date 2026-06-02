@@ -3,23 +3,22 @@ import 'package:flutter/material.dart';
 import '../../../../../layer_technical/extension/date_time_extension.dart';
 import '../../../../objectif/domain/entity/objectif.dart';
 import '../../../../project/domain/entity/project.dart';
-import '../../../../project_catalog/domain/entity/project_catalog.dart';
 
 class ObjectifPicker extends StatelessWidget {
-  final ProjectCatalog catalog;
+  final List<Project> projects;
   final List<Objectif> listSelectedObjectif;
   final ValueChanged<Objectif> onToggle;
 
   const ObjectifPicker({
     super.key,
-    required this.catalog,
+    required this.projects,
     required this.listSelectedObjectif,
     required this.onToggle,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (catalog.projects.isEmpty) {
+    if (projects.isEmpty) {
       return const Padding(
         padding: EdgeInsets.symmetric(vertical: 16),
         child: Text('Aucun project disponible.'),
@@ -28,11 +27,10 @@ class ObjectifPicker extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final project in catalog.projects)
-          if (catalog.objectifsOf(project).isNotEmpty)
+        for (final project in projects)
+          if (project.listObjectif.isNotEmpty)
             _ProjectSection(
               project: project,
-              objectifs: catalog.objectifsOf(project),
               listSelectedObjectif: listSelectedObjectif,
               onToggle: onToggle,
             ),
@@ -43,13 +41,11 @@ class ObjectifPicker extends StatelessWidget {
 
 class _ProjectSection extends StatelessWidget {
   final Project project;
-  final List<Objectif> objectifs;
   final List<Objectif> listSelectedObjectif;
   final ValueChanged<Objectif> onToggle;
 
   const _ProjectSection({
     required this.project,
-    required this.objectifs,
     required this.listSelectedObjectif,
     required this.onToggle,
   });
@@ -57,9 +53,11 @@ class _ProjectSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final objectifs = project.listObjectif;
     final selectedCount = objectifs
-        .where((objectif) =>
-            listSelectedObjectif.any((selected) => selected.id == objectif.id))
+        .where(
+          (objectif) => listSelectedObjectif.any((s) => s.id == objectif.id),
+        )
         .length;
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 6),

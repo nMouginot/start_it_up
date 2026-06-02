@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../layer_technical/dependency_injection/app_dependency_injection.dart';
 import '../../../../layer_technical/extension/date_time_extension.dart';
-import '../../domain/entity/slide_timeframe.dart';
+import '../../domain/entity/project_slide_block.dart';
+import '../../domain/entity/timeframe.dart';
 import 'cubit/slide_setup_cubit.dart';
 import 'cubit/slide_setup_state.dart';
 import 'widget/objectif_picker.dart';
@@ -31,11 +32,7 @@ class _SlideSetupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: BlocBuilder<SlideSetupCubit, SlideSetupState>(
-          builder: (_, state) => const Text('Préparer la présentation'),
-        ),
-      ),
+      appBar: AppBar(title: const Text('Préparer la présentation')),
       body: SafeArea(
         child: BlocBuilder<SlideSetupCubit, SlideSetupState>(
           builder: (context, state) => _SetupForm(state: state),
@@ -53,9 +50,8 @@ class _SetupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<SlideSetupCubit>(context);
-    final catalog = state.catalog;
 
-    if (state.catalogLoading || catalog == null) {
+    if (state.projectsLoading) {
       return const Center(child: CircularProgressIndicator());
     }
     if (state.error != null) {
@@ -76,7 +72,7 @@ class _SetupForm extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         ObjectifPicker(
-          catalog: catalog,
+          projects: state.projects,
           listSelectedObjectif: state.listSelectedObjectif,
           onToggle: cubit.toggleObjectif,
         ),
@@ -97,8 +93,6 @@ class _ActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final generateLabel = 'Générer la présentation';
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -110,7 +104,7 @@ class _ActionButtons extends StatelessWidget {
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
               : const Icon(Icons.build),
-          label: Text(generateLabel),
+          label: const Text('Générer la présentation'),
           onPressed: state.canGenerate ? cubit.generate : null,
         ),
         const SizedBox(height: 12),
@@ -131,7 +125,7 @@ class _Summary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SlideTimeframe timeframe = state.timeframe;
+    final Timeframe timeframe = state.timeframe;
     final built = state.builtPresentation;
     final summary =
         'Sprint du ${timeframe.start.formattedDayMonthYear} au '
@@ -140,8 +134,8 @@ class _Summary extends StatelessWidget {
         '${state.selectedProjectCount} project(s)';
     final builtNote = built == null
         ? 'Aucune présentation prête.'
-        : 'Présentation prête : ${built.totalProjects} project(s), '
-              '${built.totalObjectifs} objectif(s).';
+        : 'Présentation prête : ${built.slides.whereType<ProjectSlideBlock>().length} project(s), '
+              '${built.slides.whereType<ProjectSlideBlock>().fold(0, (sum, b) => sum + b.objectifs.length)} objectif(s).';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

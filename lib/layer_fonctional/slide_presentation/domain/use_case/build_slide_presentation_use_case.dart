@@ -1,27 +1,68 @@
-import 'package:start_it_up/layer_fonctional/objectif/domain/entity/objectif.dart';
-
-import '../../../project_catalog/domain/entity/project_catalog.dart';
+import '../../../objectif/domain/entity/objectif.dart';
+import '../../../project/domain/entity/project.dart';
 import '../entity/project_slide_block.dart';
+import '../entity/slide.dart';
+import '../entity/slide_overview.dart';
 import '../entity/slide_presentation.dart';
 import '../entity/slide_timeframe.dart';
+import '../entity/timeframe.dart';
 
 class BuildSlidePresentationUseCase {
   const BuildSlidePresentationUseCase();
 
   Future<SlidePresentation> execute({
-    required SlideTimeframe timeframe,
-    required ProjectCatalog catalog,
+    required Timeframe timeframe,
+    required List<Project> projects,
     required List<Objectif> selectedObjectif,
   }) async {
-    final blocks = <ProjectSlideBlock>[];
-    for (final project in catalog.projects) {
-      final selected = catalog
-          .objectifsOf(project)
-          .where((objectif) => selectedObjectif.contains(objectif.id))
+    final selectedIds = selectedObjectif.map((o) => o.id).toSet();
+
+    final blocks = <(Project, List<Objectif>)>[];
+    for (final project in projects) {
+      final selected = project.listObjectif
+          .where((o) => selectedIds.contains(o.id))
           .toList(growable: false);
       if (selected.isEmpty) continue;
-      blocks.add(ProjectSlideBlock(project: project, objectifs: selected));
+      blocks.add((project, selected));
     }
-    return SlidePresentation(timeframe: timeframe, blocks: blocks);
+
+    final doneCount = selectedObjectif
+        .where((o) => o.status == ObjectifStatus.done)
+        .length;
+    final failedCount = selectedObjectif
+        .where((o) => o.status == ObjectifStatus.failed)
+        .length;
+    final blockedCount = selectedObjectif
+        .where((o) => o.status == ObjectifStatus.blocked)
+        .length;
+
+    final totalPages = 2 + blocks.length;
+
+    final slides = <Slide>[
+      SlideTimeframe(
+        pageNumber: 1,
+        totalPages: totalPages,
+        start: timeframe.start,
+        end: timeframe.end,
+      ),
+      SlideOverview(
+        pageNumber: 2,
+        totalPages: totalPages,
+        totalProjects: blocks.length,
+        totalObjectifs: selectedObjectif.length,
+        doneCount: doneCount,
+        failedCount: failedCount,
+        blockedCount: blockedCount,
+      ),
+      for (final (index, block) in blocks.indexed)
+        ProjectSlideBlock(
+          pageNumber: 3 + index,
+          totalPages: totalPages,
+          project: block.$1,
+          objectifs: block.$2,
+        ),
+    ];
+
+    return SlidePresentation(slides: slides);
   }
 }

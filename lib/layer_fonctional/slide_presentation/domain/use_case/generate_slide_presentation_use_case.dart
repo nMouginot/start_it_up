@@ -1,7 +1,7 @@
 import '../../../objectif/domain/entity/objectif.dart';
-import '../../../project_catalog/domain/entity/project_catalog.dart';
+import '../../../project/domain/entity/project.dart';
 import '../entity/slide_presentation.dart';
-import '../entity/slide_timeframe.dart';
+import '../entity/timeframe.dart';
 import 'build_slide_presentation_use_case.dart';
 import 'save_slide_presentation_history_use_case.dart';
 
@@ -16,13 +16,13 @@ class GenerateSlidePresentationUseCase {
        _saveUseCase = saveUseCase;
 
   Future<SlidePresentation> execute({
-    required SlideTimeframe timeframe,
-    required ProjectCatalog catalog,
+    required Timeframe timeframe,
+    required List<Project> projects,
     required List<Objectif> selectedObjectif,
   }) async {
     final presentation = await _buildUseCase.execute(
       timeframe: timeframe,
-      catalog: catalog,
+      projects: projects,
       selectedObjectif: selectedObjectif,
     );
     await _saveUseCase.execute(presentation: presentation);

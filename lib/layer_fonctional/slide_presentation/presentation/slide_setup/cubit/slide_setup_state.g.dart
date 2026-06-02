@@ -17,10 +17,10 @@ abstract class _$SlideSetupStateCWProxy {
   /// SlideSetupState(...).copyWith(id: 12, name: "My name")
   /// ```
   SlideSetupState call({
-    bool catalogLoading,
-    ProjectCatalog? catalog,
+    bool projectsLoading,
+    List<Project> projects,
     List<Objectif> listSelectedObjectif,
-    SlideTimeframe timeframe,
+    Timeframe timeframe,
     bool building,
     SlidePresentation? builtPresentation,
     Object? error,
@@ -43,8 +43,8 @@ class _$SlideSetupStateCWProxyImpl implements _$SlideSetupStateCWProxy {
   /// SlideSetupState(...).copyWith(id: 12, name: "My name")
   /// ```
   SlideSetupState call({
-    Object? catalogLoading = const $CopyWithPlaceholder(),
-    Object? catalog = const $CopyWithPlaceholder(),
+    Object? projectsLoading = const $CopyWithPlaceholder(),
+    Object? projects = const $CopyWithPlaceholder(),
     Object? listSelectedObjectif = const $CopyWithPlaceholder(),
     Object? timeframe = const $CopyWithPlaceholder(),
     Object? building = const $CopyWithPlaceholder(),
@@ -52,16 +52,16 @@ class _$SlideSetupStateCWProxyImpl implements _$SlideSetupStateCWProxy {
     Object? error = const $CopyWithPlaceholder(),
   }) {
     return SlideSetupState(
-      catalogLoading:
-          catalogLoading == const $CopyWithPlaceholder() ||
-              catalogLoading == null
-          ? _value.catalogLoading
+      projectsLoading:
+          projectsLoading == const $CopyWithPlaceholder() ||
+              projectsLoading == null
+          ? _value.projectsLoading
           // ignore: cast_nullable_to_non_nullable
-          : catalogLoading as bool,
-      catalog: catalog == const $CopyWithPlaceholder()
-          ? _value.catalog
+          : projectsLoading as bool,
+      projects: projects == const $CopyWithPlaceholder() || projects == null
+          ? _value.projects
           // ignore: cast_nullable_to_non_nullable
-          : catalog as ProjectCatalog?,
+          : projects as List<Project>,
       listSelectedObjectif:
           listSelectedObjectif == const $CopyWithPlaceholder() ||
               listSelectedObjectif == null
@@ -71,7 +71,7 @@ class _$SlideSetupStateCWProxyImpl implements _$SlideSetupStateCWProxy {
       timeframe: timeframe == const $CopyWithPlaceholder() || timeframe == null
           ? _value.timeframe
           // ignore: cast_nullable_to_non_nullable
-          : timeframe as SlideTimeframe,
+          : timeframe as Timeframe,
       building: building == const $CopyWithPlaceholder() || building == null
           ? _value.building
           // ignore: cast_nullable_to_non_nullable

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../layer_technical/extension/date_time_extension.dart';
-import '../../../domain/entity/slide_timeframe.dart';
+import '../../../domain/entity/timeframe.dart';
 
 class SlideTimeframePicker extends StatelessWidget {
-  final SlideTimeframe timeframe;
-  final ValueChanged<SlideTimeframe> onChanged;
+  final Timeframe timeframe;
+  final ValueChanged<Timeframe> onChanged;
 
   const SlideTimeframePicker({
     super.key,

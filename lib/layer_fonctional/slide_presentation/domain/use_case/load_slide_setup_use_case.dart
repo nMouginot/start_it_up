@@ -1,32 +1,34 @@
 import '../../../objectif/domain/entity/objectif.dart';
-import '../../../project_catalog/domain/entity/project_catalog.dart';
-import '../../../project_catalog/domain/use_case/get_project_catalog_use_case.dart';
+import '../../../project/domain/entity/project.dart';
+import '../../../project/domain/use_case/get_projects_use_case.dart';
+import '../entity/project_slide_block.dart';
 import '../entity/slide_presentation.dart';
 import '../entity/slide_timeframe.dart';
+import '../entity/timeframe.dart';
 import 'get_slide_presentation_history_by_id_use_case.dart';
 
 typedef LoadSlideSetupResult = ({
-  ProjectCatalog catalog,
-  SlideTimeframe? timeframe,
+  List<Project> projects,
+  Timeframe? timeframe,
   List<Objectif> preselectedObjectifs,
   SlidePresentation? existingPresentation,
 });
 
 class LoadSlideSetupUseCase {
-  final GetProjectCatalogUseCase _getProjectCatalogUseCase;
+  final GetProjectsUseCase _getProjectsUseCase;
   final GetSlidePresentationHistoryByIdUseCase _getHistoryByIdUseCase;
 
   const LoadSlideSetupUseCase({
-    required GetProjectCatalogUseCase getProjectCatalogUseCase,
+    required GetProjectsUseCase getProjectsUseCase,
     required GetSlidePresentationHistoryByIdUseCase getHistoryByIdUseCase,
-  }) : _getProjectCatalogUseCase = getProjectCatalogUseCase,
+  }) : _getProjectsUseCase = getProjectsUseCase,
        _getHistoryByIdUseCase = getHistoryByIdUseCase;
 
   Future<LoadSlideSetupResult> execute({int? historyEntryId}) async {
-    final catalog = await _getProjectCatalogUseCase.execute();
+    final projects = await _getProjectsUseCase.execute();
     if (historyEntryId == null) {
       return (
-        catalog: catalog,
+        projects: projects,
         timeframe: null,
         preselectedObjectifs: const <Objectif>[],
         existingPresentation: null,
@@ -35,17 +37,25 @@ class LoadSlideSetupUseCase {
     final dto = await _getHistoryByIdUseCase.execute(historyEntryId);
     if (dto == null) {
       return (
-        catalog: catalog,
+        projects: projects,
         timeframe: null,
         preselectedObjectifs: const <Objectif>[],
         existingPresentation: null,
       );
     }
+    final presentation = dto.presentation;
+    final intro = presentation.slides.whereType<SlideTimeframe>().firstOrNull;
+    final selected = presentation.slides
+        .whereType<ProjectSlideBlock>()
+        .expand((block) => block.objectifs)
+        .toList(growable: false);
     return (
-      catalog: catalog,
-      timeframe: dto.presentation.timeframe,
-      preselectedObjectifs: dto.presentation.allObjectifs.toList(),
-      existingPresentation: dto.presentation,
+      projects: projects,
+      timeframe: intro == null
+          ? null
+          : Timeframe(start: intro.start, end: intro.end),
+      preselectedObjectifs: selected,
+      existingPresentation: presentation,
     );
   }
 }

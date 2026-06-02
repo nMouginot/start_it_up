@@ -7,6 +7,8 @@ import '../../../../layer_technical/dependency_injection/app_dependency_injectio
 import '../../../../layer_technical/extension/date_time_extension.dart';
 import '../../../../layer_technical/navigation/data/app_routes.dart';
 import '../../data/dto/slide_presentation_history_dto.dart';
+import '../../domain/entity/project_slide_block.dart';
+import '../../domain/entity/slide_timeframe.dart';
 import 'cubit/slide_history_cubit.dart';
 import 'cubit/slide_history_state.dart';
 
@@ -74,7 +76,17 @@ class _EntryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final created = DateFormat('dd/MM/yyyy HH:mm').format(entry.createdAt);
-    final timeframe = entry.presentation.timeframe;
+    final intro = entry.presentation.slides
+        .whereType<SlideTimeframe>()
+        .firstOrNull;
+    final blocks = entry.presentation.slides.whereType<ProjectSlideBlock>();
+    final objectifsCount = blocks.fold(
+      0,
+      (sum, block) => sum + block.objectifs.length,
+    );
+    final title = intro == null
+        ? 'Présentation'
+        : 'Sprint du ${intro.start.formattedDayMonthYear} au ${intro.end.formattedDayMonthYear}';
     return Card(
       clipBehavior: Clip.antiAlias,
       child: Padding(
@@ -82,14 +94,10 @@ class _EntryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Sprint du ${timeframe.start.formattedDayMonthYear} au ${timeframe.end.formattedDayMonthYear}',
-              style: theme.textTheme.titleMedium,
-            ),
+            Text(title, style: theme.textTheme.titleMedium),
             const SizedBox(height: 4),
             Text(
-              '${entry.presentation.totalProjects} project(s), '
-              '${entry.presentation.totalObjectifs} objectif(s) — généré le $created',
+              '${blocks.length} project(s), $objectifsCount objectif(s) — généré le $created',
               style: theme.textTheme.bodySmall,
             ),
             const SizedBox(height: 8),
@@ -99,15 +107,16 @@ class _EntryCard extends StatelessWidget {
                 TextButton.icon(
                   icon: const Icon(Icons.edit),
                   label: const Text('Modifier'),
-                  onPressed: () =>
-                      context.push(AppRoutes.slideSetupEditPath(entry.id)),
+                  onPressed: () => context.push(
+                    AppRoutes.slideSetupEditPath(entry.id),
+                  ),
                 ),
                 const SizedBox(width: 8),
                 FilledButton.icon(
                   icon: const Icon(Icons.play_arrow),
                   label: const Text('Lancer'),
                   onPressed: () =>
-                      BlocProvider.of<SlideHistoryCubit>(context).launch(entry),
+                      context.read<SlideHistoryCubit>().launch(entry),
                 ),
               ],
             ),

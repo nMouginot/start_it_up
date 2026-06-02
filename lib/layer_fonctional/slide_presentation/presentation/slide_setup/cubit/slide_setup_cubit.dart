@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../objectif/domain/entity/objectif.dart';
-import '../../../domain/entity/slide_timeframe.dart';
+import '../../../domain/entity/timeframe.dart';
 import '../../../domain/use_case/generate_slide_presentation_use_case.dart';
 import '../../../domain/use_case/load_slide_setup_use_case.dart';
 import '../../../domain/use_case/toggle_objectif_selection_use_case.dart';
@@ -26,22 +26,22 @@ class SlideSetupCubit extends Cubit<SlideSetupState> {
        super(SlideSetupState.initial());
 
   Future<void> load({int? historyEntryId}) async {
-    emit(state.copyWith(catalogLoading: true, error: null));
+    emit(state.copyWith(projectsLoading: true, error: null));
     try {
       final result = await _loadSlideSetupUseCase.execute(
         historyEntryId: historyEntryId,
       );
       emit(
         state.copyWith(
-          catalogLoading: false,
-          catalog: result.catalog,
+          projectsLoading: false,
+          projects: result.projects,
           timeframe: result.timeframe ?? state.timeframe,
           listSelectedObjectif: result.preselectedObjectifs,
           builtPresentation: result.existingPresentation,
         ),
       );
     } catch (error) {
-      emit(state.copyWith(catalogLoading: false, error: error));
+      emit(state.copyWith(projectsLoading: false, error: error));
     }
   }
 
@@ -53,18 +53,17 @@ class SlideSetupCubit extends Cubit<SlideSetupState> {
     emit(state.copyWith(listSelectedObjectif: next, builtPresentation: null));
   }
 
-  void updateTimeframe(SlideTimeframe timeframe) {
+  void updateTimeframe(Timeframe timeframe) {
     emit(state.copyWith(timeframe: timeframe, builtPresentation: null));
   }
 
   Future<void> generate() async {
-    final catalog = state.catalog;
-    if (!state.canGenerate || catalog == null) return;
+    if (!state.canGenerate) return;
     emit(state.copyWith(building: true, error: null, builtPresentation: null));
     try {
       final presentation = await _generateSlidePresentationUseCase.execute(
         timeframe: state.timeframe,
-        catalog: catalog,
+        projects: state.projects,
         selectedObjectif: state.listSelectedObjectif,
       );
       emit(state.copyWith(building: false, builtPresentation: presentation));

@@ -1,25 +1,25 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 
 import '../../../../objectif/domain/entity/objectif.dart';
-import '../../../../project_catalog/domain/entity/project_catalog.dart';
+import '../../../../project/domain/entity/project.dart';
 import '../../../domain/entity/slide_presentation.dart';
-import '../../../domain/entity/slide_timeframe.dart';
+import '../../../domain/entity/timeframe.dart';
 
 part 'slide_setup_state.g.dart';
 
 @CopyWith()
 class SlideSetupState {
-  final bool catalogLoading;
-  final ProjectCatalog? catalog;
+  final bool projectsLoading;
+  final List<Project> projects;
   final List<Objectif> listSelectedObjectif;
-  final SlideTimeframe timeframe;
+  final Timeframe timeframe;
   final bool building;
   final SlidePresentation? builtPresentation;
   final Object? error;
 
   const SlideSetupState({
-    required this.catalogLoading,
-    required this.catalog,
+    required this.projectsLoading,
+    required this.projects,
     required this.listSelectedObjectif,
     required this.timeframe,
     required this.building,
@@ -28,10 +28,10 @@ class SlideSetupState {
   });
 
   factory SlideSetupState.initial() => SlideSetupState(
-    catalogLoading: true,
-    catalog: null,
+    projectsLoading: true,
+    projects: const [],
     listSelectedObjectif: const [],
-    timeframe: SlideTimeframe.currentWeek(),
+    timeframe: Timeframe.currentWeek(),
     building: false,
     builtPresentation: null,
     error: null,
@@ -45,13 +45,12 @@ class SlideSetupState {
   bool get canLaunch => builtPresentation != null && !building;
 
   int get selectedProjectCount {
-    final catalog = this.catalog;
-    if (catalog == null) return 0;
+    final selectedIds = listSelectedObjectif.map((o) => o.id).toSet();
     final projectIds = <int>{};
-    for (final project in catalog.projects) {
-      final hasSelected = catalog
-          .objectifsOf(project)
-          .any((objectif) => listSelectedObjectif.contains(objectif.id));
+    for (final project in projects) {
+      final hasSelected = project.listObjectif.any(
+        (o) => selectedIds.contains(o.id),
+      );
       if (hasSelected) projectIds.add(project.id);
     }
     return projectIds.length;

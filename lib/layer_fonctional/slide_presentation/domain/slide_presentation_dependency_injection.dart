@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 
 import '../../../layer_technical/dependency_injection/feature_injector.dart';
-import '../../project_catalog/domain/use_case/get_project_catalog_use_case.dart';
+import '../../project/domain/use_case/get_projects_use_case.dart';
 import '../data/repository/slide_presentation_history_repository.dart';
 import '../presentation/presentation_launcher.dart';
 import '../presentation/slide_history/cubit/slide_history_cubit.dart';
@@ -45,14 +45,12 @@ class SlidePresentationInjector implements FeatureInjector {
     );
     locator.registerLazySingleton(
       () => LoadSlideSetupUseCase(
-        getProjectCatalogUseCase: locator<GetProjectCatalogUseCase>(),
+        getProjectsUseCase: locator<GetProjectsUseCase>(),
         getHistoryByIdUseCase:
             locator<GetSlidePresentationHistoryByIdUseCase>(),
       ),
     );
-    locator.registerLazySingleton(
-      () => const ToggleObjectifSelectionUseCase(),
-    );
+    locator.registerLazySingleton(() => const ToggleObjectifSelectionUseCase());
     locator.registerLazySingleton(
       () => GenerateSlidePresentationUseCase(
         buildUseCase: locator<BuildSlidePresentationUseCase>(),
