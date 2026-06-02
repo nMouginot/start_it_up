@@ -3,44 +3,49 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../layer_technical/dependency_injection/app_dependency_injection.dart';
-import '../../../../layer_technical/extension/date_time_extension.dart';
-import '../../../../layer_technical/navigation/data/app_routes.dart';
-import '../../data/dto/slide_presentation_history_dto.dart';
-import '../../domain/entity/project_slide_block.dart';
-import '../../domain/entity/slide_timeframe.dart';
-import 'cubit/slide_history_cubit.dart';
-import 'cubit/slide_history_state.dart';
+import '../../../layer_technical/dependency_injection/app_dependency_injection.dart';
+import '../../../layer_technical/extension/date_time_extension.dart';
+import '../../../layer_technical/navigation/data/app_routes.dart';
+import '../../slide_presentation/domain/entity/project_slide_block.dart';
+import '../../slide_presentation/domain/entity/slide_timeframe.dart';
+import '../data/dto/slide_presentation_history_dto.dart';
+import 'cubit/slide_presentation_history_cubit.dart';
+import 'cubit/slide_presentation_history_state.dart';
 
-class SlideHistoryPage extends StatelessWidget {
-  const SlideHistoryPage({super.key});
+class SlidePresentationHistoryPage extends StatelessWidget {
+  const SlidePresentationHistoryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => locator<SlideHistoryCubit>()..load(),
-      child: const _SlideHistoryView(),
+      create: (_) => locator<SlidePresentationHistoryCubit>()..load(),
+      child: const _SlidePresentationHistoryView(),
     );
   }
 }
 
-class _SlideHistoryView extends StatelessWidget {
-  const _SlideHistoryView();
+class _SlidePresentationHistoryView extends StatelessWidget {
+  const _SlidePresentationHistoryView();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Historique des présentations')),
       body: SafeArea(
-        child: BlocBuilder<SlideHistoryCubit, SlideHistoryState>(
+        child: BlocBuilder<
+          SlidePresentationHistoryCubit,
+          SlidePresentationHistoryState
+        >(
           builder: (context, state) => switch (state) {
-            SlideHistoryLoading() => const Center(
+            SlidePresentationHistoryLoading() => const Center(
               child: CircularProgressIndicator(),
             ),
-            SlideHistoryError(:final error) => Center(
+            SlidePresentationHistoryError(:final error) => Center(
               child: Text('Erreur : $error'),
             ),
-            SlideHistoryLoaded(:final entries) => _EntryList(entries: entries),
+            SlidePresentationHistoryLoaded(:final entries) => _EntryList(
+              entries: entries,
+            ),
           },
         ),
       ),
@@ -107,16 +112,15 @@ class _EntryCard extends StatelessWidget {
                 TextButton.icon(
                   icon: const Icon(Icons.edit),
                   label: const Text('Modifier'),
-                  onPressed: () => context.push(
-                    AppRoutes.slideSetupEditPath(entry.id),
-                  ),
+                  onPressed: () =>
+                      context.push(AppRoutes.slideSetupEditPath(entry.id)),
                 ),
                 const SizedBox(width: 8),
                 FilledButton.icon(
                   icon: const Icon(Icons.play_arrow),
                   label: const Text('Lancer'),
                   onPressed: () =>
-                      context.read<SlideHistoryCubit>().launch(entry),
+                      context.push(AppRoutes.slideLaunchPath(entry.id)),
                 ),
               ],
             ),

@@ -10,7 +10,7 @@ class SlideOverview extends Slide {
   final int failedCount;
   final int blockedCount;
 
-  SlideOverview({
+  const SlideOverview({
     super.key,
     required super.pageNumber,
     required super.totalPages,

@@ -1,11 +1,11 @@
 import '../../../objectif/domain/entity/objectif.dart';
 import '../../../project/domain/entity/project.dart';
 import '../../../project/domain/use_case/get_projects_use_case.dart';
+import '../../../slide_presentation_history/domain/use_case/get_slide_presentation_history_use_case.dart';
 import '../entity/project_slide_block.dart';
 import '../entity/slide_presentation.dart';
 import '../entity/slide_timeframe.dart';
 import '../entity/timeframe.dart';
-import 'get_slide_presentation_history_by_id_use_case.dart';
 
 typedef LoadSlideSetupResult = ({
   List<Project> projects,
@@ -16,13 +16,13 @@ typedef LoadSlideSetupResult = ({
 
 class LoadSlideSetupUseCase {
   final GetProjectsUseCase _getProjectsUseCase;
-  final GetSlidePresentationHistoryByIdUseCase _getHistoryByIdUseCase;
+  final GetSlidePresentationHistoryUseCase _getHistoryUseCase;
 
   const LoadSlideSetupUseCase({
     required GetProjectsUseCase getProjectsUseCase,
-    required GetSlidePresentationHistoryByIdUseCase getHistoryByIdUseCase,
+    required GetSlidePresentationHistoryUseCase getHistoryUseCase,
   }) : _getProjectsUseCase = getProjectsUseCase,
-       _getHistoryByIdUseCase = getHistoryByIdUseCase;
+       _getHistoryUseCase = getHistoryUseCase;
 
   Future<LoadSlideSetupResult> execute({int? historyEntryId}) async {
     final projects = await _getProjectsUseCase.execute();
@@ -34,8 +34,9 @@ class LoadSlideSetupUseCase {
         existingPresentation: null,
       );
     }
-    final dto = await _getHistoryByIdUseCase.execute(historyEntryId);
-    if (dto == null) {
+    final entries = await _getHistoryUseCase.execute();
+    final entry = entries.where((e) => e.id == historyEntryId).firstOrNull;
+    if (entry == null) {
       return (
         projects: projects,
         timeframe: null,
@@ -43,7 +44,7 @@ class LoadSlideSetupUseCase {
         existingPresentation: null,
       );
     }
-    final presentation = dto.presentation;
+    final presentation = entry.presentation;
     final intro = presentation.slides.whereType<SlideTimeframe>().firstOrNull;
     final selected = presentation.slides
         .whereType<ProjectSlideBlock>()

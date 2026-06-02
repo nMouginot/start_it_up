@@ -13,6 +13,7 @@ abstract final class AppRoutes {
 
   static const String slideSetup = '/presentation';
   static const String slideSetupEdit = '/presentation/:id/edit';
+  static const String slideLaunch = '/presentation/:id/launch';
   static const String slideHistory = '/presentation/history';
 
   static String projectDetailPath(int id) => '/projects/$id';
@@ -27,4 +28,7 @@ abstract final class AppRoutes {
 
   static String slideSetupEditPath(int historyEntryId) =>
       '/presentation/$historyEntryId/edit';
+
+  static String slideLaunchPath(int historyEntryId) =>
+      '/presentation/$historyEntryId/launch';
 }

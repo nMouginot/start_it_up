@@ -1,4 +1,4 @@
-import '../../domain/entity/slide_presentation.dart';
+import '../../../slide_presentation/domain/entity/slide_presentation.dart';
 
 class SlidePresentationHistoryDto {
   final int id;

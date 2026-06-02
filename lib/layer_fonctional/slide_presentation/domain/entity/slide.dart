@@ -5,7 +5,7 @@ abstract class Slide extends FlutterDeckSlideWidget {
   final int pageNumber;
   final int totalPages;
 
-  Slide({
+  const Slide({
     super.key,
     required this.pageNumber,
     required this.totalPages,
