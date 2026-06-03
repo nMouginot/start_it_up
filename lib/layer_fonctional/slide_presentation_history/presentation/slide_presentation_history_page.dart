@@ -32,22 +32,23 @@ class _SlidePresentationHistoryView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Historique des présentations')),
       body: SafeArea(
-        child: BlocBuilder<
-          SlidePresentationHistoryCubit,
-          SlidePresentationHistoryState
-        >(
-          builder: (context, state) => switch (state) {
-            SlidePresentationHistoryLoading() => const Center(
-              child: CircularProgressIndicator(),
+        child:
+            BlocBuilder<
+              SlidePresentationHistoryCubit,
+              SlidePresentationHistoryState
+            >(
+              builder: (context, state) => switch (state) {
+                SlidePresentationHistoryLoading() => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                SlidePresentationHistoryError(:final error) => Center(
+                  child: Text('Erreur : $error'),
+                ),
+                SlidePresentationHistoryLoaded(:final entries) => _EntryList(
+                  entries: entries,
+                ),
+              },
             ),
-            SlidePresentationHistoryError(:final error) => Center(
-              child: Text('Erreur : $error'),
-            ),
-            SlidePresentationHistoryLoaded(:final entries) => _EntryList(
-              entries: entries,
-            ),
-          },
-        ),
       ),
     );
   }
@@ -91,7 +92,7 @@ class _EntryCard extends StatelessWidget {
     );
     final title = intro == null
         ? 'Présentation'
-        : 'Sprint du ${intro.start.formattedDayMonthYear} au ${intro.end.formattedDayMonthYear}';
+        : 'Sprint du ${intro.timeframe.start.formattedDayMonthYear} au ${intro.timeframe.end.formattedDayMonthYear}';
     return Card(
       clipBehavior: Clip.antiAlias,
       child: Padding(

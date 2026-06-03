@@ -14,6 +14,7 @@ class SlideOverview extends Slide {
     super.key,
     required super.pageNumber,
     required super.totalPages,
+    required super.timeframe,
     required this.totalProjects,
     required this.totalObjectifs,
     required this.doneCount,

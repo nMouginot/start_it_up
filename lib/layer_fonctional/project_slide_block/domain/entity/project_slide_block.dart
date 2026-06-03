@@ -14,6 +14,7 @@ class ProjectSlideBlock extends Slide {
     super.key,
     required super.pageNumber,
     required super.totalPages,
+    required super.timeframe,
     required this.project,
     required this.objectifs,
   }) : super(

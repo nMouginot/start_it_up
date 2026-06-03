@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../layer_technical/dependency_injection/app_dependency_injection.dart';
 import '../../../../layer_technical/extension/date_time_extension.dart';
 import '../../../project_slide_block/domain/entity/project_slide_block.dart';
-import '../../../slide_timeframe/domain/entity/timeframe.dart';
+import '../../domain/entity/timeframe.dart';
 import 'cubit/slide_setup_cubit.dart';
 import 'cubit/slide_setup_state.dart';
 import 'widget/objectif_picker.dart';

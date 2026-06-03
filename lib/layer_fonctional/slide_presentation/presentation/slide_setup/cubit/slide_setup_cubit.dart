@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../objectif/domain/entity/objectif.dart';
-import '../../../../slide_timeframe/domain/entity/timeframe.dart';
+import '../../../domain/entity/timeframe.dart';
 import '../../../domain/use_case/generate_slide_presentation_use_case.dart';
 import '../../../domain/use_case/load_slide_setup_use_case.dart';
 import '../../../domain/use_case/toggle_objectif_selection_use_case.dart';

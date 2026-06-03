@@ -5,15 +5,11 @@ import '../../../../layer_technical/extension/date_time_extension.dart';
 import '../../../slide_presentation/domain/entity/slide.dart';
 
 class SlideTimeframe extends Slide {
-  final DateTime start;
-  final DateTime end;
-
   const SlideTimeframe({
     super.key,
     required super.pageNumber,
     required super.totalPages,
-    required this.start,
-    required this.end,
+    required super.timeframe,
   }) : super(
          configuration: const FlutterDeckSlideConfiguration(route: '/intro'),
        );
@@ -31,7 +27,7 @@ class SlideTimeframe extends Slide {
             Text('Sprint Review', style: theme.textTheme.displayMedium),
             const SizedBox(height: 24),
             Text(
-              'Du ${start.formattedDayMonthYear} au ${end.formattedDayMonthYear}',
+              'Du ${timeframe.start.formattedDayMonthYear} au ${timeframe.end.formattedDayMonthYear}',
               style: theme.textTheme.headlineSmall,
             ),
             const Spacer(),

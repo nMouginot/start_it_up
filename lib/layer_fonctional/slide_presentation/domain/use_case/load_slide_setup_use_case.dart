@@ -5,7 +5,7 @@ import '../../../slide_presentation_history/domain/use_case/get_slide_presentati
 import '../../../project_slide_block/domain/entity/project_slide_block.dart';
 import '../entity/slide_presentation.dart';
 import '../../../slide_timeframe/domain/entity/slide_timeframe.dart';
-import '../../../slide_timeframe/domain/entity/timeframe.dart';
+import '../entity/timeframe.dart';
 
 typedef LoadSlideSetupResult = ({
   List<Project> projects,
@@ -54,7 +54,7 @@ class LoadSlideSetupUseCase {
       projects: projects,
       timeframe: intro == null
           ? null
-          : Timeframe(start: intro.start, end: intro.end),
+          : Timeframe(start: intro.timeframe.start, end: intro.timeframe.end),
       preselectedObjectifs: selected,
       existingPresentation: presentation,
     );
