@@ -2,7 +2,7 @@ import '../../../objectif/domain/entity/objectif.dart';
 import '../../../project/domain/entity/project.dart';
 import '../../../project_slide_block/domain/entity/project_slide_block.dart';
 import '../../../slide_overview/domain/entity/slide_overview.dart';
-import '../../../slide_timeframe/domain/entity/slide_timeframe.dart';
+import '../../../slide_timeframe/domain/entity/slide_intro.dart';
 import '../entity/slide.dart';
 import '../entity/slide_presentation.dart';
 import '../entity/timeframe.dart';

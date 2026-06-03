@@ -7,7 +7,7 @@ import '../../../layer_technical/dependency_injection/app_dependency_injection.d
 import '../../../layer_technical/extension/date_time_extension.dart';
 import '../../../layer_technical/navigation/data/app_routes.dart';
 import '../../project_slide_block/domain/entity/project_slide_block.dart';
-import '../../slide_timeframe/domain/entity/slide_timeframe.dart';
+import '../../slide_timeframe/domain/entity/slide_intro.dart';
 import '../data/dto/slide_presentation_history_dto.dart';
 import 'cubit/slide_presentation_history_cubit.dart';
 import 'cubit/slide_presentation_history_state.dart';
