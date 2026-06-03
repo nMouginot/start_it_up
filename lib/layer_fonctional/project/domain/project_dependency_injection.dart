@@ -29,14 +29,12 @@ class ProjectInjector implements FeatureInjector {
       ),
     );
     locator.registerLazySingleton(
-      () => CreateProjectUseCase(
-        projectRepository: locator<ProjectRepository>(),
-      ),
+      () =>
+          CreateProjectUseCase(projectRepository: locator<ProjectRepository>()),
     );
     locator.registerLazySingleton(
-      () => UpdateProjectUseCase(
-        projectRepository: locator<ProjectRepository>(),
-      ),
+      () =>
+          UpdateProjectUseCase(projectRepository: locator<ProjectRepository>()),
     );
     locator.registerLazySingleton(
       () => UpsertProjectUseCase(

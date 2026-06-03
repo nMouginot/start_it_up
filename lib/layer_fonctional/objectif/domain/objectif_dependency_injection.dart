@@ -15,9 +15,7 @@ class ObjectifInjector implements FeatureInjector {
   @override
   void registerRepositories(GetIt locator) {
     locator.registerLazySingleton<ObjectifRepository>(
-      () => ObjectifRepository(
-        projectRepository: locator<ProjectRepository>(),
-      ),
+      () => ObjectifRepository(projectRepository: locator<ProjectRepository>()),
     );
   }
 

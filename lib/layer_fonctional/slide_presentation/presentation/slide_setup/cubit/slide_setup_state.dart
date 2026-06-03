@@ -2,6 +2,7 @@ import 'package:copy_with_extension/copy_with_extension.dart';
 
 import '../../../../objectif/domain/entity/objectif.dart';
 import '../../../../project/domain/entity/project.dart';
+import '../../../../theme/domain/entity/slide_theme.dart';
 import '../../../domain/entity/slide_presentation.dart';
 import '../../../domain/entity/timeframe.dart';
 
@@ -13,6 +14,7 @@ class SlideSetupState {
   final List<Project> projects;
   final List<Objectif> listSelectedObjectif;
   final Timeframe timeframe;
+  final SlideTheme theme;
   final bool building;
   final SlidePresentation? builtPresentation;
   final Object? error;
@@ -22,6 +24,7 @@ class SlideSetupState {
     required this.projects,
     required this.listSelectedObjectif,
     required this.timeframe,
+    required this.theme,
     required this.building,
     required this.builtPresentation,
     required this.error,
@@ -32,6 +35,7 @@ class SlideSetupState {
     projects: const [],
     listSelectedObjectif: const [],
     timeframe: Timeframe.currentWeek(),
+    theme: const SlideTheme.defaults(),
     building: false,
     builtPresentation: null,
     error: null,

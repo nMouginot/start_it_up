@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_deck/flutter_deck.dart';
 
 import '../../../slide_presentation/domain/entity/slide.dart';
+import '../../../theme/domain/entity/slide_theme.dart';
+import '../../../theme/presentation/widget/slide_shell.dart';
 
 class SlideOverview extends Slide {
   final int totalProjects;
@@ -15,6 +17,7 @@ class SlideOverview extends Slide {
     required super.pageNumber,
     required super.totalPages,
     required super.timeframe,
+    required super.theme,
     required this.totalProjects,
     required this.totalObjectifs,
     required this.doneCount,
@@ -26,30 +29,38 @@ class SlideOverview extends Slide {
 
   @override
   FlutterDeckSlide build(BuildContext context) {
-    final theme = Theme.of(context);
     return FlutterDeckSlide.blank(
-      builder: (_) => Padding(
-        padding: const EdgeInsets.all(48),
+      builder: (_) => SlideShell(
+        theme: theme,
+        pageNumber: pageNumber,
+        totalPages: totalPages,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Vue d'ensemble", style: theme.textTheme.displaySmall),
+            Text("Vue d'ensemble", style: theme.display()),
             const SizedBox(height: 32),
             Wrap(
               spacing: 24,
               runSpacing: 24,
               children: [
-                _MetricCard(label: 'Projects', value: totalProjects),
-                _MetricCard(label: 'Objectifs', value: totalObjectifs),
-                _MetricCard(label: 'Réussis', value: doneCount),
-                _MetricCard(label: 'Échecs', value: failedCount),
-                _MetricCard(label: 'Bloqués', value: blockedCount),
+                _MetricCard(
+                  theme: theme,
+                  label: 'Projects',
+                  value: totalProjects,
+                ),
+                _MetricCard(
+                  theme: theme,
+                  label: 'Objectifs',
+                  value: totalObjectifs,
+                ),
+                _MetricCard(theme: theme, label: 'Réussis', value: doneCount),
+                _MetricCard(theme: theme, label: 'Échecs', value: failedCount),
+                _MetricCard(
+                  theme: theme,
+                  label: 'Bloqués',
+                  value: blockedCount,
+                ),
               ],
-            ),
-            const Spacer(),
-            Text(
-              '$pageNumber / $totalPages',
-              style: theme.textTheme.labelLarge,
             ),
           ],
         ),
@@ -59,27 +70,34 @@ class SlideOverview extends Slide {
 }
 
 class _MetricCard extends StatelessWidget {
+  final SlideTheme theme;
   final String label;
   final int value;
 
-  const _MetricCard({required this.label, required this.value});
+  const _MetricCard({
+    required this.theme,
+    required this.label,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
       width: 200,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest,
+        color: theme.colors.surfaceColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('$value', style: theme.textTheme.displaySmall),
+          Text(
+            '$value',
+            style: theme.display(color: theme.colors.primaryColor),
+          ),
           const SizedBox(height: 8),
-          Text(label, style: theme.textTheme.titleMedium),
+          Text(label, style: theme.title()),
         ],
       ),
     );

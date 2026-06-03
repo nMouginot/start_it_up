@@ -4,6 +4,7 @@ import '../../layer_fonctional/objectif/domain/objectif_dependency_injection.dar
 import '../../layer_fonctional/project/domain/project_dependency_injection.dart';
 import '../../layer_fonctional/slide_presentation/domain/slide_presentation_dependency_injection.dart';
 import '../../layer_fonctional/slide_presentation_history/domain/slide_presentation_history_dependency_injection.dart';
+import '../../layer_fonctional/theme/domain/theme_dependency_injection.dart';
 import '../navigation/data/app_router.dart';
 import '../navigation/domain/guards/auth_guard.dart';
 import 'feature_injector.dart';
@@ -24,6 +25,7 @@ void _registerFeatures() {
   final features = <FeatureInjector>[
     ProjectInjector(),
     ObjectifInjector(),
+    ThemeInjector(),
     SlidePresentationHistoryInjector(),
     SlidePresentationInjector(),
   ];

@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../layer_technical/dependency_injection/app_dependency_injection.dart';
 import '../../../../layer_technical/extension/date_time_extension.dart';
 import '../../../project_slide_block/domain/entity/project_slide_block.dart';
+import '../../../theme/domain/entity/slide_theme.dart';
+import '../../../theme/presentation/widget/slide_theme_picker.dart';
 import '../../domain/entity/timeframe.dart';
 import 'cubit/slide_setup_cubit.dart';
 import 'cubit/slide_setup_state.dart';
@@ -64,6 +66,13 @@ class _SetupForm extends StatelessWidget {
         SlideTimeframePicker(
           timeframe: state.timeframe,
           onChanged: cubit.updateTimeframe,
+        ),
+        const SizedBox(height: 24),
+        SlideThemePicker(
+          theme: state.theme,
+          currentJson: cubit.exportThemeAsJson(),
+          onImport: cubit.importThemeFromJson,
+          onReset: () => cubit.updateTheme(const SlideTheme.defaults()),
         ),
         const SizedBox(height: 24),
         Text(

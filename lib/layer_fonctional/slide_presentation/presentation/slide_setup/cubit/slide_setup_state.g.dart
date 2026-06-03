@@ -21,6 +21,7 @@ abstract class _$SlideSetupStateCWProxy {
     List<Project> projects,
     List<Objectif> listSelectedObjectif,
     Timeframe timeframe,
+    SlideTheme theme,
     bool building,
     SlidePresentation? builtPresentation,
     Object? error,
@@ -47,6 +48,7 @@ class _$SlideSetupStateCWProxyImpl implements _$SlideSetupStateCWProxy {
     Object? projects = const $CopyWithPlaceholder(),
     Object? listSelectedObjectif = const $CopyWithPlaceholder(),
     Object? timeframe = const $CopyWithPlaceholder(),
+    Object? theme = const $CopyWithPlaceholder(),
     Object? building = const $CopyWithPlaceholder(),
     Object? builtPresentation = const $CopyWithPlaceholder(),
     Object? error = const $CopyWithPlaceholder(),
@@ -72,6 +74,10 @@ class _$SlideSetupStateCWProxyImpl implements _$SlideSetupStateCWProxy {
           ? _value.timeframe
           // ignore: cast_nullable_to_non_nullable
           : timeframe as Timeframe,
+      theme: theme == const $CopyWithPlaceholder() || theme == null
+          ? _value.theme
+          // ignore: cast_nullable_to_non_nullable
+          : theme as SlideTheme,
       building: building == const $CopyWithPlaceholder() || building == null
           ? _value.building
           // ignore: cast_nullable_to_non_nullable

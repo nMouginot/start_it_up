@@ -3,6 +3,7 @@ import '../../../project/domain/entity/project.dart';
 import '../../../project_slide_block/domain/entity/project_slide_block.dart';
 import '../../../slide_overview/domain/entity/slide_overview.dart';
 import '../../../slide_timeframe/domain/entity/slide_intro.dart';
+import '../../../theme/domain/entity/slide_theme.dart';
 import '../entity/slide.dart';
 import '../entity/slide_presentation.dart';
 import '../entity/timeframe.dart';
@@ -12,6 +13,7 @@ class BuildSlidePresentationUseCase {
 
   Future<SlidePresentation> execute({
     required Timeframe timeframe,
+    required SlideTheme theme,
     required List<Project> projects,
     required List<Objectif> selectedObjectif,
   }) async {
@@ -43,11 +45,13 @@ class BuildSlidePresentationUseCase {
         pageNumber: 1,
         totalPages: totalPages,
         timeframe: timeframe,
+        theme: theme,
       ),
       SlideOverview(
         pageNumber: 2,
         totalPages: totalPages,
         timeframe: timeframe,
+        theme: theme,
         totalProjects: blocks.length,
         totalObjectifs: selectedObjectif.length,
         doneCount: doneCount,
@@ -59,11 +63,12 @@ class BuildSlidePresentationUseCase {
           pageNumber: 3 + index,
           totalPages: totalPages,
           timeframe: timeframe,
+          theme: theme,
           project: block.$1,
           objectifs: block.$2,
         ),
     ];
 
-    return SlidePresentation(slides: slides);
+    return SlidePresentation(slides: slides, theme: theme);
   }
 }

@@ -15,10 +15,7 @@ class ProjectDetailCubit extends Cubit<ProjectDetailState> {
     try {
       final project = await _getProjectByIdUseCase.execute(projectId);
       emit(
-        ProjectDetailLoaded(
-          project: project,
-          objectifs: project.listObjectif,
-        ),
+        ProjectDetailLoaded(project: project, objectifs: project.listObjectif),
       );
     } catch (error) {
       emit(ProjectDetailError(error));

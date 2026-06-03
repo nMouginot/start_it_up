@@ -18,9 +18,7 @@ class UpsertProjectUseCase {
     required String version,
   }) {
     if (existing != null) {
-      return _update.execute(
-        existing.copyWith(name: name, version: version),
-      );
+      return _update.execute(existing.copyWith(name: name, version: version));
     }
     return _create.execute(name: name, version: version);
   }
