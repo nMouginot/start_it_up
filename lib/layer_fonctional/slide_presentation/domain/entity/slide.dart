@@ -5,6 +5,7 @@ import '../../../theme/domain/entity/slide_theme.dart';
 import 'timeframe.dart';
 
 abstract class Slide extends FlutterDeckSlideWidget {
+  final String instanceId;
   final int pageNumber;
   final int totalPages;
   final Timeframe timeframe;
@@ -12,6 +13,7 @@ abstract class Slide extends FlutterDeckSlideWidget {
 
   const Slide({
     super.key,
+    required this.instanceId,
     required this.pageNumber,
     required this.totalPages,
     required this.timeframe,
@@ -19,6 +21,19 @@ abstract class Slide extends FlutterDeckSlideWidget {
     required FlutterDeckSlideConfiguration configuration,
   }) : super(configuration: configuration);
 
+  String get templateKey;
+
+  String get summary;
+
+  Slide copyWithCore({
+    int? pageNumber,
+    int? totalPages,
+    Timeframe? timeframe,
+    SlideTheme? theme,
+  });
+
   @override
   FlutterDeckSlide build(BuildContext context);
+
+  Widget buildSettings(BuildContext context, ValueChanged<Slide> onChanged);
 }

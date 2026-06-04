@@ -17,14 +17,15 @@ abstract class _$SlideSetupStateCWProxy {
   /// SlideSetupState(...).copyWith(id: 12, name: "My name")
   /// ```
   SlideSetupState call({
-    bool projectsLoading,
-    List<Project> projects,
-    List<Objectif> listSelectedObjectif,
+    bool loading,
+    List<Slide> slides,
+    List<SlideTemplate> templates,
     Timeframe timeframe,
     SlideTheme theme,
     bool building,
     SlidePresentation? builtPresentation,
     Object? error,
+    String exportJson,
   });
 }
 
@@ -44,32 +45,29 @@ class _$SlideSetupStateCWProxyImpl implements _$SlideSetupStateCWProxy {
   /// SlideSetupState(...).copyWith(id: 12, name: "My name")
   /// ```
   SlideSetupState call({
-    Object? projectsLoading = const $CopyWithPlaceholder(),
-    Object? projects = const $CopyWithPlaceholder(),
-    Object? listSelectedObjectif = const $CopyWithPlaceholder(),
+    Object? loading = const $CopyWithPlaceholder(),
+    Object? slides = const $CopyWithPlaceholder(),
+    Object? templates = const $CopyWithPlaceholder(),
     Object? timeframe = const $CopyWithPlaceholder(),
     Object? theme = const $CopyWithPlaceholder(),
     Object? building = const $CopyWithPlaceholder(),
     Object? builtPresentation = const $CopyWithPlaceholder(),
     Object? error = const $CopyWithPlaceholder(),
+    Object? exportJson = const $CopyWithPlaceholder(),
   }) {
     return SlideSetupState(
-      projectsLoading:
-          projectsLoading == const $CopyWithPlaceholder() ||
-              projectsLoading == null
-          ? _value.projectsLoading
+      loading: loading == const $CopyWithPlaceholder() || loading == null
+          ? _value.loading
           // ignore: cast_nullable_to_non_nullable
-          : projectsLoading as bool,
-      projects: projects == const $CopyWithPlaceholder() || projects == null
-          ? _value.projects
+          : loading as bool,
+      slides: slides == const $CopyWithPlaceholder() || slides == null
+          ? _value.slides
           // ignore: cast_nullable_to_non_nullable
-          : projects as List<Project>,
-      listSelectedObjectif:
-          listSelectedObjectif == const $CopyWithPlaceholder() ||
-              listSelectedObjectif == null
-          ? _value.listSelectedObjectif
+          : slides as List<Slide>,
+      templates: templates == const $CopyWithPlaceholder() || templates == null
+          ? _value.templates
           // ignore: cast_nullable_to_non_nullable
-          : listSelectedObjectif as List<Objectif>,
+          : templates as List<SlideTemplate>,
       timeframe: timeframe == const $CopyWithPlaceholder() || timeframe == null
           ? _value.timeframe
           // ignore: cast_nullable_to_non_nullable
@@ -90,6 +88,11 @@ class _$SlideSetupStateCWProxyImpl implements _$SlideSetupStateCWProxy {
           ? _value.error
           // ignore: cast_nullable_to_non_nullable
           : error as Object?,
+      exportJson:
+          exportJson == const $CopyWithPlaceholder() || exportJson == null
+          ? _value.exportJson
+          // ignore: cast_nullable_to_non_nullable
+          : exportJson as String,
     );
   }
 }

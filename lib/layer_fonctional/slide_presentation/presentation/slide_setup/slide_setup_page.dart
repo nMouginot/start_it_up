@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../layer_technical/dependency_injection/app_dependency_injection.dart';
-import '../../../../layer_technical/extension/date_time_extension.dart';
-import '../../../project_slide_block/domain/entity/project_slide_block.dart';
 import '../../../theme/domain/entity/slide_theme.dart';
 import '../../../theme/presentation/widget/slide_theme_picker.dart';
-import '../../domain/entity/timeframe.dart';
 import 'cubit/slide_setup_cubit.dart';
 import 'cubit/slide_setup_state.dart';
-import 'widget/objectif_picker.dart';
+import 'widget/slide_list_editor.dart';
 import 'widget/slide_timeframe_picker.dart';
 
 class SlideSetupPage extends StatelessWidget {
@@ -53,7 +50,7 @@ class _SetupForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<SlideSetupCubit>(context);
 
-    if (state.projectsLoading) {
+    if (state.loading) {
       return const Center(child: CircularProgressIndicator());
     }
     if (state.error != null) {
@@ -70,24 +67,19 @@ class _SetupForm extends StatelessWidget {
         const SizedBox(height: 24),
         SlideThemePicker(
           theme: state.theme,
-          currentJson: cubit.exportThemeAsJson(),
+          currentJson: state.exportJson,
           onImport: cubit.importThemeFromJson,
           onReset: () => cubit.updateTheme(const SlideTheme.defaults()),
         ),
         const SizedBox(height: 24),
-        Text(
-          'Objectifs du sprint',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
+        Text('Slides', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
-        ObjectifPicker(
-          projects: state.projects,
-          listSelectedObjectif: state.listSelectedObjectif,
-          onToggle: cubit.toggleObjectif,
+        SlideListEditor(
+          cubit: cubit,
+          slides: state.slides,
+          templates: state.templates,
         ),
         const SizedBox(height: 24),
-        _Summary(state: state),
-        const SizedBox(height: 16),
         _ActionButtons(state: state, cubit: cubit),
       ],
     );
@@ -122,35 +114,6 @@ class _ActionButtons extends StatelessWidget {
           label: const Text('Lancer la présentation'),
           onPressed: state.canLaunch ? cubit.launch : null,
         ),
-      ],
-    );
-  }
-}
-
-class _Summary extends StatelessWidget {
-  final SlideSetupState state;
-
-  const _Summary({required this.state});
-
-  @override
-  Widget build(BuildContext context) {
-    final Timeframe timeframe = state.timeframe;
-    final built = state.builtPresentation;
-    final summary =
-        'Sprint du ${timeframe.start.formattedDayMonthYear} au '
-        '${timeframe.end.formattedDayMonthYear} • '
-        '${state.listSelectedObjectif.length} objectif(s) sur '
-        '${state.selectedProjectCount} project(s)';
-    final builtNote = built == null
-        ? 'Aucune présentation prête.'
-        : 'Présentation prête : ${built.slides.whereType<ProjectSlideBlock>().length} project(s), '
-              '${built.slides.whereType<ProjectSlideBlock>().fold(0, (sum, b) => sum + b.objectifs.length)} objectif(s).';
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(summary, style: Theme.of(context).textTheme.bodySmall),
-        const SizedBox(height: 4),
-        Text(builtNote, style: Theme.of(context).textTheme.bodySmall),
       ],
     );
   }

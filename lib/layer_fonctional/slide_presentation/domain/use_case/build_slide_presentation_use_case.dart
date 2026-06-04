@@ -1,8 +1,6 @@
 import '../../../objectif/domain/entity/objectif.dart';
-import '../../../project/domain/entity/project.dart';
 import '../../../project_slide_block/domain/entity/project_slide_block.dart';
 import '../../../slide_overview/domain/entity/slide_overview.dart';
-import '../../../slide_timeframe/domain/entity/slide_intro.dart';
 import '../../../theme/domain/entity/slide_theme.dart';
 import '../entity/slide.dart';
 import '../entity/slide_presentation.dart';
@@ -12,63 +10,52 @@ class BuildSlidePresentationUseCase {
   const BuildSlidePresentationUseCase();
 
   Future<SlidePresentation> execute({
+    required List<Slide> slides,
     required Timeframe timeframe,
     required SlideTheme theme,
-    required List<Project> projects,
-    required List<Objectif> selectedObjectif,
   }) async {
-    final selectedIds = selectedObjectif.map((o) => o.id).toSet();
-
-    final blocks = <(Project, List<Objectif>)>[];
-    for (final project in projects) {
-      final selected = project.listObjectif
-          .where((o) => selectedIds.contains(o.id))
-          .toList(growable: false);
-      if (selected.isEmpty) continue;
-      blocks.add((project, selected));
-    }
-
-    final doneCount = selectedObjectif
+    final totalPages = slides.length;
+    final projectBlocks = slides.whereType<ProjectSlideBlock>().toList();
+    final allObjectifs = projectBlocks
+        .expand((block) => block.objectifs)
+        .toList();
+    final totalProjects = projectBlocks
+        .map((block) => block.project?.id)
+        .whereType<int>()
+        .toSet()
+        .length;
+    final totalObjectifs = allObjectifs.length;
+    final doneCount = allObjectifs
         .where((o) => o.status == ObjectifStatus.done)
         .length;
-    final failedCount = selectedObjectif
+    final failedCount = allObjectifs
         .where((o) => o.status == ObjectifStatus.failed)
         .length;
-    final blockedCount = selectedObjectif
+    final blockedCount = allObjectifs
         .where((o) => o.status == ObjectifStatus.blocked)
         .length;
 
-    final totalPages = 2 + blocks.length;
-
-    final slides = <Slide>[
-      SlideTimeframe(
-        pageNumber: 1,
+    final rebuilt = <Slide>[];
+    for (var i = 0; i < slides.length; i++) {
+      final slide = slides[i];
+      var renumbered = slide.copyWithCore(
+        pageNumber: i + 1,
         totalPages: totalPages,
         timeframe: timeframe,
         theme: theme,
-      ),
-      SlideOverview(
-        pageNumber: 2,
-        totalPages: totalPages,
-        timeframe: timeframe,
-        theme: theme,
-        totalProjects: blocks.length,
-        totalObjectifs: selectedObjectif.length,
-        doneCount: doneCount,
-        failedCount: failedCount,
-        blockedCount: blockedCount,
-      ),
-      for (final (index, block) in blocks.indexed)
-        ProjectSlideBlock(
-          pageNumber: 3 + index,
-          totalPages: totalPages,
-          timeframe: timeframe,
-          theme: theme,
-          project: block.$1,
-          objectifs: block.$2,
-        ),
-    ];
+      );
+      if (renumbered is SlideOverview) {
+        renumbered = renumbered.copyWithMetrics(
+          totalProjects: totalProjects,
+          totalObjectifs: totalObjectifs,
+          doneCount: doneCount,
+          failedCount: failedCount,
+          blockedCount: blockedCount,
+        );
+      }
+      rebuilt.add(renumbered);
+    }
 
-    return SlidePresentation(slides: slides, theme: theme);
+    return SlidePresentation(slides: rebuilt, theme: theme);
   }
 }

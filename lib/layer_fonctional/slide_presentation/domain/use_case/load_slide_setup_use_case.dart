@@ -1,39 +1,29 @@
-import '../../../objectif/domain/entity/objectif.dart';
-import '../../../project/domain/entity/project.dart';
-import '../../../project/domain/use_case/get_projects_use_case.dart';
-import '../../../project_slide_block/domain/entity/project_slide_block.dart';
 import '../../../slide_presentation_history/domain/use_case/get_slide_presentation_history_use_case.dart';
-import '../../../slide_timeframe/domain/entity/slide_intro.dart';
 import '../../../theme/domain/entity/slide_theme.dart';
+import '../entity/slide.dart';
 import '../entity/slide_presentation.dart';
 import '../entity/timeframe.dart';
 
 typedef LoadSlideSetupResult = ({
-  List<Project> projects,
   Timeframe? timeframe,
   SlideTheme? theme,
-  List<Objectif> preselectedObjectifs,
+  List<Slide> slides,
   SlidePresentation? existingPresentation,
 });
 
 class LoadSlideSetupUseCase {
-  final GetProjectsUseCase _getProjectsUseCase;
   final GetSlidePresentationHistoryUseCase _getHistoryUseCase;
 
   const LoadSlideSetupUseCase({
-    required GetProjectsUseCase getProjectsUseCase,
     required GetSlidePresentationHistoryUseCase getHistoryUseCase,
-  }) : _getProjectsUseCase = getProjectsUseCase,
-       _getHistoryUseCase = getHistoryUseCase;
+  }) : _getHistoryUseCase = getHistoryUseCase;
 
   Future<LoadSlideSetupResult> execute({int? historyEntryId}) async {
-    final projects = await _getProjectsUseCase.execute();
     if (historyEntryId == null) {
       return (
-        projects: projects,
         timeframe: null,
         theme: null,
-        preselectedObjectifs: const <Objectif>[],
+        slides: const <Slide>[],
         existingPresentation: null,
       );
     }
@@ -41,26 +31,18 @@ class LoadSlideSetupUseCase {
     final entry = entries.where((e) => e.id == historyEntryId).firstOrNull;
     if (entry == null) {
       return (
-        projects: projects,
         timeframe: null,
         theme: null,
-        preselectedObjectifs: const <Objectif>[],
+        slides: const <Slide>[],
         existingPresentation: null,
       );
     }
     final presentation = entry.presentation;
-    final intro = presentation.slides.whereType<SlideTimeframe>().firstOrNull;
-    final selected = presentation.slides
-        .whereType<ProjectSlideBlock>()
-        .expand((block) => block.objectifs)
-        .toList(growable: false);
+    final firstSlide = presentation.slides.firstOrNull;
     return (
-      projects: projects,
-      timeframe: intro == null
-          ? null
-          : Timeframe(start: intro.timeframe.start, end: intro.timeframe.end),
+      timeframe: firstSlide?.timeframe,
       theme: presentation.theme,
-      preselectedObjectifs: selected,
+      slides: presentation.slides,
       existingPresentation: presentation,
     );
   }
