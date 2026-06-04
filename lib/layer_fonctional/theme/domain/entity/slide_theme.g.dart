@@ -20,6 +20,7 @@ abstract class _$SlideThemeCWProxy {
     SlideThemeColors colors,
     SlideThemeTypography typography,
     SlideThemeAssets assets,
+    SlideThemeStatus status,
   });
 }
 
@@ -42,6 +43,7 @@ class _$SlideThemeCWProxyImpl implements _$SlideThemeCWProxy {
     Object? colors = const $CopyWithPlaceholder(),
     Object? typography = const $CopyWithPlaceholder(),
     Object? assets = const $CopyWithPlaceholder(),
+    Object? status = const $CopyWithPlaceholder(),
   }) {
     return SlideTheme(
       colors: colors == const $CopyWithPlaceholder() || colors == null
@@ -57,6 +59,10 @@ class _$SlideThemeCWProxyImpl implements _$SlideThemeCWProxy {
           ? _value.assets
           // ignore: cast_nullable_to_non_nullable
           : assets as SlideThemeAssets,
+      status: status == const $CopyWithPlaceholder() || status == null
+          ? _value.status
+          // ignore: cast_nullable_to_non_nullable
+          : status as SlideThemeStatus,
     );
   }
 }
@@ -78,6 +84,7 @@ SlideTheme _$SlideThemeFromJson(Map<String, dynamic> json) => SlideTheme(
     json['typography'] as Map<String, dynamic>,
   ),
   assets: SlideThemeAssets.fromJson(json['assets'] as Map<String, dynamic>),
+  status: SlideThemeStatus.fromJson(json['status'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$SlideThemeToJson(SlideTheme instance) =>
@@ -85,4 +92,5 @@ Map<String, dynamic> _$SlideThemeToJson(SlideTheme instance) =>
       'colors': instance.colors.toJson(),
       'typography': instance.typography.toJson(),
       'assets': instance.assets.toJson(),
+      'status': instance.status.toJson(),
     };

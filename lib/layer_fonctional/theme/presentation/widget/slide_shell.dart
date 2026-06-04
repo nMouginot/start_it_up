@@ -28,7 +28,7 @@ class SlideShell extends StatelessWidget {
             ? DecorationImage(
                 image: themeImageProvider(backgroundImage),
                 fit: BoxFit.cover,
-                opacity: 0.18,
+                opacity: 0.60,
               )
             : null,
       ),

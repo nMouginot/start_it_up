@@ -88,7 +88,8 @@ class _EntryCard extends StatelessWidget {
     final blocks = entry.presentation.slides.whereType<ProjectSlideBlock>();
     final objectifsCount = blocks.fold(
       0,
-      (sum, block) => sum + block.objectifs.length,
+      (sum, block) =>
+          sum + block.entries.fold(0, (s, e) => s + e.objectifs.length),
     );
     final title = intro == null
         ? 'Présentation'

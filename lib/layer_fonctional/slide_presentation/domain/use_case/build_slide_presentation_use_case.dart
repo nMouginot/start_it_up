@@ -16,12 +16,10 @@ class BuildSlidePresentationUseCase {
   }) async {
     final totalPages = slides.length;
     final projectBlocks = slides.whereType<ProjectSlideBlock>().toList();
-    final allObjectifs = projectBlocks
-        .expand((block) => block.objectifs)
-        .toList();
-    final totalProjects = projectBlocks
-        .map((block) => block.project?.id)
-        .whereType<int>()
+    final allEntries = projectBlocks.expand((block) => block.entries).toList();
+    final allObjectifs = allEntries.expand((e) => e.objectifs).toList();
+    final totalProjects = allEntries
+        .map((e) => e.project.id)
         .toSet()
         .length;
     final totalObjectifs = allObjectifs.length;

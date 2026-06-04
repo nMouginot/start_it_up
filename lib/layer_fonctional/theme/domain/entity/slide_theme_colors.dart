@@ -1,6 +1,8 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+import 'theme_color_parser.dart';
 
 part 'slide_theme_colors.g.dart';
 
@@ -28,17 +30,11 @@ class SlideThemeColors {
       accent = '#DC2626',
       text = '#111111';
 
-  Color get backgroundColor => _parseHex(background);
-  Color get surfaceColor => _parseHex(surface);
-  Color get primaryColor => _parseHex(primary);
-  Color get accentColor => _parseHex(accent);
-  Color get textColor => _parseHex(text);
-
-  static Color _parseHex(String hex) {
-    final cleaned = hex.replaceFirst('#', '').padLeft(6, '0');
-    final value = int.parse(cleaned, radix: 16);
-    return Color(0xFF000000 | value);
-  }
+  Color get backgroundColor => parseThemeHex(background);
+  Color get surfaceColor => parseThemeHex(surface);
+  Color get primaryColor => parseThemeHex(primary);
+  Color get accentColor => parseThemeHex(accent);
+  Color get textColor => parseThemeHex(text);
 
   factory SlideThemeColors.fromJson(Map<String, dynamic> json) =>
       _$SlideThemeColorsFromJson(json);

@@ -5,6 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import 'slide_theme_assets.dart';
 import 'slide_theme_colors.dart';
+import 'slide_theme_status.dart';
 import 'slide_theme_typography.dart';
 
 part 'slide_theme.g.dart';
@@ -15,17 +16,20 @@ class SlideTheme {
   final SlideThemeColors colors;
   final SlideThemeTypography typography;
   final SlideThemeAssets assets;
+  final SlideThemeStatus status;
 
   const SlideTheme({
     required this.colors,
     required this.typography,
     required this.assets,
+    required this.status,
   });
 
   const SlideTheme.defaults()
     : colors = const SlideThemeColors.defaults(),
       typography = const SlideThemeTypography.defaults(),
-      assets = const SlideThemeAssets.defaults();
+      assets = const SlideThemeAssets.defaults(),
+      status = const SlideThemeStatus.defaults();
 
   TextStyle _font({
     required double size,
