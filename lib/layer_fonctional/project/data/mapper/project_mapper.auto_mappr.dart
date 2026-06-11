@@ -17,6 +17,9 @@ import 'package:start_it_up/layer_fonctional/project/data/dto/project_dto.dart'
     as _i2;
 import 'package:start_it_up/layer_fonctional/project/domain/entity/project.dart'
     as _i3;
+import 'package:start_it_up/layer_technical/version/data/dto/version_dto.dart'
+    as _i6;
+import 'package:start_it_up/layer_technical/version/domain/version.dart' as _i7;
 
 /// {@template package:start_it_up/layer_fonctional/project/data/mapper/project_mapper.dart}
 /// Available mappings:
@@ -24,6 +27,8 @@ import 'package:start_it_up/layer_fonctional/project/domain/entity/project.dart'
 /// - `Project` → `ProjectDto`.
 /// - `ObjectifDto` → `Objectif`.
 /// - `Objectif` → `ObjectifDto`.
+/// - `VersionDto` → `Version`.
+/// - `Version` → `VersionDto`.
 /// {@endtemplate}
 class $ProjectMapper implements _i1.AutoMapprInterface {
   const $ProjectMapper();
@@ -60,6 +65,18 @@ class $ProjectMapper implements _i1.AutoMapprInterface {
             sourceTypeOf == _typeOf<_i5.Objectif?>()) &&
         (targetTypeOf == _typeOf<_i4.ObjectifDto>() ||
             targetTypeOf == _typeOf<_i4.ObjectifDto?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i6.VersionDto>() ||
+            sourceTypeOf == _typeOf<_i6.VersionDto?>()) &&
+        (targetTypeOf == _typeOf<_i7.Version>() ||
+            targetTypeOf == _typeOf<_i7.Version?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i7.Version>() ||
+            sourceTypeOf == _typeOf<_i7.Version?>()) &&
+        (targetTypeOf == _typeOf<_i6.VersionDto>() ||
+            targetTypeOf == _typeOf<_i6.VersionDto?>())) {
       return true;
     }
     if (recursive) {
@@ -279,6 +296,26 @@ class $ProjectMapper implements _i1.AutoMapprInterface {
       return (_map__i5$Objectif_To__i4$ObjectifDto((model as _i5.Objectif?))
           as TARGET);
     }
+    if ((sourceTypeOf == _typeOf<_i6.VersionDto>() ||
+            sourceTypeOf == _typeOf<_i6.VersionDto?>()) &&
+        (targetTypeOf == _typeOf<_i7.Version>() ||
+            targetTypeOf == _typeOf<_i7.Version?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i6$VersionDto_To__i7$Version((model as _i6.VersionDto?))
+          as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i7.Version>() ||
+            sourceTypeOf == _typeOf<_i7.Version?>()) &&
+        (targetTypeOf == _typeOf<_i6.VersionDto>() ||
+            targetTypeOf == _typeOf<_i6.VersionDto?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i7$Version_To__i6$VersionDto((model as _i7.Version?))
+          as TARGET);
+    }
     throw Exception('No ${model.runtimeType} -> $targetTypeOf mapping.');
   }
 
@@ -316,7 +353,7 @@ class $ProjectMapper implements _i1.AutoMapprInterface {
     return _i3.Project(
       id: model.id,
       name: model.name,
-      version: model.version,
+      version: _map__i6$VersionDto_To__i7$Version(model.version),
       listObjectif: model.objectifs
           .map<_i5.Objectif>(
             (value) => _map__i4$ObjectifDto_To__i5$Objectif(value),
@@ -336,7 +373,7 @@ class $ProjectMapper implements _i1.AutoMapprInterface {
     return _i2.ProjectDto(
       id: model.id,
       name: model.name,
-      version: model.version,
+      version: _map__i7$Version_To__i6$VersionDto(model.version),
       objectifs: model.listObjectif
           .map<_i4.ObjectifDto>(
             (value) => _map__i5$Objectif_To__i4$ObjectifDto(value),
@@ -376,6 +413,36 @@ class $ProjectMapper implements _i1.AutoMapprInterface {
       description: model.description,
       deadline: model.deadline,
       status: model.status,
+    );
+  }
+
+  _i7.Version _map__i6$VersionDto_To__i7$Version(_i6.VersionDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+        r'Mapping VersionDto → Version failed because VersionDto was null, and no default value was provided. '
+        r'Consider setting the whenSourceIsNull parameter on the MapType<VersionDto, Version> to handle null values during mapping.',
+      );
+    }
+    return _i7.Version(
+      major: model.major,
+      minor: model.minor,
+      patch: model.patch,
+    );
+  }
+
+  _i6.VersionDto _map__i7$Version_To__i6$VersionDto(_i7.Version? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+        r'Mapping Version → VersionDto failed because Version was null, and no default value was provided. '
+        r'Consider setting the whenSourceIsNull parameter on the MapType<Version, VersionDto> to handle null values during mapping.',
+      );
+    }
+    return _i6.VersionDto(
+      major: model.major,
+      minor: model.minor,
+      patch: model.patch,
     );
   }
 }

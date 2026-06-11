@@ -131,11 +131,23 @@ class SlideOverview extends Slide {
               spacing: 24,
               runSpacing: 24,
               children: [
-                _MetricCard(theme: theme, label: 'Projects', value: totalProjects),
-                _MetricCard(theme: theme, label: 'Objectifs', value: totalObjectifs),
+                _MetricCard(
+                  theme: theme,
+                  label: 'Projects',
+                  value: totalProjects,
+                ),
+                _MetricCard(
+                  theme: theme,
+                  label: 'Objectifs',
+                  value: totalObjectifs,
+                ),
                 _MetricCard(theme: theme, label: 'Réussis', value: doneCount),
                 _MetricCard(theme: theme, label: 'Échecs', value: failedCount),
-                _MetricCard(theme: theme, label: 'Bloqués', value: blockedCount),
+                _MetricCard(
+                  theme: theme,
+                  label: 'Bloqués',
+                  value: blockedCount,
+                ),
               ],
             ),
           ],

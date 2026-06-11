@@ -24,7 +24,11 @@ class ProjectCard extends StatelessWidget {
         color: theme.colors.surfaceColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [
-          BoxShadow(blurRadius: 8, color: Color(0x14000000), offset: Offset(0, 2)),
+          BoxShadow(
+            blurRadius: 8,
+            color: Color(0x14000000),
+            offset: Offset(0, 2),
+          ),
         ],
       ),
       clipBehavior: Clip.antiAlias,
@@ -43,13 +47,18 @@ class ProjectCard extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('• ', style: theme.body(color: _statusColor(objectif.status))),
+                        Text(
+                          '• ',
+                          style: theme.body(
+                            color: _statusColor(objectif.status),
+                          ),
+                        ),
                         Expanded(
                           child: Text(
                             objectif.title,
-                            style: theme.body(
-                              color: _statusColor(objectif.status),
-                            ).copyWith(fontWeight: FontWeight.w600),
+                            style: theme
+                                .body(color: _statusColor(objectif.status))
+                                .copyWith(fontWeight: FontWeight.w600),
                           ),
                         ),
                       ],
@@ -76,9 +85,7 @@ class _ProjectCardHeader extends StatelessWidget {
       height: 44,
       child: Stack(
         children: [
-          Positioned.fill(
-            child: Container(color: theme.colors.primaryColor),
-          ),
+          Positioned.fill(child: Container(color: theme.colors.primaryColor)),
           Align(
             alignment: Alignment.centerRight,
             child: FractionallySizedBox(
@@ -93,10 +100,7 @@ class _ProjectCardHeader extends StatelessWidget {
                     projectName.toUpperCase(),
                     style: theme
                         .title(color: Colors.white)
-                        .copyWith(
-                          fontFamily: 'monospace',
-                          letterSpacing: 1.2,
-                        ),
+                        .copyWith(fontFamily: 'monospace', letterSpacing: 1.2),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

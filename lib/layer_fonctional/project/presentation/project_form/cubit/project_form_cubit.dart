@@ -18,13 +18,14 @@ class ProjectFormCubit extends Cubit<ProjectFormState> {
   void updateVersion(String value) => emit(state.copyWith(version: value));
 
   Future<void> submit() async {
-    if (!state.canSubmit) return;
+    final version = state.parsedVersion;
+    if (!state.canSubmit || version == null) return;
     emit(state.copyWith(submitting: true, error: null));
     try {
       await _upsertProjectUseCase.execute(
         existing: state.existing,
         name: state.name.trim(),
-        version: state.version.trim(),
+        version: version,
       );
       emit(state.copyWith(submitting: false, submitted: true));
     } catch (error) {

@@ -1,3 +1,6 @@
+import '../../../../layer_technical/version/data/dto/version_dto.dart';
+import '../../../../layer_technical/version/domain/mapper/version_mapper.dart';
+import '../../../../layer_technical/version/domain/version.dart';
 import '../../../objectif/data/dto/objectif_dto.dart';
 import '../../domain/entity/project.dart';
 import '../dto/project_dto.dart';
@@ -11,6 +14,7 @@ class ProjectRepository {
   int _nextCreatedId = 1000000;
 
   final ProjectMapper _mapper = const ProjectMapper();
+  final VersionMapper _versionMapper = const VersionMapper();
 
   void _seedIfNeeded() {
     if (_seeded) return;
@@ -36,13 +40,13 @@ class ProjectRepository {
 
   Future<Project> create({
     required String name,
-    required String version,
+    required Version version,
   }) async {
     await Future.delayed(const Duration(milliseconds: 150));
     final dto = ProjectDto(
       id: _nextCreatedId++,
       name: name,
-      version: version,
+      version: _versionMapper.convert(version),
       objectifs: const [],
     );
     _projects.add(dto);
@@ -55,7 +59,7 @@ class ProjectRepository {
     if (index == -1) throw StateError('Project ${updated.id} not found');
     final replacement = _projects[index].copyWith(
       name: updated.name,
-      version: updated.version,
+      version: _versionMapper.convert<Version, VersionDto>(updated.version),
     );
     _projects[index] = replacement;
     return _mapper.convert<ProjectDto, Project>(replacement);

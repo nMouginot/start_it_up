@@ -81,15 +81,16 @@ class ProjectSlideBlock extends Slide {
     entries: entries,
   );
 
-  ProjectSlideBlock copyWithEntries({required List<ProjectSlideEntry> entries}) =>
-      ProjectSlideBlock._(
-        instanceId: instanceId,
-        pageNumber: pageNumber,
-        totalPages: totalPages,
-        timeframe: timeframe,
-        theme: theme,
-        entries: entries,
-      );
+  ProjectSlideBlock copyWithEntries({
+    required List<ProjectSlideEntry> entries,
+  }) => ProjectSlideBlock._(
+    instanceId: instanceId,
+    pageNumber: pageNumber,
+    totalPages: totalPages,
+    timeframe: timeframe,
+    theme: theme,
+    entries: entries,
+  );
 
   @override
   FlutterDeckSlide build(BuildContext context) {

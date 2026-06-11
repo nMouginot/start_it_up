@@ -18,10 +18,7 @@ class BuildSlidePresentationUseCase {
     final projectBlocks = slides.whereType<ProjectSlideBlock>().toList();
     final allEntries = projectBlocks.expand((block) => block.entries).toList();
     final allObjectifs = allEntries.expand((e) => e.objectifs).toList();
-    final totalProjects = allEntries
-        .map((e) => e.project.id)
-        .toSet()
-        .length;
+    final totalProjects = allEntries.map((e) => e.project.id).toSet().length;
     final totalObjectifs = allObjectifs.length;
     final doneCount = allObjectifs
         .where((o) => o.status == ObjectifStatus.done)

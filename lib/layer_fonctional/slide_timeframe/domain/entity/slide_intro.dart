@@ -35,7 +35,9 @@ class SlideTimeframe extends Slide {
     required super.timeframe,
     required super.theme,
   }) : super(
-         configuration: FlutterDeckSlideConfiguration(route: '/intro-$instanceId'),
+         configuration: FlutterDeckSlideConfiguration(
+           route: '/intro-$instanceId',
+         ),
        );
 
   static const String templateKeyValue = 'intro';
@@ -95,11 +97,7 @@ class SlideTimeframe extends Slide {
               ),
             ),
             if (logo != null)
-              Positioned(
-                top: 0,
-                right: 0,
-                child: themeImage(logo, height: 72),
-              ),
+              Positioned(top: 0, right: 0, child: themeImage(logo, height: 72)),
           ],
         ),
       ),

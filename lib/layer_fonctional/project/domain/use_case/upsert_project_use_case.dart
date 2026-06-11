@@ -1,3 +1,5 @@
+import 'package:start_it_up/layer_technical/version/domain/version.dart';
+
 import '../entity/project.dart';
 import 'create_project_use_case.dart';
 import 'update_project_use_case.dart';
@@ -15,7 +17,7 @@ class UpsertProjectUseCase {
   Future<Project> execute({
     Project? existing,
     required String name,
-    required String version,
+    required Version version,
   }) {
     if (existing != null) {
       return _update.execute(existing.copyWith(name: name, version: version));

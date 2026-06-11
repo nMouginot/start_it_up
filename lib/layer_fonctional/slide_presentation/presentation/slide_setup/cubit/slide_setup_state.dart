@@ -32,19 +32,18 @@ class SlideSetupState {
     required this.exportJson,
   });
 
-  factory SlideSetupState.initial({
-    List<SlideTemplate> templates = const [],
-  }) => SlideSetupState(
-    loading: true,
-    slides: const [],
-    templates: templates,
-    timeframe: Timeframe.currentWeek(),
-    theme: const SlideTheme.defaults(),
-    building: false,
-    builtPresentation: null,
-    error: null,
-    exportJson: '',
-  );
+  factory SlideSetupState.initial({List<SlideTemplate> templates = const []}) =>
+      SlideSetupState(
+        loading: true,
+        slides: const [],
+        templates: templates,
+        timeframe: Timeframe.currentWeek(),
+        theme: const SlideTheme.defaults(),
+        building: false,
+        builtPresentation: null,
+        error: null,
+        exportJson: '',
+      );
 
   bool get hasValidTimeframe => !timeframe.end.isBefore(timeframe.start);
 

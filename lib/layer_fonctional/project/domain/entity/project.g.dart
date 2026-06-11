@@ -19,7 +19,7 @@ abstract class _$ProjectCWProxy {
   Project call({
     int id,
     String name,
-    String version,
+    Version version,
     List<Objectif> listObjectif,
   });
 }
@@ -57,7 +57,7 @@ class _$ProjectCWProxyImpl implements _$ProjectCWProxy {
       version: version == const $CopyWithPlaceholder() || version == null
           ? _value.version
           // ignore: cast_nullable_to_non_nullable
-          : version as String,
+          : version as Version,
       listObjectif:
           listObjectif == const $CopyWithPlaceholder() || listObjectif == null
           ? _value.listObjectif
@@ -81,7 +81,7 @@ extension $ProjectCopyWith on Project {
 Project _$ProjectFromJson(Map<String, dynamic> json) => Project(
   id: (json['id'] as num).toInt(),
   name: json['name'] as String,
-  version: json['version'] as String,
+  version: Version.fromJson(json['version'] as Map<String, dynamic>),
   listObjectif: (json['listObjectif'] as List<dynamic>)
       .map((e) => Objectif.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -90,6 +90,6 @@ Project _$ProjectFromJson(Map<String, dynamic> json) => Project(
 Map<String, dynamic> _$ProjectToJson(Project instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
-  'version': instance.version,
+  'version': instance.version.toJson(),
   'listObjectif': instance.listObjectif.map((e) => e.toJson()).toList(),
 };

@@ -1,5 +1,6 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 
+import '../../../../../layer_technical/version/domain/version.dart';
 import '../../../domain/entity/project.dart';
 
 part 'project_form_state.g.dart';
@@ -25,7 +26,7 @@ class ProjectFormState {
   factory ProjectFormState.initial({Project? existing}) => ProjectFormState(
     existing: existing,
     name: existing?.name ?? '',
-    version: existing?.version ?? '0.1.0',
+    version: existing?.version.fullVersion ?? '0.1.0',
     submitting: false,
     submitted: false,
     error: null,
@@ -33,6 +34,8 @@ class ProjectFormState {
 
   bool get isEditing => existing != null;
 
+  Version? get parsedVersion => Version.tryParse(version);
+
   bool get canSubmit =>
-      !submitting && name.trim().isNotEmpty && version.trim().isNotEmpty;
+      !submitting && name.trim().isNotEmpty && parsedVersion != null;
 }

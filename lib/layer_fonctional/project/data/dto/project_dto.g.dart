@@ -19,7 +19,7 @@ abstract class _$ProjectDtoCWProxy {
   ProjectDto call({
     int id,
     String name,
-    String version,
+    VersionDto version,
     List<ObjectifDto> objectifs,
   });
 }
@@ -57,7 +57,7 @@ class _$ProjectDtoCWProxyImpl implements _$ProjectDtoCWProxy {
       version: version == const $CopyWithPlaceholder() || version == null
           ? _value.version
           // ignore: cast_nullable_to_non_nullable
-          : version as String,
+          : version as VersionDto,
       objectifs: objectifs == const $CopyWithPlaceholder() || objectifs == null
           ? _value.objectifs
           // ignore: cast_nullable_to_non_nullable
@@ -80,7 +80,7 @@ extension $ProjectDtoCopyWith on ProjectDto {
 ProjectDto _$ProjectDtoFromJson(Map<String, dynamic> json) => ProjectDto(
   id: (json['id'] as num).toInt(),
   name: json['name'] as String,
-  version: json['version'] as String,
+  version: VersionDto.fromJson(json['version'] as Map<String, dynamic>),
   objectifs: (json['objectifs'] as List<dynamic>)
       .map((e) => ObjectifDto.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -90,6 +90,6 @@ Map<String, dynamic> _$ProjectDtoToJson(ProjectDto instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'version': instance.version,
+      'version': instance.version.toJson(),
       'objectifs': instance.objectifs.map((e) => e.toJson()).toList(),
     };
