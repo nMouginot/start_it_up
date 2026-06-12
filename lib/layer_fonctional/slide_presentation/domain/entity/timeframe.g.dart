@@ -57,3 +57,17 @@ extension $TimeframeCopyWith on Timeframe {
   // ignore: library_private_types_in_public_api
   _$TimeframeCWProxy get copyWith => _$TimeframeCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Timeframe _$TimeframeFromJson(Map<String, dynamic> json) => Timeframe(
+  start: DateTime.parse(json['start'] as String),
+  end: DateTime.parse(json['end'] as String),
+);
+
+Map<String, dynamic> _$TimeframeToJson(Timeframe instance) => <String, dynamic>{
+  'start': instance.start.toIso8601String(),
+  'end': instance.end.toIso8601String(),
+};
